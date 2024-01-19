@@ -10,7 +10,7 @@ import socketManager from "./server-socket"; // websockets
 import api from "./api";
 // Loads environmental variables
 dotenv.config({});
-
+require("dotenv").config();
 // Server configuration below
 // TODO change connection URL after setting up your team database and creating the .env file
 const mongoConnectionURL = process.env.MONGO_SRV;
