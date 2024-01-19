@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
+
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google";
 import NavBar from "./modules/NavBar";
-import Catalog from "./pages/Catalog"
+import CatalogPage from "./pages/CatalogPage";
 
 import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
@@ -49,12 +50,12 @@ const App = () => {
   // All the pages need to have the props extended via RouteComponentProps for @reach/router to work properly. Please use the Skeleton as an example.
   return (
     <>
-    <NavBar path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-    <Router>
-      
-      <Catalog path= "/catalog/" userId={userId}/>
-      <NotFound default={true} />
-    </Router>
+      <NavBar path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      <Router>
+        {/* <CatalogPage path="/catalog/" /> */}
+        <NotFound default={true} />
+      </Router>
+      <CatalogPage />
     </>
   );
 };
