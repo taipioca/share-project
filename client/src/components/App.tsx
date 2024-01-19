@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
-
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google";
+
 import NavBar from "./modules/NavBar";
 import CatalogPage from "./pages/CatalogPage";
+import ItemDetails from "./modules/ItemDetails";
 
 import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
@@ -51,11 +52,13 @@ const App = () => {
   return (
     <>
       <NavBar path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+      <img src="./samples/dice.png" />
       <Router>
-        {/* <CatalogPage path="/catalog/" /> */}
+        <CatalogPage path="/catalog/" />
         <NotFound default={true} />
+        <ItemDetails path="/item/:itemId" />
       </Router>
-      <CatalogPage />
+      {/* <CatalogPage /> */}
     </>
   );
 };

@@ -1,0 +1,14 @@
+.item-container {
+    display: flex;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.1);
+  }
+  
+  .item-image {
+    max-width: 300px; 
+    border-radius: 5px; 
+  }
+  
+  .item-details {
+    padding: 20px; 
+  }

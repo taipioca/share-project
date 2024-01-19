@@ -1,7 +1,7 @@
 import React from "react";
 import Catalog from "../modules/Catalog";
 
-const CatalogPage = () => {
+const CatalogPage = (props) => {
   return (
     <div>
       <Catalog />

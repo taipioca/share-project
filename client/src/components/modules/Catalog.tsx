@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 import "./Catalog.css";
-import NewItem from "./NewItem"
+import NewItem from "./NewItem";
+import { v4 as uuidv4 } from "uuid";
 
 // Define a type for your items
 type Item = {
@@ -12,11 +13,23 @@ type Item = {
 };
 
 const Catalog = () => {
-  // Provide a type annotation for your state
   const [items, setItems] = useState<Item[]>([]);
 
+  // Load items from localStorage when component mounts
+  useEffect(() => {
+    const savedItems = localStorage.getItem("items");
+    if (savedItems) {
+      setItems(JSON.parse(savedItems));
+    }
+  }, []);
+
+  // Save items to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
+  
   const handleNewItem = (item: Item) => {
-    setItems((prevItems) => [...prevItems, item]);
+    setItems((prevItems) => [...prevItems, { ...item, id: uuidv4() }]);
   };
 
   if (!Array.isArray(items)) {
@@ -31,7 +44,7 @@ const Catalog = () => {
           <img src={item.image} alt={item.title} />
           <h2>{item.title}</h2>
           <p>Rating: 5/5 (1 review)</p>
-          <p>{item.points} Points</p>
+          <p>{item.points} Points/day</p>
         </Link>
       ))}
     </div>
