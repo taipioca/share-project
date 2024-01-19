@@ -10,7 +10,7 @@ import "./Skeleton.css";
 import { RouteComponentProps } from "@reach/router";
 
 //TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
-const GOOGLE_CLIENT_ID = "FILL ME IN";
+const GOOGLE_CLIENT_ID = "365028401591-cfffgvu1uj5hl25ut1mnt7bplc2nqmrj.apps.googleusercontent.com";
 
 type Props = RouteComponentProps & {
   userId?: string;
