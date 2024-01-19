@@ -1,0 +1,48 @@
+.NavBar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--s) var(--m);
+  background-color: var(--white);
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.NavBar-right {
+  align-items: center;
+}
+.NavBar-title {
+  color: var(--primary);
+  display: flex;
+  margin-left: var(--l);
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.NavBar-linkContainer {
+  margin-right: var(--l);
+  justify-content: flex-end;
+}
+
+.NavBar-link {
+  color: var(--primary);
+
+  text-decoration: none;
+  font-size: var(--sfont);
+}
+.NavBar-link:visited {
+  color: var(--primary);
+  opacity: 0.6;
+  text-decoration: none;
+}
+
+.NavBar-link:hover {
+  opacity: 0.8;
+}
+
+/* .NavBar-link.NavBar-login {
+    opacity: 1;
+  } */
+
+.NavBar-link + .NavBar-link {
+  margin-left: var(--m);
+}
