@@ -16,13 +16,11 @@ type Item = {
 };
 const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
   const id = props.id;
-  console.log('id:', id)
   const [item, setItem] = useState<Item | null>(null);
 
   useEffect(() => {
     const storedItems = JSON.parse(localStorage.getItem('items') || '[]');
-    console.log('storedItems:', storedItems);
-    console.log('id:', id)
+
     const foundItem = storedItems.find((item: Item) => item.id === id);
 
     setItem(foundItem);
@@ -33,7 +31,6 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
   }
 
   const youGetPoints = Math.ceil(item.points * 0.2);
-  console.log(item.id)
   return (
     <div className="item-container">
       <img src={item.image} alt={item.title} 

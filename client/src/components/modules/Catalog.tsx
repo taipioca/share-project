@@ -31,12 +31,9 @@ const Catalog = () => {
   const handleNewItem = (item: Item) => {
     setItems((prevItems) => {
       const newItems = [...prevItems, { ...item, id: uuidv4() }];
-      localStorage.setItem('items', JSON.stringify(newItems));
-      console.log(newItems)
+      localStorage.setItem("items", JSON.stringify(newItems));
       return newItems;
     });
-
-
   };
 
   if (!Array.isArray(items)) {
@@ -48,12 +45,14 @@ const Catalog = () => {
       <NewItem onNewItem={handleNewItem} />
       {items.map((item) => (
         <Link to={`/item/${item.id}`} id={item.id} className="item">
-          <img src={item.image} alt={item.title} />
-          <h2>{item.title}</h2>
+<div className="image-container">
+  <img src={item.image} alt={item.title} />
+</div>          <h2>{item.title}</h2>
           <p>Rating: 5/5 (1 review)</p>
           <p>{item.points} Points/day</p>
         </Link>
       ))}
+      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
     </div>
   );
 };

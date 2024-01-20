@@ -1,60 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Router } from "@reach/router";
-import jwt_decode from "jwt-decode";
-import { CredentialResponse } from "@react-oauth/google";
-
 import NavBar from "./modules/NavBar";
 import CatalogPage from "./pages/CatalogPage";
 import ItemDetails from "./modules/ItemDetails";
-
-import { get, post } from "../utilities";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
-// import Skeleton from "./mod/NavBar";
-import { socket } from "../client-socket";
-import User from "../../../shared/User";
+
 import "../utilities.css";
 
 const App = () => {
-  const [userId, setUserId] = useState<string | undefined>(undefined);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
 
-  useEffect(() => {
-    get("/api/whoami")
-      .then((user: User) => {
-        if (user._id) {
-          // TRhey are registed in the database and currently logged in.
-          setUserId(user._id);
-        }
-      })
-      .then(() =>
-        socket.on("connect", () => {
-          post("/api/initsocket", { socketid: socket.id });
-        })
-      );
-  }, []);
-
-  const handleLogin = (credentialResponse: CredentialResponse) => {
-    const userToken = credentialResponse.credential;
-    const decodedCredential = jwt_decode(userToken as string) as { name: string; email: string };
-    console.log(`Logged in as ${decodedCredential.name}`);
-    post("/api/login", { token: userToken }).then((user) => {
-      setUserId(user._id);
-      post("/api/initsocket", { socketid: socket.id });
-    });
+  const handleLogin = (id) => {
+    setIsLoggedIn(true);
+    setUserId(id);
   };
 
-  const handleLogout = () => {
-    setUserId(undefined);
-    post("/api/logout");
+  const handleLogout = (id) => {
+    setIsLoggedIn(false);
+    setUserId(id);
   };
-
-  // NOTE:
-  // All the pages need to have the props extended via RouteComponentProps for @reach/router to work properly. Please use the Skeleton as an example.
   return (
     <>
-      <NavBar path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-      {/* <img src="./samples/dice.png" /> */}
+      <NavBar isLoggedIn={isLoggedIn} userID={userId} onLogin={handleLogin} onLogout={handleLogout} />
       <Router>
         <CatalogPage path="/catalog/" />
+        <Profile path="/profile/:userId" />
         <NotFound default={true} />
         <ItemDetails path="/item/:id" />
       </Router>

@@ -22,6 +22,8 @@
   margin-top: 10px;
 }
 
-.item-image {
-  background-image: url("../samples/standmixer.jpg");
+.image-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
 }
