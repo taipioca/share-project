@@ -27,9 +27,16 @@ const Catalog = () => {
   useEffect(() => {
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
-  
+
   const handleNewItem = (item: Item) => {
-    setItems((prevItems) => [...prevItems, { ...item, id: uuidv4() }]);
+    setItems((prevItems) => {
+      const newItems = [...prevItems, { ...item, id: uuidv4() }];
+      localStorage.setItem('items', JSON.stringify(newItems));
+      console.log(newItems)
+      return newItems;
+    });
+
+
   };
 
   if (!Array.isArray(items)) {
@@ -40,7 +47,7 @@ const Catalog = () => {
     <div className="catalog">
       <NewItem onNewItem={handleNewItem} />
       {items.map((item) => (
-        <Link to={`/item/${item.id}`} key={item.id} className="item">
+        <Link to={`/item/${item.id}`} id={item.id} className="item">
           <img src={item.image} alt={item.title} />
           <h2>{item.title}</h2>
           <p>Rating: 5/5 (1 review)</p>

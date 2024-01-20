@@ -52,12 +52,13 @@ const App = () => {
   return (
     <>
       <NavBar path="/" handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-      <img src="./samples/dice.png" />
+      {/* <img src="./samples/dice.png" /> */}
       <Router>
         <CatalogPage path="/catalog/" />
         <NotFound default={true} />
-        <ItemDetails path="/item/:itemId" />
+        <ItemDetails path="/item/:id" />
       </Router>
+      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
       {/* <CatalogPage /> */}
     </>
   );

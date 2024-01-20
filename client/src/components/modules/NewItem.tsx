@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
-const NewItem = ({ onNewItem }) => {
-  const [item, setItem] = useState({
+interface Item {
+  id: string;
+  title: string;
+  description: string;
+  points: number;
+  minShareDays: string;
+  maxShareDays: string;
+  pickupLocation: string;
+  returnLocation: string;
+  pickupNotes: string;
+  returnNotes: string;
+  image: string;
+}
+
+interface NewItemProps {
+  onNewItem: (item: Item) => void;
+}
+
+const NewItem = ({ onNewItem }: NewItemProps) => {
+  const [item, setItem] = useState<Item>({
+    id: "",
     title: "",
     description: "",
-    points: "",
+    points: 0,
     minShareDays: "",
     maxShareDays: "",
     pickupLocation: "",
@@ -14,20 +33,35 @@ const NewItem = ({ onNewItem }) => {
     image: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setItem({
       ...item,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setItem({
+          ...item,
+          image: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
     onNewItem(item);
     setItem({
+      id: "",
       title: "",
       description: "",
-      points: "",
+      points: 0,
       minShareDays: "",
       maxShareDays: "",
       pickupLocation: "",
@@ -98,10 +132,11 @@ const NewItem = ({ onNewItem }) => {
         <textarea name="returnNotes" value={item.returnNotes} onChange={handleChange} />
       </label>
       <label>
-        Upload an image of your item:
-        <input type="file" name="image" accept="image/*" onChange={handleChange} />
+        Image:
+        <input type="file" accept="image/*" onChange={handleImageChange} />
       </label>
-      <button type="submit">Submit</button>
+      {item.image && <img src={item.image} alt="Preview" />}
+      <button type="submit">Add Item</button>
     </form>
   );
 };
