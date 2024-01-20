@@ -17,21 +17,21 @@ const App = () => {
     setUserId(id);
   };
 
-  const handleLogout = (id) => {
+  const handleLogout = () => {
     setIsLoggedIn(false);
-    setUserId(id);
+    setUserId(null);
   };
+
   return (
     <>
-      <NavBar isLoggedIn={isLoggedIn} userID={userId} onLogin={handleLogin} onLogout={handleLogout} />
+      <NavBar isLoggedIn={isLoggedIn} user={userId} onLogin={handleLogin} onLogout={handleLogout} />
       <Router>
         <CatalogPage path="/catalog/" />
-        <Profile path="/profile/:userId" />
+        <Profile userId={userId} path="/profile/:userId" />        
         <NotFound default={true} />
         <ItemDetails path="/item/:id" />
       </Router>
       <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
-      {/* <CatalogPage /> */}
     </>
   );
 };

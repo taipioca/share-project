@@ -1,7 +1,6 @@
-// Profile.tsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios"; 
-import { useParams } from "@reach/router";
 
 interface User {
     _id: string;
@@ -9,27 +8,35 @@ interface User {
     lastName: string;
 }
 
-const Profile = (props) => {
-    const [firstName, setFirstName] = useState<string | undefined>(undefined);
-    const [lastName, setLastName] = useState<string | undefined>(undefined);
-    const { userId } = useParams(); 
+interface ProfileProps {
+    userId: string | null;
+    path?: string;
+}
+
+const Profile = ({ userId }: ProfileProps) => {
+    console.log(userId)
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        axios.get(`/api/users/${userId}`).then((response) => { 
-            const user: User = response.data;
-            if (user._id) {
-                setFirstName(user.firstName);
-                setLastName(user.lastName);
-            }
-        });
+        if (userId) {
+            axios.get(`/api/users/${userId}`).then((response) => { 
+                setUser(response.data);
+            }).catch((error) => {
+                console.error('Failed to fetch user:', error);
+            });
+        }
     }, [userId]);
+
+    if (!user) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div>
             <h1>Profile</h1>
-            <p>User ID: {userId}</p>
-            <p>First Name: {firstName}</p>
-            <p>Last Name: {lastName}</p>
+            <p>User ID: {user._id}</p>
+            <p>First Name: {user.firstName}</p>
+            <p>Last Name: {user.lastName}</p>
         </div>
     );
 };

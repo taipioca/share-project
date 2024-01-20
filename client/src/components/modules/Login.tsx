@@ -14,11 +14,18 @@ const Login = ({ onLogin }) => {
 
   const handleLogin = (credentialResponse: CredentialResponse) => {
     const userToken = credentialResponse.credential;
-    const decodedCredential = jwt_decode(userToken as string) as { name: string; email: string };
+    const decodedCredential = jwt_decode(userToken as string) as { name: string; email: string; jti: string };
     console.log(`Logged in as ${decodedCredential.name}`);
     setIsLoggedIn(true);
-    // Call onLogin with the user's email
-    onLogin(decodedCredential.email);
+    // Create the user object
+    const user = {
+      _id: decodedCredential.jti, // Use jti as the user ID
+      name: decodedCredential.name,
+      email: decodedCredential.email,
+      // Include other user properties as needed
+    };
+    // Call onLogin with the user object
+    onLogin(user);
   };
 
   const handleLogout = () => {

@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 import "./NavBar.css";
 import Login from "./Login";
 
-const NavBar = ({ isLoggedIn, userID, onLogin, onLogout }) => {
+const NavBar = ({ isLoggedIn, user, onLogin, onLogout }) => {
   return (
     <div className="NavBar-container u-inlineBlock">
       <div className="NavBar-title">
@@ -18,7 +18,7 @@ const NavBar = ({ isLoggedIn, userID, onLogin, onLogout }) => {
         </Link>
         {isLoggedIn ? (
           <>
-            <Link to={`/profile/${userID}`} className="NavBar-linkContainer NavBar-link">
+            <Link to={`/profile/${user?._id}`} className="NavBar-linkContainer NavBar-link">
               Profile
             </Link>
             <button onClick={onLogout}>Logout</button>
