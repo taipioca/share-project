@@ -11,8 +11,8 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
-  padding: 20px;
+  margin: 5% auto;
+  padding: 50px;
   border: 1px solid #888;
   width: 50%;
 }
@@ -39,6 +39,7 @@
 
 label {
   display: block;
+  margin-bottom: 10px;
 }
 
 label input,
@@ -60,3 +61,18 @@ label textarea {
     width: 30%;
   }
   
+  input, textarea {
+    background-color: rgba(236, 230, 227, 0.734);
+    border: none;
+    outline: none;
+    padding: 15px;
+  }
+  
+  input:focus, textarea:focus {
+    background-color: rgba(241, 241, 241, 0.734);
+    border-bottom: 1px solid var(--primary);
+  }
+  
+  input:focus, textarea:focus {
+    border-bottom: 1px solid var(--primary);
+  }
