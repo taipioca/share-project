@@ -9,16 +9,12 @@ import jwt_decode from "jwt-decode";
 
 const GOOGLE_CLIENT_ID = "365028401591-cfffgvu1uj5hl25ut1mnt7bplc2nqmrj.apps.googleusercontent.com";
 
-const Login = (onLogin) => {
+const Login = ({ onLogin }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = (credentialResponse: CredentialResponse) => {
     const userToken = credentialResponse.credential;
-    const decodedCredential = jwt_decode(userToken as string) as {
-      name: string;
-      email: string;
-      jti: string;
-    };
+    const decodedCredential = jwt_decode(userToken as string) as { name: string; email: string; jti: string };
     console.log(`Logged in as ${decodedCredential.name}`);
     setIsLoggedIn(true);
     // Create the user object
@@ -42,7 +38,10 @@ const Login = (onLogin) => {
       {isLoggedIn ? (
         <button onClick={handleLogout}>Logout</button>
       ) : (
-        <GoogleLogin onSuccess={handleLogin} onError={() => console.log("Error Logging in")} />
+        <GoogleLogin
+          onSuccess={handleLogin}
+          onError={() => console.log("Error Logging in")}
+        />
       )}
     </GoogleOAuthProvider>
   );
