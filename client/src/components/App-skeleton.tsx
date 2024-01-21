@@ -54,6 +54,9 @@ const App = () => {
           }
           path="/"
         />
+        <Route path="/catalog/" element={<CatalogPage />} />
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route path="/item/:id" element={<ItemDetails />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
