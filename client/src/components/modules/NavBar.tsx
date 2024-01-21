@@ -1,4 +1,3 @@
-// NavBar.tsx
 import React from "react";
 import { Link } from "@reach/router";
 import {
@@ -7,19 +6,20 @@ import {
   googleLogout,
   CredentialResponse,
 } from "@react-oauth/google";
-import { RouteComponentProps } from "@reach/router";
-import "./NavBar.css";
-import Login from "./Login";
 
-type Props = RouteComponentProps & {
-  isLoggedIn: boolean;
+import "./NavBar.css";
+
+//TODO(weblab student): REPLACE WITH YOUR OWN CLIENT_ID
+const GOOGLE_CLIENT_ID = "365028401591-cfffgvu1uj5hl25ut1mnt7bplc2nqmrj.apps.googleusercontent.com";
+
+type Props = {
   userId?: string;
   handleLogin: (credentialResponse: CredentialResponse) => void;
   handleLogout: () => void;
 };
-
-// const NavBar = ({ isLoggedIn, user, onLogin, onLogout }) => {
 const NavBar = (props: Props) => {
+  const { handleLogin, handleLogout } = props;
+
   return (
     <div className="NavBar-container u-inlineBlock">
       <div className="NavBar-title">
@@ -31,16 +31,26 @@ const NavBar = (props: Props) => {
         <Link to={"/catalog/"} className="NavBar-linkContainer NavBar-link">
           Catalog
         </Link>
-        {props.isLoggedIn ? (
-          <>
-            <Link to={`/profile/${props.user?._id}`} className="NavBar-linkContainer NavBar-link">
-              Profile
-            </Link>
-            <button onClick={props.onLogout}>Logout</button>
-          </>
-        ) : (
-          <Login onLogin={props.onLogin} />
+        {props.userId && (
+          <Link to={`/profile/${props.userId}`} className="NavBar-linkContainer NavBar-link">
+            Profile
+          </Link>
         )}
+
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          {props.userId ? (
+            <button
+              onClick={() => {
+                googleLogout();
+                handleLogout();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <GoogleLogin onSuccess={handleLogin} onError={() => console.log("Error Logging in")} />
+          )}
+        </GoogleOAuthProvider>
       </div>
     </div>
   );
