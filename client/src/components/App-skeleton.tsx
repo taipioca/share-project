@@ -2,17 +2,12 @@ import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Router } from "@reach/router";
 
-import NavBar from "./modules/NavBar";
-import CatalogPage from "./pages/CatalogPage";
-import ItemDetails from "./modules/ItemDetails";
-import Profile from "./pages/Profile";
+import { get, post } from "../utilities";
 import NotFound from "./pages/NotFound";
-
+import Skeleton from "./pages/Skeleton";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
-import { get, post } from "../utilities";
 import "../utilities.css";
 
 const App = () => {
@@ -48,27 +43,20 @@ const App = () => {
     post("/api/logout");
   };
 
+  // NOTE:
+  // All the pages need to have the props extended via RouteComponentProps for @reach/router to work properly. Please use the Skeleton as an example.
   return (
-    <>
-      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-      <div>
-        <BrowserRouter>
-          <Routes>
-            {/* <Route
-            element={
-              <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-            }
-            path="/"
-          /> */}
-            <Route path="/catalog/" element={<CatalogPage />} />
-            <Route path="/profile/:userId" element={<Profile />} />
-            <Route path="/item/:id" element={<ItemDetails />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          element={
+            <Skeleton handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
+          }
+          path="/"
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

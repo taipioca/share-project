@@ -1,10 +1,26 @@
 // NavBar.tsx
 import React from "react";
 import { Link } from "@reach/router";
-import "./NavBar.css";
-import Login from "./Login";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  googleLogout,
+  CredentialResponse,
+} from "@react-oauth/google";
 
-const NavBar = ({ isLoggedIn, userID, onLogin, onLogout }) => {
+import "./NavBar.css";
+import { RouteComponentProps } from "@reach/router";
+
+const GOOGLE_CLIENT_ID = "350716754210-d2e3uodftb7j5mgkp2n0n8u1qtat5m22.apps.googleusercontent.com";
+
+type Props = RouteComponentProps & {
+  userId?: string;
+  handleLogin: (credentialResponse: CredentialResponse) => void;
+  handleLogout: () => void;
+};
+const NavBar = (props: Props) => {
+  const { handleLogin, handleLogout } = props;
+
   return (
     <div className="NavBar-container u-inlineBlock">
       <div className="NavBar-title">
@@ -16,16 +32,20 @@ const NavBar = ({ isLoggedIn, userID, onLogin, onLogout }) => {
         <Link to={"/catalog/"} className="NavBar-linkContainer NavBar-link">
           Catalog
         </Link>
-        {isLoggedIn ? (
-          <>
-            <Link to={`/profile/${userID}`} className="NavBar-linkContainer NavBar-link">
-              Profile
-            </Link>
-            <button onClick={onLogout}>Logout</button>
-          </>
-        ) : (
-          <Login onLogin={onLogin} />
-        )}
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+          {props.userId ? (
+            <button
+              onClick={() => {
+                googleLogout();
+                handleLogout();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <GoogleLogin onSuccess={handleLogin} onError={() => console.log("Error Logging in")} />
+          )}
+        </GoogleOAuthProvider>
       </div>
     </div>
   );
