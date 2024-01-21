@@ -40,21 +40,25 @@ const Catalog = () => {
     return <div className="catalog">No items to display</div>;
   }
 
-  return (
-    <div className="catalog">
-      <NewItem onNewItem={handleNewItem} />
-      {items.map((item) => (
-        <Link to={`/item/${item.id}`} id={item.id} className="item">
-<div className="image-container">
-  <img src={item.image} alt={item.title} />
-</div>          <h2>{item.title}</h2>
-          <p>Rating: 5/5 (1 review)</p>
-          <p>{item.points} Points/day</p>
-        </Link>
-      ))}
-      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
-    </div>
-  );
+
+return (
+  <div className="catalog">
+    <NewItem onNewItem={handleNewItem} />
+    {items.map((item) => (
+      <Link to={`/item/${item.id}`} id={item.id} className="item">
+        <div className="image-container">
+          <img src={item.image} alt={item.title} />
+        </div>
+        <h4 className="item-text">{item.title}</h4>
+        <p className="item-text">Rating: 5/5 (1 review)</p>
+        <h3 className="item-text">{item.points} Points/day</h3>
+      </Link>
+    ))}
+    <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
+  </div>
+);
+
+
 };
 
 export default Catalog;

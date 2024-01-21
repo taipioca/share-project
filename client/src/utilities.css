@@ -20,7 +20,7 @@
 
 :root {
   --primary: #916850;
-  --primary--dim: #6987db;
+  --primary--dim: #c5a890;
   --grey: #f7f7f7;
   --white: #fff;
 
@@ -93,4 +93,8 @@ form {
 
 .u-link:hover {
   color: var(--primary--dim);
+}
+
+input[type="text"], input[type="number"], textarea {
+  font-family: 'Inter', sans-serif;
 }
