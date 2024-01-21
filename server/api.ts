@@ -1,6 +1,7 @@
 import express from "express";
 import auth from "./auth";
 import socketManager from "./server-socket";
+import User from "./models/User";
 const router = express.Router();
 
 router.post("/login", auth.login);
@@ -12,6 +13,13 @@ router.get("/whoami", (req, res) => {
   }
   res.send(req.user);
 });
+
+router.get("/user", (req, res) => {
+  User.findById(req.query.userid).then((user) => {
+    res.send(user);
+  });
+});
+
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {

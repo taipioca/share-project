@@ -58,7 +58,7 @@ const App = () => {
       />
       <Router>
         <CatalogPage path="/catalog/" />
-        {/* <Profile userId={userId} path="/profile/:userId" /> */}
+        <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
         <ItemDetails path="/item/:id" />
       </Router>
