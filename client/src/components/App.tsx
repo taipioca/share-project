@@ -56,25 +56,25 @@ const App = () => {
         handleLogout={handleLogout}
         userId={userId}
       />
-      <div>
-        <BrowserRouter>
-          <Routes>
-            {/* <Route
-            element={
-              <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
-            }
-            path="/"
-          /> */}
-            <Route path="/catalog/" element={<CatalogPage />} />
-            <Route
-              path="/profile/:userId"
-              element={<Profile userId={"65ad4ecec66d3355ac7310a7"} />}
-            />
-            <Route path="/item/:id" element={<ItemDetails />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
+      <Router>
+        <CatalogPage path="/catalog/" />
+        {/* <Profile userId={userId} path="/profile/:userId" /> */}
+        <NotFound default={true} />
+        <ItemDetails path="/item/:id" />
+      </Router>
+
+      {/* <BrowserRouter>
+        <Routes>
+          <Route path="/catalog/" element={<CatalogPage />} />
+          <Route
+            path="/profile/:userId"
+            element={<Profile userId={"65ad4ecec66d3355ac7310a7"} />}
+          />
+          <Route path="/item/:id" element={<ItemDetails />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter> */}
+
       <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
     </>
   );
