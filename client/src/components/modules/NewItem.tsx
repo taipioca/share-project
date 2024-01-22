@@ -3,6 +3,9 @@ import "./NewItem.css";
 
 interface Item {
   id: string;
+  userId: string;
+  userFirstName: string;
+  userLastName: string;
   title: string;
   description: string;
   points: number;
@@ -15,13 +18,18 @@ interface Item {
   image: string;
 }
 
+
 interface NewItemProps {
   onNewItem: (item: Item) => void;
+  
 }
 
 const NewItem = ({ onNewItem }: NewItemProps) => {
   const [item, setItem] = useState<Item>({
     id: "",
+    userId: "",
+    userFirstName: "",
+    userLastName: "",
     title: "",
     description: "",
     points: 0,
@@ -62,6 +70,9 @@ const NewItem = ({ onNewItem }: NewItemProps) => {
     onNewItem(item);
     setItem({
       id: "",
+      userId: "",
+      userFirstName: "",
+      userLastName: "",
       title: "",
       description: "",
       points: 0,

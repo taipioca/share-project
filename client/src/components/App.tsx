@@ -75,7 +75,6 @@ const App = () => {
         </Routes>
       </BrowserRouter> */}
 
-      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
     </>
   );
 };

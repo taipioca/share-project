@@ -34,6 +34,7 @@ const NavBar = (props: Props) => {
         {props.userId && (
           <Link to={`/profile/${props.userId}`} className="NavBar-linkContainer NavBar-link">
             Profile
+
           </Link>
         )}
 

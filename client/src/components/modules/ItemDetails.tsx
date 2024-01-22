@@ -7,6 +7,9 @@ type Item = {
   id: string;
   image: string;
   title: string;
+  userId: string;
+  userFirstName: string;
+  userLastName: string;
   description: string;
   points: number;
   minShareDays: string;
@@ -85,6 +88,8 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
         </div>
         <div className="item-details">
           <h2>{item.title ?? ""}</h2>
+          <p>Uploaded by: {item.userFirstName} {item.userLastName} (ID: {item.userId})</p>
+
           <p>Rating: 5/5 (1 review)</p>
           <p>{item.points ?? 0} Points /day</p>
           <p>{item.description ?? ""}</p>
