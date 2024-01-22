@@ -19,7 +19,7 @@ interface NewItemProps {
   onNewItem: (item: Item) => void;
 }
 
-const NewItem = ({ onNewItem }: NewItemProps) => {
+const NewItem = (props: NewItemProps) => {
   const [item, setItem] = useState<Item>({
     id: "",
     title: "",
@@ -59,7 +59,7 @@ const NewItem = ({ onNewItem }: NewItemProps) => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    onNewItem(item);
+    props.onNewItem(item);
     setItem({
       id: "",
       title: "",
@@ -76,7 +76,6 @@ const NewItem = ({ onNewItem }: NewItemProps) => {
     setIsOpen(false);
   };
 
-  // ...
 
   return (
     <>
