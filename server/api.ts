@@ -34,7 +34,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-router.post("/review", auth.ensureLoggedIn, (req, res) => {
+router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   const newReview = new Review({
     reviewer: {
       reviewer_id: "test reviewer id",
