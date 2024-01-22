@@ -43,19 +43,19 @@ const NewItem = ({ onNewItem }: NewItemProps) => {
     });
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setItem({
-          ...item,
-          image: reader.result as string,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   const file = event.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setItem({
+  //         ...item,
+  //         image: reader.result as string,
+  //       });
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -189,12 +189,16 @@ const NewItem = ({ onNewItem }: NewItemProps) => {
 
               <div className="form-row">
                 <label>
+                  The Url for a photo of your item
+                  <textarea name="image" value={item.image} onChange={handleChange} required />
+                </label>
+                {/* <label>
                   Upload a photo of your item
                   <input type="file" accept="image/*" onChange={handleImageChange} required />
-                </label>
+                </label> */}
               </div>
 
-              {item.image && <img src={item.image} alt="Preview" />}
+              {/* {item.image && <img src={item.image} alt="Preview" />} */}
               <button type="submit">Add Item</button>
             </form>
           </div>
