@@ -47,14 +47,14 @@ const NewReviewInput = (props) => {
  * @param {string} storyId to add comment to
  */
 const NewReview = (props) => {
-  const addComment = () => {
-    const body = { key: "test" };
-    post("/api/newreview", body).then((comment) => {
-      console.log(comment);
+  const addReview = (value) => {
+    const body = { content: value };
+    post("/api/newreview", body).then((review) => {
+      console.log(review);
     });
   };
 
-  return <NewReviewInput defaultText="New Comment" onSubmit={addComment} />;
+  return <NewReviewInput defaultText="New Review" onSubmit={addReview} />;
 };
 
 export { NewReview };

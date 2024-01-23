@@ -41,7 +41,7 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
       sharer_name: "test sharer name",
     },
     rating: "4.6",
-    comment: "wauwwwww",
+    comment: req.body.content,
     timestamp: "2021-09-14T14:48:00.000Z",
   });
   newReview.save().then((review) => res.send(review));
