@@ -1,17 +1,17 @@
 import { Schema, model, Document } from "mongoose";
 
 const ProductSchema = new Schema({
-  item_id: String,
-  item_title: String,
-  item_description: String,
+  id: String,
+  title: String,
+  description: String,
   points: Number,
-  min_share_day: Number,
-  max_share_day: Number,
-  pickup_location: String,
-  return_location: String,
-  pickup_note: String,
-  return_note: String,
-  product_image: String,
+  minShareDays: Number,
+  maxShareDays: Number,
+  pickupLocation: String,
+  returnLocation: String,
+  pickupNotes: String,
+  returnNotes: String,
+  image: String,
   sharer: {
     sharer_id: String,
     name: String,
@@ -19,17 +19,17 @@ const ProductSchema = new Schema({
 });
 
 export interface Product extends Document {
-  item_id: String;
-  item_title: String;
-  item_description: String;
+  id: String;
+  title: String;
+  description: String;
   points: Number;
-  min_share_day: Number;
-  max_share_day: Number;
-  pickup_location: String;
-  return_location: String;
-  pickup_note: String;
-  return_note: String;
-  product_image: String;
+  minShareDays: Number;
+  maxShareDays: Number;
+  pickupLocation: String;
+  returnLocation: String;
+  pickupNotes: String;
+  returnNotes: String;
+  image: String;
   sharer: {
     sharer_id: String;
     name: String;

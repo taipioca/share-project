@@ -26,20 +26,20 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-// anything else falls to this "not found" case
-router.post("/producttest", auth.ensureLoggedIn, (req, res) => {
+// save a new product to the database
+router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
   const newProduct = new Product({
-    item_id: "123",
-    item_title: "Test Product",
-    item_description: "This is a test product",
-    points: 100,
-    min_share_day: 1,
-    max_share_day: 10,
-    pickup_location: "Test Location",
-    return_location: "Test Return Location",
-    pickup_note: "Pickup at 9AM",
-    return_note: "Return before 5PM",
-    product_image: "https://example.com/test-product.jpg",
+    id: req.body.id,
+    title: req.body.title,
+    description: req.body.description,
+    points: req.body.points || 1,
+    minShareDays: req.body.minShareDays || 1,
+    maxShareDays: req.body.maxShareDays || 1,
+    pickupLocation: req.body.pickupLocation,
+    returnLocation: req.body.returnLocation,
+    pickupNotes: req.body.pickupNotes,
+    returnNotes: req.body.returnNotes,
+    image: req.body.image,
     sharer: {
       sharer_id: "456",
       name: "Test Sharer",
@@ -49,6 +49,13 @@ router.post("/producttest", auth.ensureLoggedIn, (req, res) => {
   newProduct.save().then((product) => res.send(product));
 });
 
+router.get("/catalog", (req, res) => {
+  Product.find({}).then((items) => {
+    res.send(items);
+  });
+});
+
+// anything else falls to this "not found" case
 router.all("*", (req, res) => {
   const msg = `Api route not found: ${req.method} ${req.url}`;
   res.status(404).send({ msg });
