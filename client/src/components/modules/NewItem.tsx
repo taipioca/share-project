@@ -17,10 +17,10 @@ const NewItemInput = (props) => {
     pickupNotes: "",
     returnNotes: "",
     image: "",
-    sharer: {
-      sharer_id: "",
-      sharer_name: "",
-    },
+    // sharer: {
+    //   sharer_id: "",
+    //   sharer_name: "",
+    // },
   });
 
   const [isOpen, setIsOpen] = useState(false);
@@ -49,10 +49,10 @@ const NewItemInput = (props) => {
       pickupNotes: "",
       returnNotes: "",
       image: "",
-      sharer: {
-        sharer_id: "",
-        sharer_name: "",
-      },
+      // sharer: {
+      //   sharer_id: "",
+      //   sharer_name: "",
+      // },
     });
     setIsOpen(false);
   };

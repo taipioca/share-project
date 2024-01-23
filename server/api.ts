@@ -47,7 +47,7 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
     image: req.body.image,
     sharer: {
       sharer_id: "456",
-      sharer_name: req.body.sharer_name,
+      sharer_name: req.body.sharer.sharer_name,
     },
   });
 

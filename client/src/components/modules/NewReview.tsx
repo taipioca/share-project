@@ -5,7 +5,7 @@ import { post } from "../../utilities";
 
 const NewReviewInput = (props) => {
   const [value, setValue] = useState("");
-  const [rating, setRating] = useState("1"); // new state for the rating
+  const [rating, setRating] = useState(""); // new state for the rating
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
@@ -20,18 +20,19 @@ const NewReviewInput = (props) => {
     event.preventDefault();
     props.onSubmit && props.onSubmit(value, rating);
     setValue("");
-    setRating("1");
+    setRating("");
   };
 
   return (
     <div className="u-flex">
-      <p>select a rating</p>
+      <p>select a rating for your experience</p>
       <select value={rating} onChange={handleRatingChange}>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
+        <option value=""></option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Unsatisfied</option>
+        <option value="3">3 - Neutral</option>
+        <option value="4">4 - Good</option>
+        <option value="5">5 - Excellent</option>
       </select>
       <input
         type="text"
