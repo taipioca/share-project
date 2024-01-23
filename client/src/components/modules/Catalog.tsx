@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "@reach/router";
 import "./Catalog.css";
-import NewItem from "./NewItem";
-import { v4 as uuidv4 } from "uuid";
+
 import { post, get } from "../../utilities";
-import { set } from "mongoose";
 
 // Define a type for your items
 type Item = {
@@ -27,23 +25,6 @@ const Catalog = () => {
   }, []);
 
   // Save items to MongoDB when submit
-  const handleNewItem = (item: Item) => {
-    setItems((prevItems) => {
-      const addedItem = {
-        ...item,
-        id: uuidv4(),
-        sharer: {
-          sharer_id: "456",
-          name: "Test Sharer",
-        },
-      };
-      const newItems = [...prevItems, addedItem];
-      post("/api/newproduct", addedItem).then((productDetails: any) => {
-        console.log("Returned addedItem:", productDetails);
-      });
-      return newItems;
-    });
-  };
 
   if (!Array.isArray(items)) {
     return <div className="catalog">No items to display</div>;
@@ -51,7 +32,6 @@ const Catalog = () => {
 
   return (
     <div className="catalog">
-      <NewItem onNewItem={handleNewItem} />
       {items.map((item) => (
         <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
           <div className="image-container">

@@ -14,7 +14,7 @@ const ProductSchema = new Schema({
   image: String,
   sharer: {
     sharer_id: String,
-    name: String,
+    sharer_name: String,
   },
 });
 
@@ -32,7 +32,7 @@ export interface Product extends Document {
   image: String;
   sharer: {
     sharer_id: String;
-    name: String;
+    sharer_name: String;
   };
   _id: string;
 }

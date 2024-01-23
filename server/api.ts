@@ -47,7 +47,7 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
     image: req.body.image,
     sharer: {
       sharer_id: "456",
-      name: "Test Sharer",
+      sharer_name: req.body.sharer_name,
     },
   });
 
@@ -67,8 +67,8 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
       reviewer_name: req.body.reviewerName,
     },
     sharer: {
-      sharer_id: "req.body.sharerId",
-      sharer_name: "req.body.sharerName",
+      sharer_id: "req.body.sharer_id",
+      sharer_name: "req.body.sharer_name",
     },
     rating: req.body.rating,
     comment: req.body.content,

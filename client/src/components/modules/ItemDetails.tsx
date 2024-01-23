@@ -18,7 +18,7 @@ type Item = {
   returnNotes: string;
   sharer: {
     sharer_id: String;
-    name: String;
+    sharer_name: String;
   };
 };
 const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
@@ -89,7 +89,7 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
         </div>
         <div className="item-details">
           <h2>{item.title ?? ""}</h2>
-          <p>Uploaded by {item.sharer.name}</p>
+          <p>Uploaded by {item.sharer.sharer_name}</p>
           <p>Rating: 5/5 (1 review)</p>
           <p>{item.points ?? 0} Points /day</p>
           <p>{item.description ?? ""}</p>
