@@ -30,6 +30,7 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
+      console.log(foundItem);
       setItem(foundItem);
     });
   }, [id]);

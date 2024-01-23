@@ -41,7 +41,7 @@ const Profile = (props) => {
         <h1 className="Profile-name u-textCenter">{user.name}</h1>
         <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
         <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
-        <NewItem sharer_name={user.name} />
+        <NewItem sharer_name={user.name} sharer_id = {props.userId}/>
 
         <NewReview reviewerName={user.name} />
       </div>
