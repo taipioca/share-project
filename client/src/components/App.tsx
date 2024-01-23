@@ -10,6 +10,7 @@ import CatalogPage from "./pages/CatalogPage";
 import ItemDetails from "./modules/ItemDetails";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import { NewReview } from "./modules/NewReview";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 
@@ -61,6 +62,7 @@ const App = () => {
         <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
         <ItemDetails path="/item/:id" />
+        <NewReview path="/newreview" />
       </Router>
 
       {/* <BrowserRouter>
