@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
+import "./Profile.css";
+
 
 import "../../utilities.css";
 
+interface User {
+  name: string;
+  points: number;
+  rating: number;
+  // add other properties here if needed
+}
+
 const Profile = (props) => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User>();
+
+
   useEffect(() => {
     document.title = "Profile Page";
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
@@ -15,24 +26,11 @@ const Profile = (props) => {
   return (
     <>
       <div className="Profile-avatarContainer">
-        <div className="Profile-avatar" />
-      </div>
-      {/* <h1 className="Profile-name u-textCenter">{user.name}</h1> */}
-      <hr className="Profile-linejj" />
-      <div className="u-flex">
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">About Me</h4>
-          <div id="profile-description">
-            I am really allergic to cats i don't know why i have a catbook
-          </div>
-        </div>
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">Cat Happiness</h4>
-        </div>
-        <div className="Profile-subContainer u-textCenter">
-          <h4 className="Profile-subTitle">My Favorite Type of Cat</h4>
-          <div id="favorite-cat">corgi</div>
-        </div>
+        <img src="https://cdn.pixabay.com/photo/2016/03/08/20/03/flag-1244649_1280.jpg" alt="User Avatar" className="Profile-avatar" />
+
+        <h1 className="Profile-name u-textCenter">{user.name}</h1>
+        <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
+        <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
       </div>
     </>
   );
