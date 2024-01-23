@@ -26,31 +26,14 @@ const Catalog = () => {
     });
   }, []);
 
-  // Load items from localStorage when component mounts
-  // useEffect(() => {
-  //   const savedItems = localStorage.getItem("items");
-  //   if (savedItems) {
-  //     setItems(JSON.parse(savedItems));
-  //   }
-  // }, []);
-
   // Save items to localStorage whenever they change
   // useEffect(() => {
   //   localStorage.setItem("items", JSON.stringify(items));
   // }, [items]);
 
-  // Save items to MongoDB whenever they change
-  // useEffect(() => {
-  // post("/api/producttest", items).then((productDetails: any) => {
-  //   console.log("[item changed]:", productDetails);
-  // });
-  // setItems(items);
-  // }, [items]);
-
+  // Save items to MongoDB when submit
   const handleNewItem = (item: Item) => {
     setItems((prevItems) => {
-      // const newItems = [...prevItems, { ...item, id: uuidv4() }];
-      // localStorage.setItem("items", JSON.stringify(newItems));
       const addedItem = {
         ...item,
         id: uuidv4(),
