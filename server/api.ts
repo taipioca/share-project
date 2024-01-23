@@ -26,7 +26,7 @@ router.post("/initsocket", (req, res) => {
 // | write your API methods below!|
 // |------------------------------|
 
-// save a new product to the database
+// save a new product to the database.
 router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
   const newProduct = new Product({
     id: req.body.id,
