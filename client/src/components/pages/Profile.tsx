@@ -63,16 +63,15 @@ const Profile = (props) => {
       <div className="catalog">
       {items.map((item) => (
         // <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
-        <div>
-          <div className="image-container">
+        <div>          <div className="image-container">
             <img src={item.image} alt={item.title} />
           </div>
           <h4 className="item-text">{item.title}</h4>
           <p className="item-text">Rating: 5/5 (1 review)</p>
-          <h3 className="item-text">{item.points} Points/day</h3>
-          </div>
+          <h3 className="item-text">{item.points} Points/day</h3></div>
 
-        // </Link>
+
+        //  </Link>
       ))}
     </div>
     </>
