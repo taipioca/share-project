@@ -26,11 +26,6 @@ const Catalog = () => {
     });
   }, []);
 
-  // Save items to localStorage whenever they change
-  // useEffect(() => {
-  //   localStorage.setItem("items", JSON.stringify(items));
-  // }, [items]);
-
   // Save items to MongoDB when submit
   const handleNewItem = (item: Item) => {
     setItems((prevItems) => {
@@ -43,8 +38,6 @@ const Catalog = () => {
         },
       };
       const newItems = [...prevItems, addedItem];
-      console.log("newItems:", newItems);
-      console.log("addedItem:", addedItem);
       post("/api/newproduct", addedItem).then((productDetails: any) => {
         console.log("Returned addedItem:", productDetails);
       });
@@ -60,7 +53,7 @@ const Catalog = () => {
     <div className="catalog">
       <NewItem onNewItem={handleNewItem} />
       {items.map((item) => (
-        <Link to={`/item/${item.id}`} id={item.id} className="item">
+        <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
           <div className="image-container">
             <img src={item.image} alt={item.title} />
           </div>
@@ -69,7 +62,6 @@ const Catalog = () => {
           <h3 className="item-text">{item.points} Points/day</h3>
         </Link>
       ))}
-      {/* <button onClick={() => localStorage.clear()}>Clear Local Storage</button> */}
     </div>
   );
 };

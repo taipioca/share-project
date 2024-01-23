@@ -76,8 +76,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter> */}
-
-      {/* <button onClick={() => localStorage.clear()}>Clear Local Storage</button> */}
     </>
   );
 };
