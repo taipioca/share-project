@@ -7,7 +7,7 @@ import morgan from "morgan"; // Request logger (https://github.com/expressjs/mor
 import path from "path"; // Allows us to retrieve file paths
 import auth from "./auth"; // weblab authentication helper
 import socketManager from "./server-socket"; // websockets
-import api from "./api";
+import api from "./api"; // API router
 // Loads environmental variables
 dotenv.config({});
 require("dotenv").config();

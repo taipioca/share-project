@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, Link } from "@reach/router";
+import { get } from "../../utilities";
 
 import "./ItemDetails.css";
 
@@ -23,11 +24,10 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
   const [endDate, setEndDate] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedItems = JSON.parse(localStorage.getItem("items") || "[]");
-
-    const foundItem = storedItems.find((item: Item) => item.id === id);
-
-    setItem(foundItem);
+    get("/api/catalog").then((itemsObjs) => {
+      const foundItem = itemsObjs.find((item: Item) => item.id === id);
+      setItem(foundItem);
+    });
   }, [id]);
 
   if (!item) {
@@ -69,19 +69,19 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
         <div className="item-left">
           <img src={item.image} alt={item.title} className="item-image" />
           <div className="location-container">
-      <div className="location-details">
-        <h3>Pickup Location</h3>
-        <p>{item.pickupLocation}</p>
-        <h3>Pickup Notes</h3>
-        <p>{item.pickupNotes}</p>
-      </div>
-      <div className="location-details">
-        <h3>Return Location</h3>
-        <p>{item.returnLocation}</p>
-        <h3>Return Notes</h3>
-        <p>{item.returnNotes}</p>
-      </div>
-    </div>
+            <div className="location-details">
+              <h3>Pickup Location</h3>
+              <p>{item.pickupLocation}</p>
+              <h3>Pickup Notes</h3>
+              <p>{item.pickupNotes}</p>
+            </div>
+            <div className="location-details">
+              <h3>Return Location</h3>
+              <p>{item.returnLocation}</p>
+              <h3>Return Notes</h3>
+              <p>{item.returnNotes}</p>
+            </div>
+          </div>
         </div>
         <div className="item-details">
           <h2>{item.title ?? ""}</h2>

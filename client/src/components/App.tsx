@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Router } from "@reach/router";
 import NavBar from "./modules/NavBar";
 import jwt_decode from "jwt-decode";
-import { CredentialResponse } from "@react-oauth/google";
+import { CredentialResponse } from "@react-oauth/google/dist";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { get, post } from "../utilities";
 import CatalogPage from "./pages/CatalogPage";
 import ItemDetails from "./modules/ItemDetails";
+import { NewProduct } from "./modules/NewProductInput";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { NewReview } from "./modules/NewReview";
@@ -62,6 +63,7 @@ const App = () => {
         <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
         <ItemDetails path="/item/:id" />
+        <NewProduct path="/newproduct" />
         <NewReview path="/newreview" />
       </Router>
 
@@ -76,8 +78,6 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter> */}
-
-      <button onClick={() => localStorage.clear()}>Clear Local Storage</button>
     </>
   );
 };
