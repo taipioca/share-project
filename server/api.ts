@@ -1,10 +1,9 @@
 import express from "express";
 import auth from "./auth";
 import socketManager from "./server-socket";
-const User = require("./models/user");
+import User from "./models/User";
 const router = express.Router();
-const Review = require("./models/review");
-
+import Review from "./models/Review";
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -14,13 +13,11 @@ router.get("/whoami", (req, res) => {
   }
   res.send(req.user);
 });
-
 router.get("/user", (req, res) => {
   User.findById(req.query.userid).then((user) => {
     res.send(user);
   });
 });
-
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
@@ -29,24 +26,19 @@ router.post("/initsocket", (req, res) => {
   }
   res.send({});
 });
-
 // |------------------------------|
 // | write your API methods below!|
 // |------------------------------|
 
-// router.get("/reviews", (req, res) => {
-//   Review.find({sharer: req.query.sharer}).then((reviews) => res.send(reviews));
-// });
-
 router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   const newReview = new Review({
     reviewer: {
-      reviewer_id: req.user?._id ?? "",
-      reviewer_name: req.user?.name ?? "",
+      reviewer_id: "test reviewer id",
+      reviewer_name: "test reviewer name",
     },
     sharer: {
-      sharer_id: req.body.sharerId,
-      sharer_name: req.body.sharerName,
+      sharer_id: "test sharer id",
+      sharer_name: "test sharer name",
     },
     rating: "4.6",
     comment: "wauwwwww",
@@ -54,11 +46,20 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   });
   newReview.save().then((review) => res.send(review));
 });
-
+// router.post("/review", auth.ensureLoggedIn, (req, res)) => {
+//   const review = new Review({
+//     user: req.user,
+//     text: req.body.text,
+//     rating: req.body.rating,
+//   });
+//   review.save().then((review) => {
+//     res.send(review);
+//   });
+// };
+// }
 // anything else falls to this "not found" case
 router.all("*", (req, res) => {
   const msg = `Api route not found: ${req.method} ${req.url}`;
   res.status(404).send({ msg });
 });
-
 export default router;
