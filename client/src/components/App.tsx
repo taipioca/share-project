@@ -3,7 +3,6 @@ import { Router } from "@reach/router";
 import NavBar from "./modules/NavBar";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google/dist";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { get, post } from "../utilities";
 import CatalogPage from "./pages/CatalogPage";
@@ -66,18 +65,6 @@ const App = () => {
         <NewProduct path="/newproduct" />
         <NewReview path="/newreview" />
       </Router>
-
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/catalog/" element={<CatalogPage />} />
-          <Route
-            path="/profile/:userId"
-            element={<Profile userId={"65ad4ecec66d3355ac7310a7"} />}
-          />
-          <Route path="/item/:id" element={<ItemDetails />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter> */}
     </>
   );
 };
