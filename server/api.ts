@@ -54,6 +54,20 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
   newProduct.save().then((product) => res.send(product));
 });
 
+// update a product in the database.
+router.post("/updateproduct", auth.ensureLoggedIn, (req, res) => {
+  const { id, ...updateData } = req.body;
+
+  Product.findOneAndUpdate({ id: id }, updateData, { new: true }, (err, doc) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
+
+// get all products from the database.
 router.get("/catalog", (req, res) => {
   Product.find({}).then((items) => {
     res.send(items);

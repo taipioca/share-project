@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { get, post } from "../../utilities";
+import { get } from "../../utilities";
 import "./Profile.css";
 
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
-import { NewItem } from "../modules/NewItem";
-import { Link } from "react-router-dom";
+import { EditItem, NewItem } from "../modules/NewItem";
 
 interface User {
   name: string;
@@ -38,6 +37,7 @@ const Profile = (props) => {
     document.title = "Profile Page";
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
   }, []);
+
   if (!user) {
     return <div> Loading! </div>;
   }
@@ -58,20 +58,17 @@ const Profile = (props) => {
 
         <NewReview reviewerName={user.name} reviewerId={props.userId} />
       </div>
-
       <div className="catalog">
         {items.map((item) => (
-          // <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
-          <div key={item.id}>
+          <div key={item.id} className="item">
             <div className="image-container">
               <img src={item.image} alt={item.title} />
             </div>
             <h4 className="item-text">{item.title}</h4>
             <p className="item-text">Rating: 5/5 (1 review)</p>
             <h3 className="item-text">{item.points} Points/day</h3>
+            <EditItem item_id={item.id} />
           </div>
-
-          //  </Link>
         ))}
       </div>
     </>
