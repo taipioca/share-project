@@ -12,6 +12,7 @@ import { NewProduct } from "./modules/NewProductInput";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import { NewReview } from "./modules/NewReview";
+import { NewRequest } from "./modules/NewRequest";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
 
@@ -65,6 +66,7 @@ const App = () => {
         <ItemDetails path="/item/:id" />
         <NewProduct path="/newproduct" />
         <NewReview path="/newreview" />
+        <NewRequest path="/newrequest" />
       </Router>
 
       {/* <BrowserRouter>
