@@ -122,7 +122,7 @@ const ItemDetails = (props) => {
             </label>
           </div>
 
-          <NewRequest item={item} sharer_id={item.sharer.sharer_name} />
+          <NewRequest item={item} requester_id="hi" item_id="hi2" sharer_id="hi3"/>
           <p>Total Points: {calculateTotalPoints()}</p>
           <p>Your Total Rewards: {calculateTotalRewards()}</p>
         </div>
