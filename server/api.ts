@@ -5,6 +5,7 @@ import User from "./models/User";
 import Product from "./models/Product";
 const router = express.Router();
 import Review from "./models/Review";
+import Request from "./models/Request";
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -89,6 +90,15 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
     timestamp: new Date().toISOString(),
   });
   newReview.save().then((review) => res.send(review));
+});
+
+router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
+  const newRequest = new Request({
+    requester_id: req.body.requester_id,
+    sharer_id: req.body.sharer_id,
+    item_id: req.body.item_id,
+  });
+  newRequest.save().then((request) => res.send(request));
 });
 
 // anything else falls to this "not found" case

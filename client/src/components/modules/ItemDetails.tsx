@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, Link } from "@reach/router";
 import { get } from "../../utilities";
+import { NewRequest } from "./NewRequest";
 
 import "./ItemDetails.css";
+
+interface User {
+  name: string;
+  userid: string;
+  points: number;
+  rating: number;
+}
 
 type Item = {
   id: string;
@@ -21,11 +29,12 @@ type Item = {
     sharer_name: String;
   };
 };
-const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
+const ItemDetails = (props) => {
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
@@ -34,14 +43,14 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
       setItem(foundItem);
     });
   }, [id]);
-
+  useEffect(() => {
+    if (props.userId) {
+      get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
+    }
+  }, [props.userId]);
   if (!item) {
     return <div>No item found</div>;
   }
-  const handleSendRequest = () => {
-    // IMPLEMENT THIS LATER
-    console.log("Send request button clicked");
-  };
 
   const youGetPoints = Math.ceil(item.points * 0.2);
   const calculateTotalPoints = () => {
@@ -116,7 +125,12 @@ const ItemDetails = (props: RouteComponentProps<{ id: string }>) => {
             </label>
           </div>
 
-          <button onClick={handleSendRequest}>Send Request</button>
+          <NewRequest
+            item={item}
+            requester_id={props.userId}
+            item_id={item.id}
+            sharer_id={item.sharer.sharer_id}
+          />
           <p>Total Points: {calculateTotalPoints()}</p>
           <p>Your Total Rewards: {calculateTotalRewards()}</p>
         </div>
