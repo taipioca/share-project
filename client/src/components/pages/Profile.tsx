@@ -56,7 +56,7 @@ const Profile = (props) => {
         <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
         <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
         <NewItem sharer_name={user.name} sharer_id={props.userId} />
-        <Orders userId={props.userId} />
+        <Orders user = {user} />
         <NewReview reviewerName={user.name} reviewerId={props.userId} />
       </div>
       <div className="catalog">

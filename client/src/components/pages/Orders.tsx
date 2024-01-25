@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { NewRequest } from "../modules/NewRequest";
+import { get } from "../../utilities";
+
 import ItemDetails from "../modules/ItemDetails";
 
 type Item = {
-  title: string;
-  requester_name: string;
-  userId: string;
+  item_id: string;
+  requester_id: string;
+  sharer_id: string;
   timestamp: string;
   points: number;
 };
 
 const Orders = (props) => {
+  const { user } = props;
   const [requestedItems, setRequestedItems] = useState<Item[]>([]);
-  const handleNewItemRequest = (item: Item) => {
-    setRequestedItems((prevItems) => [...prevItems, item]);
-  };
+
   useEffect(() => {
-    // Fetch initial data here, if needed
-  }, []);
+    get("/api/requests").then((requests: Item[]) => {
+      const userRequests = requests.filter((request) => request.requester_id === user.userid);
+      setRequestedItems(userRequests);
+    });
+  }, [user]);
+
   return (
     <div>
       {requestedItems.map((item, index) => (

@@ -6,9 +6,9 @@ import Product from "./models/Product";
 const router = express.Router();
 import Review from "./models/Review";
 import Request from "./models/Request";
-import fileUpload from "./fileUpload";
+// import fileUpload from "./fileUpload";
 
-router.use("/files", fileUpload);
+// router.use("/files", fileUpload);
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -89,6 +89,14 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
     item_id: req.body.item_id,
   });
   newRequest.save().then((request) => res.send(request));
+});
+
+
+router.get("/requests", (req, res) => {
+  console.log("tried getting request");
+  Request.find({}).then((items) => {
+    res.send(items);
+  });
 });
 
 // anything else falls to this "not found" case
