@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { post } from "../../utilities";
 import { RouteComponentProps } from "@reach/router";
 import { get } from "../../utilities";
+import { CloudinaryUploadWidget } from "react-cloudinary-upload-widget";
 import "./NewItem.css";
 
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
@@ -156,15 +157,23 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               <div className="form-row">
                 <label>
                   The Url for a photo of your item
-                  <textarea name="image" value={item.image} onChange={handleChange} required />
+                  <CloudinaryUploadWidget
+                    cloudName="dgph2xfcj"
+                    uploadPreset="mhppaebs"
+                    buttonText="Upload Image"
+                    onSuccess={(result) => {
+                      const event = {
+                        target: {
+                          name: "image",
+                          value: result.info.secure_url,
+                        },
+                      };
+                      handleChange(event);
+                    }}
+                    onFailure={(error) => console.error(error)}
+                  />
                 </label>
-                {/* <label>
-                  Upload a photo of your item
-                  <input type="file" accept="image/*" onChange={handleImageChange} required />
-                </label> */}
               </div>
-
-              {/* {item.image && <img src={item.image} alt="Preview" />} */}
               <button type="submit">Confirm and Submit</button>
             </form>
           </div>
