@@ -4,7 +4,6 @@ import "./Catalog.css";
 
 import { post, get } from "../../utilities";
 
-// Define a type for your items
 type Item = {
   id: string;
   image: string;
@@ -14,6 +13,7 @@ type Item = {
 
 const Catalog = () => {
   const [items, setItems] = useState<Item[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Load product items from MongoDB when component mounts
   useEffect(() => {
@@ -24,25 +24,44 @@ const Catalog = () => {
     });
   }, []);
 
-  // Save items to MongoDB when submit
+  // Search items by keyword in title
+  const handleSearch = () => {
+    get("/api/catalog").then((itemsObjs: Item[]) => {
+      const filteredItems = itemsObjs.filter((item) =>
+        item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setItems(filteredItems);
+    });
+  };
 
   if (!Array.isArray(items)) {
     return <div className="catalog">No items to display</div>;
   }
 
   return (
-    <div className="catalog">
-      {items.map((item) => (
-        <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
-          <div className="image-container">
-            <img src={item.image} alt={item.title} />
-          </div>
-          <h4 className="item-text">{item.title}</h4>
-          <p className="item-text">Rating: 5/5 (1 review)</p>
-          <h3 className="item-text">{item.points} Points/day</h3>
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className="catalog">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search items..."
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+      <div className="catalog">
+        {items.map((item) => (
+          <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
+            <div className="image-container">
+              <img src={item.image} alt={item.title} />
+            </div>
+            <h4 className="item-text">{item.title}</h4>
+            <p className="item-text">Rating: 5/5 (1 review)</p>
+            <h3 className="item-text">{item.points} Points/day</h3>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 };
 
