@@ -3,9 +3,9 @@ import { post } from "../../utilities";
 
 const NewRequestInput = (props) => {
   const [request, setRequest] = useState({
-    requester_id: "", // replace with the actual ID of the requester
-    item_id: "", // replace with the actual ID of the item
-    sharer_id: "", // replace with the actual ID of the uploader
+    requester_id: "", 
+    item_id: "",
+    sharer_id: "", 
   });
   console.log(props.requester_id);
   console.log(props.item_id);

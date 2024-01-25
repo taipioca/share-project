@@ -63,7 +63,7 @@ const App = () => {
         <CatalogPage path="/catalog/" />
         <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
-        <ItemDetails path="/item/:id" />
+        <ItemDetails userId={userId} path="/item/:id" />
         <NewProduct path="/newproduct" />
         <NewReview path="/newreview" />
         <NewRequest path="/newrequest" />

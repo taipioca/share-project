@@ -5,9 +5,12 @@ import { NewRequest } from "./NewRequest";
 
 import "./ItemDetails.css";
 
-// interface User {
-//   userid: string;
-// }
+interface User {
+  name: string;
+  userid: string;
+  points: number;
+  rating: number;
+}
 
 type Item = {
   id: string;
@@ -31,11 +34,7 @@ const ItemDetails = (props) => {
   const [item, setItem] = useState<Item | null>(null);
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
-  // const [user, setUser] = useState<User>();
-
-  // useEffect(() => {
-  //   get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
-  // }, []);
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
@@ -44,7 +43,11 @@ const ItemDetails = (props) => {
       setItem(foundItem);
     });
   }, [id]);
-
+  useEffect(() => {
+    if (props.userId) {
+      get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
+    }
+  }, [props.userId]);
   if (!item) {
     return <div>No item found</div>;
   }
@@ -122,7 +125,12 @@ const ItemDetails = (props) => {
             </label>
           </div>
 
-          <NewRequest item={item} requester_id="hi" item_id="hi2" sharer_id="hi3"/>
+          <NewRequest
+            item={item}
+            requester_id={props.userId}
+            item_id={item.id}
+            sharer_id={item.sharer.sharer_id}
+          />
           <p>Total Points: {calculateTotalPoints()}</p>
           <p>Your Total Rewards: {calculateTotalRewards()}</p>
         </div>
