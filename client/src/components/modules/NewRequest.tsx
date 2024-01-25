@@ -21,9 +21,9 @@ const NewRequestInput = (props) => {
 
     props.onSubmit && props.onSubmit(request);
     setRequest({
-      // requester_id: "", // replace with the actual ID of the requester
-      // item_id: "", // replace with the actual ID of the item
-      // sharer_id: "", // replace with the actual ID of the uploader
+      requester_id: "", // replace with the actual ID of the requester
+      item_id: "", // replace with the actual ID of the item
+      sharer_id: "", // replace with the actual ID of the uploader
     });
   };
   return (
