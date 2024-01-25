@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import "./Profile.css";
+import Orders from "./Orders";
 
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
@@ -55,7 +56,7 @@ const Profile = (props) => {
         <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
         <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
         <NewItem sharer_name={user.name} sharer_id={props.userId} />
-
+        <Orders userId={props.userId} />
         <NewReview reviewerName={user.name} reviewerId={props.userId} />
       </div>
       <div className="catalog">

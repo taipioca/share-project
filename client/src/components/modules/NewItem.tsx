@@ -8,6 +8,8 @@ import "./NewItem.css";
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
+  const [file, setFile] = useState<File | null>(null);
+
   const actionTextMap = {
     add: "Upload a New Share",
     edit: "Edit a Share",
@@ -20,10 +22,32 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       [event.target.name]: event.target.value,
     });
   };
-
-  const handleSubmit = (event) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setFile(event.target.files[0]);
+    }
+  };
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // Create a FormData object
+    const formData = new FormData();
+  
+    // Add the file to the FormData object
+    if (file) {
+      formData.append('image', file);
+    }
+  
+    // Add the other form fields to the FormData object
+    for (const key in item) {
+      formData.append(key, item[key]);
+    }
+  
+    // Send the FormData object to the server
+    const response = await fetch('/api/newproduct', {
+      method: 'POST',
+      body: formData,
+    });
     onSubmit && onSubmit(item);
     setItem({
       id: "",
@@ -154,14 +178,18 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               </div>
 
               <div className="form-row">
-                <label>
+                {/* <label>
                   The Url for a photo of your item
                   <textarea name="image" value={item.image} onChange={handleChange} required />
-                </label>
+                </label> */}
                 {/* <label>
                   Upload a photo of your item
                   <input type="file" accept="image/*" onChange={handleImageChange} required />
                 </label> */}
+                <label>
+                  Upload a photo of your item
+                  <input type="file" accept="image/*" onChange={handleFileChange} required />
+                </label>
               </div>
 
               {/* {item.image && <img src={item.image} alt="Preview" />} */}
