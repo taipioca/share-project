@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import NavBar from "./modules/NavBar";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google/dist";
 
 import { get, post } from "../utilities";
+import Home from "./pages/Home";
 import CatalogPage from "./pages/CatalogPage";
 import ItemDetails from "./modules/ItemDetails";
 import { NewProduct } from "./modules/NewProductInput";
@@ -46,7 +47,9 @@ const App = () => {
 
   const handleLogout = () => {
     setUserId(undefined);
-    post("/api/logout");
+    post("/api/logout").then(() => {
+      navigate("/home");
+    });
   };
 
   return (
@@ -58,6 +61,8 @@ const App = () => {
         userId={userId}
       />
       <Router>
+        <Home path="/" />
+        <Home path="/home" />
         <CatalogPage path="/catalog/" />
         <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
