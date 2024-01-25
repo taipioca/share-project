@@ -45,6 +45,11 @@ const Catalog = () => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
           placeholder="Search items..."
         />
         <button onClick={handleSearch}>Search</button>
