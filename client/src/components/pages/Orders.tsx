@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { NewRequest } from "../modules/NewRequest";
 import { get } from "../../utilities";
 
-import ItemDetails from "../modules/ItemDetails";
+
 
 type Item = {
   id: string;
   image: string;
   title: string;
   points: number;
-  requester_id: string;
+  requester: {
+    requester_id: string;
+    requester_name: string;
+  };
+
   sharer: {
     sharer_id: string;
     sharer_name: string;
@@ -17,27 +20,6 @@ type Item = {
   start_date: string;
   end_date: string;
   item_id: string;
-};
-
-interface ItemProps {
-  id: string;
-  title: string;
-  // image: string;
-  // sharer: string;
-  // startDate: Date;
-  // endDate: Date;
-}
-
-const SimpleItem: React.FC<ItemProps> = ({ id, title }) => {
-  return (
-    <div key={id}>
-      {/* <img src={image} alt={title} /> */}
-      <h2>{title}</h2>
-      {/* <p>Shared by: {sharer}</p> */}
-      {/* <p>Start Date: {startDate.toLocaleDateString()}</p>
-      <p>End Date: {endDate.toLocaleDateString()}</p> */}
-    </div>
-  );
 };
 
 const Orders = (props) => {
@@ -48,7 +30,14 @@ const Orders = (props) => {
   useEffect(() => {
     console.log("User:", user);
     get("/api/requests").then((requests: Item[]) => {
-      const userRequests = requests.filter((request) => request.requester_id === user._id);
+      const userRequests = requests.filter((request) => {
+        if (!request.requester) {
+          console.error("requester is undefined");
+          return false;
+        }
+
+        return request.requester.requester_id === user._id;
+      });
       setRequestedItems([...userRequests].reverse());
       console.log("Requests:", requests);
 
@@ -57,15 +46,15 @@ const Orders = (props) => {
           console.log("catalog id", catalogItem.id);
           console.log(userRequests);
           return userRequests.some((requestedItem) => {
-            console.log("requester", requestedItem.requester_id);
-            return requestedItem.item_id === catalogItem.id; // Add return here
+            console.log("requester", requestedItem.requester.requester_id);
+            return requestedItem.item_id === catalogItem.id;
           });
         });
         setCatalogItems(foundItems);
       });
     });
   }, [user]);
-  console.log(catalogItems);
+  console.log("requesterd items", catalogItems);
   return (
     <div>
       {catalogItems.map((item, index) => (
