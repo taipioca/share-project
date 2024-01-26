@@ -6,6 +6,7 @@ import Orders from "./Orders";
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
 import { EditItem, NewItem } from "../modules/NewItem";
+import ItemActivityButton from "../modules/ItemActivity";
 
 interface User {
   name: string;
@@ -69,6 +70,7 @@ const Profile = (props) => {
             <p className="item-text">Rating: 5/5 (1 review)</p>
             <h3 className="item-text">{item.points} Points/day</h3>
             <EditItem item_id={item.id} />
+            <ItemActivityButton itemId = {item.id} />
           </div>
         ))}
       </div>

@@ -128,10 +128,9 @@ const ItemDetails = (props) => {
           <NewRequest
             item={item}
             requester={{ requester_id: props.userId, requester_name: user?.name ?? "" }}
-            // requester_id={props.userId}
             item_id={item.id}
             sharer={{ sharer_id: item.sharer.sharer_id, sharer_name: item.sharer.sharer_name }}
-            // sharer_id={item.sharer.sharer_id}
+            title={item.title}
           />
           <p>Total Points: {calculateTotalPoints()}</p>
           <p>Your Total Rewards: {calculateTotalRewards()}</p>

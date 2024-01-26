@@ -28,7 +28,7 @@ const Orders = (props) => {
   const [catalogItems, setCatalogItems] = useState<Item[]>([]);
 
   useEffect(() => {
-    console.log("User:", user);
+    // console.log("User:", user);
     get("/api/requests").then((requests: Item[]) => {
       const userRequests = requests.filter((request) => {
         if (!request.requester) {
@@ -39,14 +39,14 @@ const Orders = (props) => {
         return request.requester.requester_id === user._id;
       });
       setRequestedItems([...userRequests].reverse());
-      console.log("Requests:", requests);
+      // console.log("Requests:", requests);
 
       get("/api/catalog").then((catalog: Item[]) => {
         const foundItems = catalog.filter((catalogItem) => {
-          console.log("catalog id", catalogItem.id);
-          console.log(userRequests);
+          // console.log("catalog id", catalogItem.id);
+          // console.log(userRequests);
           return userRequests.some((requestedItem) => {
-            console.log("requester", requestedItem.requester.requester_id);
+            // console.log("requester", requestedItem.requester.requester_id);
             return requestedItem.item_id === catalogItem.id;
           });
         });
@@ -54,15 +54,11 @@ const Orders = (props) => {
       });
     });
   }, [user]);
-  console.log("requesterd items", catalogItems);
+  // console.log("requesterd items", catalogItems);
   return (
     <div>
       {catalogItems.map((item, index) => (
-        //   <SimpleItem
-        //     id={item.id}
-        //     title={item.title}
-        //     // image={item.image}
-        //   />
+
         <div>
           <p>{item.title}</p>
           <p>{item.sharer.sharer_name}</p>

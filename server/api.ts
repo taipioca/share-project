@@ -92,6 +92,7 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
       sharer_id: req.body.sharer_id,
       sharer_name: req.body.sharer_name,
     },
+    title: req.body.title,
     item_id: req.body.item_id,
     start_date: req.body.start_date,
     end_date: req.body.end_date,

@@ -11,6 +11,7 @@ const NewRequestInput = (props) => {
       sharer_id: "",
       sharer_name: "",
     },
+    title: "",
     item_id: "",
     sharer_id: "",
     start_date: "",
@@ -49,6 +50,8 @@ const NewRequestInput = (props) => {
         sharer_id: "",
         sharer_name: "",
       },
+      title: "",
+
       item_id: "",
       sharer_id: "",
       start_date: "",
@@ -93,6 +96,7 @@ const NewRequest = (props) => {
       item_id: props.item_id,
       sharer_id: props.sharer.sharer_id,
       sharer_name: props.sharer.sharer_name,
+      title: props.title,
     };
     post("/api/newrequest", body).then((requestObj) => {
       console.log("request added", requestObj);
