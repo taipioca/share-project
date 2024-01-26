@@ -1,10 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { post } from "../../utilities";
-import { RouteComponentProps } from "@reach/router";
 import { get } from "../../utilities";
-// import { CloudinaryUploadWidget } from "react-cloudinary-upload-widget";
-import * as cloudinary from "cloudinary-core";
 import "./NewItem.css";
 
 declare global {
@@ -14,7 +11,6 @@ declare global {
 }
 
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
-  // let widget: any;
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const actionTextMap = {
@@ -64,10 +60,13 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       (error, result) => {
         if (!error && result && result.event === "success") {
           console.log("Done! Here is the image info: ", result.info);
+          setItem((prevItem) => ({
+            ...prevItem,
+            image: result.info.url,
+          }));
         }
       }
     );
-
     setWidget(widget);
   }, []);
 
@@ -187,25 +186,17 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               </div>
 
               <div className="form-row">
-                <button onClick={openWidget}>Upload Image</button>
-                {/* <label>
-                  The Url for a photo of your item
-                  <CloudinaryUploadWidget
-                    cloudName="dgph2xfcj"
-                    uploadPreset="mhppaebs"
-                    buttonText="Upload Image"
-                    onSuccess={(result) => {
-                      const event = {
-                        target: {
-                          name: "image",
-                          value: result.info.secure_url,
-                        },
-                      };
-                      handleChange(event);
-                    }}
-                    onFailure={(error) => console.error(error)}
-                  />
-                </label> */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    openWidget();
+                  }}
+                >
+                  Upload Image
+                </button>
+                {item.image && (
+                  <img src={item.image} alt="Uploaded" style={{ width: "100px", height: "auto" }} />
+                )}
               </div>
               <button type="submit">Confirm and Submit</button>
             </form>
