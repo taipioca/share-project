@@ -10,7 +10,12 @@ type Item = {
   title: string;
   points: number;
   requester_id: string;
-  sharer_id: string;
+  sharer: {
+    sharer_id: string;
+    sharer_name: string;
+  };
+  start_date: string;
+  end_date: string;
   item_id: string;
 };
 
@@ -64,11 +69,18 @@ const Orders = (props) => {
   return (
     <div>
       {catalogItems.map((item, index) => (
-        <SimpleItem
-          id={item.id}
-          title={item.title}
-          // image={item.image}
-        />
+        //   <SimpleItem
+        //     id={item.id}
+        //     title={item.title}
+        //     // image={item.image}
+        //   />
+        <div>
+          <p>{item.title}</p>
+          <p>{item.sharer.sharer_name}</p>
+          <p>{item.start_date}</p>
+          <p>{item.end_date}</p>
+          <hr></hr>
+        </div>
       ))}
     </div>
   );

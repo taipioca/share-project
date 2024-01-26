@@ -84,9 +84,17 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
 
 router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({
-    requester_id: req.body.requester_id,
-    sharer_id: req.body.sharer_id,
+    requester: {
+      requester_id: req.body.requester_id,
+      requester_name: req.body.requester_name,
+    },
+    sharer: {
+      sharer_id: req.body.sharer_id,
+      sharer_name: req.body.sharer_name,
+    },
     item_id: req.body.item_id,
+    start_date: req.body.start_date,
+    end_date: req.body.end_date,
   });
   newRequest.save().then((request) => res.send(request));
 });
