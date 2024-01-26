@@ -91,7 +91,6 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   newRequest.save().then((request) => res.send(request));
 });
 
-
 router.get("/requests", (req, res) => {
   console.log("tried getting request");
   Request.find({}).then((items) => {

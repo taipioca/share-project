@@ -32,20 +32,20 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
 
     // Create a FormData object
     const formData = new FormData();
-  
+
     // Add the file to the FormData object
     if (file) {
-      formData.append('image', file);
+      formData.append("image", file);
     }
-  
+
     // Add the other form fields to the FormData object
     for (const key in item) {
       formData.append(key, item[key]);
     }
-  
+
     // Send the FormData object to the server
-    const response = await fetch('/api/newproduct', {
-      method: 'POST',
+    const response = await fetch("/api/newproduct", {
+      method: "POST",
       body: formData,
     });
     onSubmit && onSubmit(item);

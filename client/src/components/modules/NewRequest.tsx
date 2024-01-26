@@ -3,9 +3,9 @@ import { post } from "../../utilities";
 
 const NewRequestInput = (props) => {
   const [request, setRequest] = useState({
-    requester_id: "", 
+    requester_id: "",
     item_id: "",
-    sharer_id: "", 
+    sharer_id: "",
   });
   console.log(props.requester_id);
   console.log(props.item_id);
