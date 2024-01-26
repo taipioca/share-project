@@ -22,11 +22,9 @@ const NavBar = (props: Props) => {
 
   return (
     <div className="NavBar-container u-inlineBlock">
-      <div className="NavBar-title">
-        <Link to="/" className="NavBar-title u-bold">
-          sharedom
-        </Link>
-      </div>
+      <Link to="/" className="NavBar-title u-bold NavBar-title">
+        sharedom
+      </Link>
       <div className="NavBar-right">
         <Link to={"/catalog/"} className="NavBar-linkContainer NavBar-link">
           Catalog
