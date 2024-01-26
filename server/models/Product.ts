@@ -16,6 +16,11 @@ const ProductSchema = new Schema({
     sharer_id: String,
     sharer_name: String,
   },
+  status: {
+    type: String,
+    enum: ["available", "pending", "unavailable"],
+    default: "available",
+  },
 });
 
 export interface Product extends Document {

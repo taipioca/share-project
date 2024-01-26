@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import "./Profile.css";
+import Orders from "./Orders";
 
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
 import { EditItem, NewItem } from "../modules/NewItem";
+import ItemActivityButton from "../modules/ItemActivity";
 
 interface User {
   name: string;
@@ -55,7 +57,7 @@ const Profile = (props) => {
         <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
         <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
         <NewItem sharer_name={user.name} sharer_id={props.userId} />
-
+        <Orders user = {user} />
         <NewReview reviewerName={user.name} reviewerId={props.userId} />
       </div>
       <div className="catalog">
@@ -68,6 +70,7 @@ const Profile = (props) => {
             <p className="item-text">Rating: 5/5 (1 review)</p>
             <h3 className="item-text">{item.points} Points/day</h3>
             <EditItem item_id={item.id} />
+            <ItemActivityButton itemId = {item.id} />
           </div>
         ))}
       </div>

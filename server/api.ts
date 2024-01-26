@@ -6,6 +6,10 @@ import Product from "./models/Product";
 const router = express.Router();
 import Review from "./models/Review";
 import Request from "./models/Request";
+// import fileUpload from "./fileUpload";
+
+// router.use("/files", fileUpload);
+
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
@@ -55,20 +59,6 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
   newProduct.save().then((product) => res.send(product));
 });
 
-// update a product in the database.
-router.post("/updateproduct", auth.ensureLoggedIn, (req, res) => {
-  const { id, ...updateData } = req.body;
-
-  Product.findOneAndUpdate({ id: id }, updateData, { new: true }, (err, doc) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    } else {
-      res.status(200).json(doc);
-    }
-  });
-});
-
-// get all products from the database.
 router.get("/catalog", (req, res) => {
   Product.find({}).then((items) => {
     res.send(items);
@@ -94,11 +84,27 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
 
 router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({
-    requester_id: req.body.requester_id,
-    sharer_id: req.body.sharer_id,
+    requester: {
+      requester_id: req.body.requester_id,
+      requester_name: req.body.requester_name,
+    },
+    sharer: {
+      sharer_id: req.body.sharer_id,
+      sharer_name: req.body.sharer_name,
+    },
+    title: req.body.title,
     item_id: req.body.item_id,
+    start_date: req.body.start_date,
+    end_date: req.body.end_date,
   });
   newRequest.save().then((request) => res.send(request));
+});
+
+router.get("/requests", (req, res) => {
+  console.log("tried getting request");
+  Request.find({}).then((items) => {
+    res.send(items);
+  });
 });
 
 // anything else falls to this "not found" case

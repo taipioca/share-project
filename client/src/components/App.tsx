@@ -3,7 +3,6 @@ import { Router, navigate } from "@reach/router";
 import NavBar from "./modules/NavBar";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google/dist";
-
 import { get, post } from "../utilities";
 import Home from "./pages/Home";
 import CatalogPage from "./pages/CatalogPage";
@@ -15,7 +14,7 @@ import { NewReview } from "./modules/NewReview";
 import { NewRequest } from "./modules/NewRequest";
 import { socket } from "../client-socket";
 import User from "../../../shared/User";
-
+import Orders from "./pages/Orders";
 import "../utilities.css";
 
 const App = () => {
@@ -64,13 +63,15 @@ const App = () => {
       <Router>
         <Home path="/" />
         <Home path="/home" />
-        <CatalogPage path="/catalog/" />
+        <CatalogPage path="/catalog" />
         <Profile userId={userId} path="/profile/:userId" />
         <NotFound default={true} />
         <ItemDetails userId={userId} path="/item/:id" />
+
         {/* <NewProduct path="/newproduct" /> */}
         <NewReview path="/newreview" />
         <NewRequest path="/newrequest" />
+        <Orders path="/orders" />
       </Router>
     </>
   );
