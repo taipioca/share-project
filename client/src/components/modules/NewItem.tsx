@@ -3,10 +3,18 @@ import { v4 as uuidv4 } from "uuid";
 import { post } from "../../utilities";
 import { RouteComponentProps } from "@reach/router";
 import { get } from "../../utilities";
-import { CloudinaryUploadWidget } from "react-cloudinary-upload-widget";
+// import { CloudinaryUploadWidget } from "react-cloudinary-upload-widget";
+import * as cloudinary from "cloudinary-core";
 import "./NewItem.css";
 
+declare global {
+  interface Window {
+    cloudinary: any;
+  }
+}
+
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
+  // let widget: any;
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   const actionTextMap = {
@@ -14,6 +22,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
     edit: "Edit a Share",
     delete: "Delete a Share",
   };
+  const [widget, setWidget] = useState<null | { open: () => void }>(null);
 
   const handleChange = (event) => {
     setItem({
@@ -45,6 +54,29 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
     });
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const widget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: "dgph2xfcj",
+        uploadPreset: "mhppaebs",
+      },
+      (error, result) => {
+        if (!error && result && result.event === "success") {
+          console.log("Done! Here is the image info: ", result.info);
+        }
+      }
+    );
+
+    setWidget(widget);
+  }, []);
+
+  const openWidget = () => {
+    if (widget) {
+      widget.open();
+    }
+  };
+
   return (
     <>
       <button onClick={() => setIsOpen(true)}>{actionTextMap[action]}</button>
@@ -155,7 +187,8 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               </div>
 
               <div className="form-row">
-                <label>
+                <button onClick={openWidget}>Upload Image</button>
+                {/* <label>
                   The Url for a photo of your item
                   <CloudinaryUploadWidget
                     cloudName="dgph2xfcj"
@@ -172,7 +205,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     }}
                     onFailure={(error) => console.error(error)}
                   />
-                </label>
+                </label> */}
               </div>
               <button type="submit">Confirm and Submit</button>
             </form>
