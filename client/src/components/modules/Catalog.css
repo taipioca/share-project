@@ -1,33 +1,104 @@
+:root {
+  --small: 1em; /* Adjust this as needed */
+}
+
 .catalog {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
+  gap: 1.5em;
+  padding: 2em 6em; /* Adjust this as needed */
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Aligns items to the left */
   text-decoration: none;
   color: black;
+  text-align: left; /* Aligns text to the left */
+  transition: transform 0.3s ease-in-out; /* Adds a smooth transition effect */
+
+}
+
+.item:hover {
+  transform: scale(1.05); /* Scales the size of the item up to 110% when hovered */
+}
+
+.item h3 {
+  font-size: var(--small);
+  margin-top: 0.01em; /* Adjust this as needed */
+}
+
+.item h4 {
+  margin-top: 0.5em; /* Adjust this as needed */
+  margin-bottom: 0.05em; /* Adjust this as needed */
+  font-size: var(--small);
+}
+
+.image-container {
+  width: 12.5em; /* Adjust this as needed */
+  height: 12.5em;
+  overflow: hidden;
 }
 
 .item img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5em; /* Adjust this as needed */
 }
 
-.item p {
-  margin-top: 10px;
+.rating {
+  display: flex; /* Makes the stars horizontal */
+  margin-top: 0.5em; /* Adds space above the stars */
+  margin-bottom: 0.1em; /* Adds space below the stars */
 }
 
-.image-container {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
+.rating i {
+  margin-right: 0.25em;
+
 }
 
-.item-text {
-  margin: 4px 0; 
+.rating .fas {
+  color: rgb(255, 227, 103); /* Makes the filled stars yellow */
+}
+
+.rating .far {
+  color: gray; /* Makes the empty stars gray */
+}
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Adjust this as needed */
+}
+
+.search-bar-container input {
+  width: 90%; /* Adjust this as needed */
+  border-radius: 2em; /* Gives the search bar rounded edges */
+  padding: 1em; /* Adds padding inside the search bar */
+}
+.search-bar-container button {
+  margin-left: 0.5em; /* Adds space to the left of the search button */
+}
+.search-input-container {
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.clear-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9em;
+  color: #888;
 }

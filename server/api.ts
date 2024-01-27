@@ -96,6 +96,8 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
     item_id: req.body.item_id,
     start_date: req.body.start_date,
     end_date: req.body.end_date,
+    sharer_points: req.body.sharer_points,
+    requester_points: req.body.requester_points,
   });
   newRequest.save().then((request) => res.send(request));
 });

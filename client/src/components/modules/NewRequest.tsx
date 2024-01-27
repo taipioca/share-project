@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { post } from "../../utilities";
-
+import "./NewRequest.css";
 const NewRequestInput = (props) => {
   const [request, setRequest] = useState({
     requester: {
@@ -16,9 +16,9 @@ const NewRequestInput = (props) => {
     sharer_id: "",
     start_date: "",
     end_date: "",
+    sharer_points: 0,
+    requester_points: 0,
   });
-  console.log(props.requester_id);
-  console.log(props.item_id);
   //   const handleChange = (event) => {
   //     setRequest({
   //       ...request,
@@ -40,6 +40,19 @@ const NewRequestInput = (props) => {
       return;
     }
 
+    const currentDate = new Date();
+    const startDate = new Date(request.start_date);
+    const endDate = new Date(request.end_date);
+
+    if (startDate < currentDate || endDate < currentDate) {
+      alert("Start date and end date must be in the future.");
+      return;
+    }
+    console.log("requester", request.requester.requester_id);
+    if (request.requester.requester_id === request.sharer.sharer_id) {
+      alert("You cannot request your own item.");
+      return;
+    }
     props.onSubmit && props.onSubmit(request);
     setRequest({
       requester: {
@@ -56,33 +69,41 @@ const NewRequestInput = (props) => {
       sharer_id: "",
       start_date: "",
       end_date: "",
+      sharer_points: 0,
+      requester_points: 0,
     });
   };
+
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Start Date:
-        <input
-          type="date"
-          name="start_date"
-          value={request.start_date}
-          onChange={handleDateChange}
-          required
-        />
-      </label>
-      <label>
-        End Date:
-        <input
-          type="date"
-          name="end_date"
-          value={request.end_date}
-          onChange={handleDateChange}
-          required
-        />
-      </label>
+      <div className="date-container">
+        <label className="date-field">
+          Start Date:
+          <input
+            type="date"
+            name="start_date"
+            value={request.start_date}
+            onChange={handleDateChange}
+            required
+            className="date-input"
+          />
+        </label>
+        <label className="date-field">
+          End Date:
+          <input
+            type="date"
+            name="end_date"
+            value={request.end_date}
+            onChange={handleDateChange}
+            required
+            className="date-input"
+          />
+        </label>
+      </div>
       <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
         Request Item
       </button>
+      <hr />
     </form>
   );
 };
