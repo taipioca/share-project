@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { post } from "../../utilities";
 import "./NewRequest.css";
+
 const NewRequestInput = (props) => {
+  // console.log("props inside NewRequestInput", props);
   const [request, setRequest] = useState({
     requester: {
-      requester_id: "",
-      requester_name: "",
+      requester_id: props.requester_id,
+      requester_name: props.requester_name,
     },
     sharer: {
-      sharer_id: "",
-      sharer_name: "",
+      sharer_id: props.sharer.sharer_id,
+      sharer_name: props.sharer.sharer_name,
     },
     title: "",
     item_id: "",
@@ -19,12 +21,8 @@ const NewRequestInput = (props) => {
     sharer_points: 0,
     requester_points: 0,
   });
-  //   const handleChange = (event) => {
-  //     setRequest({
-  //       ...request,
-  //       [event.target.name]: event.target.value,
-  //     });
-  //   };
+  const [requestSent, setRequestSent] = useState(false);
+
   const handleDateChange = (event) => {
     setRequest({
       ...request,
@@ -39,21 +37,29 @@ const NewRequestInput = (props) => {
       alert("Start date and end date are required.");
       return;
     }
-    if (!request.requester.requester_id) {
+
+    // Check if requester is signed in
+    if (!props.requester_id) {
       alert("You must be signed in to make a request.");
       return;
     }
-    console.log("requester", props.requester.requester_id);
-    if (request.requester.requester_id === request.sharer.sharer_id) {
+
+    // Check if requester is sharer
+    if (props.requester_id === request.sharer.sharer_id) {
       alert("You cannot request your own item.");
       return;
     }
+
+    // Check if start_date is before end_date and both are in the future
     const currentDate = new Date();
     const startDate = new Date(request.start_date);
     const endDate = new Date(request.end_date);
-
     if (startDate < currentDate || endDate < currentDate) {
       alert("Start date and end date must be in the future.");
+      return;
+    }
+    if (startDate > endDate) {
+      alert("Start date must be before end date.");
       return;
     }
 
@@ -76,6 +82,7 @@ const NewRequestInput = (props) => {
       sharer_points: 0,
       requester_points: 0,
     });
+    setRequestSent(true);
   };
 
   return (
@@ -104,9 +111,13 @@ const NewRequestInput = (props) => {
           />
         </label>
       </div>
-      <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
-        Request Item
-      </button>
+      {requestSent ? (
+        <p style={{ color: "red" }}>Request Sent!</p>
+      ) : (
+        <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
+          Request Item
+        </button>
+      )}
       <hr />
     </form>
   );
@@ -133,6 +144,7 @@ const NewRequest = (props) => {
       requester_id={props.requester.requester_id}
       requester_name={props.requester.requester_name}
       item_id={props.item_id}
+      sharer={{ sharer_id: props.sharer.sharer_id, sharer_name: props.sharer.sharer_name }}
     />
   );
 };
