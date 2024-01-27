@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 
-
-
 type Item = {
   id: string;
   image: string;
@@ -58,8 +56,7 @@ const Orders = (props) => {
   return (
     <div>
       {catalogItems.map((item, index) => (
-
-        <div>
+        <div key={index}>
           <p>{item.title}</p>
           <p>{item.sharer.sharer_name}</p>
           <p>{item.start_date}</p>

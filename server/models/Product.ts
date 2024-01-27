@@ -33,6 +33,7 @@ export interface Product extends Document {
   pickupLocation?: string;
   returnLocation?: string;
   pickupNotes?: string;
+  a;
   returnNotes?: string;
   image?: string;
   sharer?: {
