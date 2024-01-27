@@ -1,0 +1,12 @@
+.date-container {
+  display: flex;
+  justify-content: flex-start; /* Change from space-between to flex-start */
+}
+
+.date-field {
+  margin-right: 20px; /* Reduce the margin-right */
+}
+
+.date-input {
+  width: 100px; /* adjust as needed */
+}

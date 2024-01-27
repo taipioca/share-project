@@ -13,6 +13,8 @@ const RequestSchema = new Schema({
   item_id: String,
   start_date: String,
   end_date: String,
+  sharer_points: Number,
+  requester_points: Number,
 });
 
 export interface Request extends Document {
@@ -29,6 +31,8 @@ export interface Request extends Document {
   _id: string;
   start_date: string;
   end_date: string;
+  sharer_points: number;
+  requester_points: number;
 }
 
 const RequestModel = model<Request>("Request", RequestSchema);

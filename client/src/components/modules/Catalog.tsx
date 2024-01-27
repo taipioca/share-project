@@ -9,6 +9,8 @@ type Item = {
   image: string;
   title: string;
   points: number;
+  rating: number;
+  reviews: number;
 };
 
 const Catalog = () => {
@@ -40,19 +42,32 @@ const Catalog = () => {
 
   return (
     <>
-      <div className="catalog">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearch();
-            }
-          }}
-          placeholder="Search items..."
-        />
-        <button onClick={handleSearch}>Search</button>
+      <div className="search-bar-container">
+        <div className="search-input-container">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSearch();
+              }
+            }}
+            placeholder="What are you looking for?"
+          />
+          <i className="fas fa-search search-icon"></i>
+          {searchTerm && (
+            <button
+              onClick={() => {
+                setSearchTerm("");
+                handleSearch();
+              }}
+              className="clear-search"
+            >
+              Clear
+            </button>
+          )}
+        </div>
       </div>
       <div className="catalog">
         {items.map((item) => (
@@ -61,7 +76,17 @@ const Catalog = () => {
               <img src={item.image} alt={item.title} />
             </div>
             <h4 className="item-text">{item.title}</h4>
-            <p className="item-text">Rating: 5/5 (1 review)</p>
+            <div className="rating">
+              {[...Array(5)].map((star, i) => {
+                const ratingValue = i + 1;
+                return (
+                  <label key={i}>
+                    <i className={ratingValue <= item.rating ? "fas fa-star" : "far fa-star"}></i>
+                  </label>
+                );
+              })}
+              <span>({item.reviews})</span> {/* Add this line */}
+            </div>
             <h3 className="item-text">{item.points} Points/day</h3>
           </Link>
         ))}
