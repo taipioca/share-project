@@ -7,7 +7,7 @@ type NotFoundProps = RouteComponentProps;
 const NotFound = (props: NotFoundProps) => {
   return (
     <div>
-      <h1>Page Not Found</h1>
+      <h1>this page isn't done yet please go to catalog and profile</h1>
     </div>
   );
 };
