@@ -39,7 +39,15 @@ const NewRequestInput = (props) => {
       alert("Start date and end date are required.");
       return;
     }
-
+    if (!request.requester.requester_id) {
+      alert("You must be signed in to make a request.");
+      return;
+    }
+    console.log("requester", props.requester.requester_id);
+    if (request.requester.requester_id === request.sharer.sharer_id) {
+      alert("You cannot request your own item.");
+      return;
+    }
     const currentDate = new Date();
     const startDate = new Date(request.start_date);
     const endDate = new Date(request.end_date);
@@ -48,11 +56,7 @@ const NewRequestInput = (props) => {
       alert("Start date and end date must be in the future.");
       return;
     }
-    console.log("requester", request.requester.requester_id);
-    if (request.requester.requester_id === request.sharer.sharer_id) {
-      alert("You cannot request your own item.");
-      return;
-    }
+
     props.onSubmit && props.onSubmit(request);
     setRequest({
       requester: {
