@@ -57,8 +57,10 @@ const Profile = (props) => {
         <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
         <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
         <NewItem sharer_name={user.name} sharer_id={props.userId} />
-        <Orders user = {user} />
+        <Orders user={user} />
         <NewReview reviewerName={user.name} reviewerId={props.userId} />
+
+        {/* <NewReview reviewerName={user.name} reviewerId={props.userId} /> */}
       </div>
       <div className="catalog">
         {items.map((item) => (
@@ -70,7 +72,7 @@ const Profile = (props) => {
             <p className="item-text">Rating: 5/5 (1 review)</p>
             <h3 className="item-text">{item.points} Points/day</h3>
             <EditItem item_id={item.id} />
-            <ItemActivityButton itemId = {item.id} />
+            <ItemActivityButton itemId={item.id} />
           </div>
         ))}
       </div>
