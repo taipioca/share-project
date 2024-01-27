@@ -248,6 +248,9 @@ const NewItem = (props) => {
     //   sharer_id: "",
     //   sharer_name: "",
     // },
+    // status: {
+    //   enum: "available",
+    // },
   };
 
   const addItem = (item) => {

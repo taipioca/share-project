@@ -24,22 +24,24 @@ const ProductSchema = new Schema({
 });
 
 export interface Product extends Document {
-  id: String;
-  title: String;
-  description: String;
-  points: Number;
-  minShareDays: Number;
-  maxShareDays: Number;
-  pickupLocation: String;
-  returnLocation: String;
-  pickupNotes: String;
-  returnNotes: String;
-  image: String;
-  sharer: {
-    sharer_id: String;
-    sharer_name: String;
+  id?: string;
+  title?: string;
+  description?: string;
+  points?: number;
+  minShareDays?: number;
+  maxShareDays?: number;
+  pickupLocation?: string;
+  returnLocation?: string;
+  pickupNotes?: string;
+  returnNotes?: string;
+  image?: string;
+  sharer?: {
+    sharer_id?: string;
+    sharer_name?: string;
   };
-  _id: string;
+  status?: "available" | "pending" | "unavailable";
+
+  _id?: string;
 }
 
 const ProductModel = model<Product>("Product", ProductSchema);

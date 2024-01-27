@@ -24,7 +24,7 @@ const App = () => {
     get("/api/whoami")
       .then((user: User) => {
         if (user._id) {
-          // TRhey are registed in the database and currently logged in.
+          // They are registed in the database and currently logged in.
           setUserId(user._id);
         }
       })
