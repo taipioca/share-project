@@ -298,11 +298,18 @@ const EditItem = ({ item_id }) => {
   const [foundItem, setFoundItem] = useState(null);
 
   useEffect(() => {
-    get("/api/catalog").then((itemsObjs) => {
-      const foundItem = itemsObjs.find((item: Item) => item.id === item_id);
+    get("/api/getproduct", { item: item_id }).then((foundItem) => {
+      console.log("Found item:", foundItem);
       setFoundItem(foundItem);
     });
   }, []);
+
+  // useEffect(() => {
+  //   get("/api/catalog").then((itemsObjs) => {
+  //     const foundItem = itemsObjs.find((item: Item) => item.id === item_id);
+  //     setFoundItem(foundItem);
+  //   });
+  // }, []);
 
   const submitUpdate = (item) => {
     const body = { ...item, id: item_id };
