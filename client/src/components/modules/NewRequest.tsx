@@ -1,16 +1,17 @@
-import React, { useState } from "react";
-import { post } from "../../utilities";
+import React, { useEffect, useState } from "react";
+import { post, get } from "../../utilities";
 import "./NewRequest.css";
+
 const NewRequestInput = (props) => {
   console.log("inside new request input", props);
   const [request, setRequest] = useState({
     requester: {
-      requester_id: "",
-      requester_name: "",
+      requester_id: props.requester_id,
+      requester_name: props.requester_name,
     },
     sharer: {
-      sharer_id: "",
-      sharer_name: "",
+      sharer_id: props.sharer.sharer_id,
+      sharer_name: props.sharer.sharer_name,
     },
     title: "",
     item_id: "",
@@ -19,7 +20,16 @@ const NewRequestInput = (props) => {
     end_date: "",
     sharer_points: 0,
     requester_points: 0,
+    status: props.status,
   });
+  const [requestSent, setRequestSent] = useState(false);
+
+  // If request is pending, set requestSent to true
+  useEffect(() => {
+    if (request.status === "pending") {
+      setRequestSent(true);
+    }
+  }, []);
 
   const handleDateChange = (event) => {
     setRequest({
@@ -36,52 +46,52 @@ const NewRequestInput = (props) => {
       return;
     }
 
-    if (request.end_date < request.start_date) {
-      alert("End date must be after start date.");
+    // Check if requester is signed in
+    if (!props.requester_id) {
+      alert("You must be signed in to make a request.");
       return;
     }
-    //   if (!request.requester.requester_id) {
-    //   alert("You must be signed in to make a request.");
-    //   return;
-    // }
-    // if (request.requester.requester_id === request.sharer.sharer_id) {
-    //   alert("You cannot request your own item.");
-    //   return;
-    // }
+
+    // Check if requester is sharer
+    if (props.requester_id === request.sharer.sharer_id) {
+      alert("You cannot request your own item.");
+      return;
+    }
+
+    // Check if start_date is before end_date and both are in the future
     const currentDate = new Date();
     const startDate = new Date(request.start_date);
     const endDate = new Date(request.end_date);
-
-    // const [startDate, setStartDate] = useState<string | null>(null);
-    // const [endDate, setEndDate] = useState<string | null>(null);
-
     if (startDate < currentDate || endDate < currentDate) {
       alert("Start date and end date must be in the future.");
       return;
     }
+    if (startDate > endDate) {
+      alert("Start date must be before end date.");
+      return;
+    }
 
-    const totalPoints = calculateTotalPoints();
-    const totalRewards = calculateTotalRewards();
+    props.onSubmit && props.onSubmit(request);
+    // setRequest({
+    //   requester: {
+    //     requester_id: "",
+    //     requester_name: "",
+    //   },
+    //   sharer: {
+    //     sharer_id: "",
+    //     sharer_name: "",
+    //   },
+    //   title: "",
 
-    props.onSubmit && props.onSubmit(request, totalPoints, totalRewards);
-    setRequest({
-      requester: {
-        requester_id: "",
-        requester_name: "",
-      },
-      sharer: {
-        sharer_id: "",
-        sharer_name: "",
-      },
-      title: "",
-
-      item_id: "",
-      sharer_id: "",
-      start_date: "",
-      end_date: "",
-      sharer_points: 0,
-      requester_points: 0,
-    });
+    //   item_id: "",
+    //   sharer_id: "",
+    //   start_date: "",
+    //   end_date: "",
+    //   sharer_points: 0,
+    //   requester_points: 0,
+    //   status: "",
+    // });
+    setRequestSent(true);
   };
   const youGetPoints = Math.ceil(props.points * 0.2);
 
@@ -132,9 +142,13 @@ const NewRequestInput = (props) => {
           />
         </label>
       </div>
-      <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
-        Request Item
-      </button>
+      {requestSent ? (
+        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
+      ) : (
+        <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
+          Request Item
+        </button>
+      )}
       <hr />
     </form>
   );
@@ -155,25 +169,23 @@ const NewRequest = (props) => {
       requester_points: totalRewards,
     };
     post("/api/newrequest", body).then((requestObj) => {
-      console.log("total points", totalPoints);
-      console.log("request added", requestObj);
+      get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
+        const updateBody = { ...foundItem, status: "pending" };
+        post("/api/updateproduct", updateBody).then((productDetails) => {
+          // console.log("Returned updateProduct:", productDetails);
+        });
+      });
     });
   };
   return (
-    <div>
-      <NewRequestInput
-        onSubmit={(request, totalPoints, totalRewards) =>
-          addRequest(request, totalPoints, totalRewards)
-        }
-        requester_id={props.requester.requester_id}
-        requester_name={props.requester.requester_name}
-        item_id={props.item_id}
-        sharer_points={props.sharer_points}
-        requester_points={props.requester_points}
-      />
-      <p>Total Points:</p>
-      <p>{props.sharer_points}</p>
-    </div>
+    <NewRequestInput
+      onSubmit={addRequest}
+      requester_id={props.requester.requester_id}
+      requester_name={props.requester.requester_name}
+      item_id={props.item_id}
+      sharer={{ sharer_id: props.sharer.sharer_id, sharer_name: props.sharer.sharer_name }}
+      status={props.status}
+    />
   );
 };
 

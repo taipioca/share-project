@@ -13,7 +13,7 @@ declare global {
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
-  const [file, setFile] = useState<File | null>(null);
+  // const [file, setFile] = useState<File | null>(null);
 
   const actionTextMap = {
     add: "Upload a New Share",
@@ -28,32 +28,32 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       [event.target.name]: event.target.value,
     });
   };
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      setFile(event.target.files[0]);
-    }
-  };
+  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files) {
+  //     setFile(event.target.files[0]);
+  //   }
+  // };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Create a FormData object
-    const formData = new FormData();
+    // // Create a FormData object
+    // const formData = new FormData();
 
-    // Add the file to the FormData object
-    if (file) {
-      formData.append("image", file);
-    }
+    // // Add the file to the FormData object
+    // if (file) {
+    //   formData.append("image", file);
+    // }
 
-    // Add the other form fields to the FormData object
-    for (const key in item) {
-      formData.append(key, item[key]);
-    }
+    // // Add the other form fields to the FormData object
+    // for (const key in item) {
+    //   formData.append(key, item[key]);
+    // }
 
-    // Send the FormData object to the server
-    const response = await fetch("/api/newproduct", {
-      method: "POST",
-      body: formData,
-    });
+    // // Send the FormData object to the server
+    // const response = await fetch("/api/newproduct", {
+    //   method: "POST",
+    //   body: formData,
+    // });
     onSubmit && onSubmit(item);
     setItem({
       id: "",
@@ -298,8 +298,8 @@ const EditItem = ({ item_id }) => {
   const [foundItem, setFoundItem] = useState(null);
 
   useEffect(() => {
-    get("/api/catalog").then((itemsObjs) => {
-      const foundItem = itemsObjs.find((item: Item) => item.id === item_id);
+    get("/api/getproduct", { item: item_id }).then((foundItem) => {
+      // console.log("Found item:", foundItem);
       setFoundItem(foundItem);
     });
   }, []);

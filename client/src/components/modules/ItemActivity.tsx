@@ -48,8 +48,8 @@ const ItemActivityButton = (props: Props) => {
       setFoundItem(foundItem);
     });
   }, [itemId]);
-  console.log("itemRequests:", itemRequests);
-  console.log("foundItem:", foundItem);
+  // console.log("itemRequests:", itemRequests);
+  // console.log("foundItem:", foundItem);
 
   const openModal = () => {
     setModalIsOpen(true);

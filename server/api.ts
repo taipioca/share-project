@@ -59,6 +59,34 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
   newProduct.save().then((product) => res.send(product));
 });
 
+// get a products from the database.
+router.get("/getproduct", (req, res) => {
+  console.log("req.query.item:", req.query.item);
+  console.log("typeof req.query.item:", typeof req.query.item);
+  if (typeof req.query.item === "string") {
+    Product.findOne({ id: req.query.item }).then((product) => {
+      res.send(product);
+    });
+  } else {
+    // handle the case where req.query.item is not a string
+    console.log("req.query.item is not a string");
+  }
+});
+
+// update a product in the database.
+router.post("/updateproduct", auth.ensureLoggedIn, (req, res) => {
+  const { id, ...updateData } = req.body;
+
+  Product.findOneAndUpdate({ id: id }, updateData, { new: true }, (err, doc) => {
+    if (err) {
+      res.status(500).json({ error: err });
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
+
+// get all products from the database.
 router.get("/catalog", (req, res) => {
   Product.find({}).then((items) => {
     res.send(items);
