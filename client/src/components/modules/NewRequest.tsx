@@ -3,7 +3,6 @@ import { post, get } from "../../utilities";
 import "./NewRequest.css";
 
 const NewRequestInput = (props) => {
-  // console.log("props inside NewRequestInput", props);
   const [request, setRequest] = useState({
     requester: {
       requester_id: props.requester_id,
@@ -24,9 +23,9 @@ const NewRequestInput = (props) => {
   });
   const [requestSent, setRequestSent] = useState(false);
 
+  // If request is pending, set requestSent to true
   useEffect(() => {
     if (request.status === "pending") {
-      // alert("Start date and end date are required.");
       setRequestSent(true);
     }
   }, []);
@@ -147,7 +146,7 @@ const NewRequest = (props) => {
       get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
         const updateBody = { ...foundItem, status: "pending" };
         post("/api/updateproduct", updateBody).then((productDetails) => {
-          console.log("Returned updateProduct:", productDetails);
+          // console.log("Returned updateProduct:", productDetails);
         });
       });
     });

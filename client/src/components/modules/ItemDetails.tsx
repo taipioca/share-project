@@ -49,7 +49,7 @@ const ItemDetails = (props) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
-      console.log("foundItem:", foundItem);
+      // console.log("foundItem:", foundItem);
       setItem(foundItem);
     });
   }, [id]);
