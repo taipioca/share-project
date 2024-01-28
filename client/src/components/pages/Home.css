@@ -16,17 +16,18 @@
 
 .item-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5em;
+  padding: 2em 6em;
 }
 
 .item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* Aligns items to the left */
   text-decoration: none;
   color: black;
+  text-align: left;
 }
 
 .item img {
@@ -65,12 +66,26 @@
 }
 
 #how-direct {
-    margin-top: 200px; /* Adjust this as needed */
-    animation: bounce 2s infinite;
+  margin-top: 50px; /* Adjust this as needed */
+  animation: bounce 2s infinite;
+}
+
+.start-browsing {
+  margin-top: 150px; /* Adjust this as needed */
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-30px);}
-    60% {transform: translateY(-15px);}
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
   }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}

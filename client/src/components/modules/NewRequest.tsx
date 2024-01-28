@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { post } from "../../utilities";
 import "./NewRequest.css";
 const NewRequestInput = (props) => {
+  console.log("inside new request input", props);
   const [request, setRequest] = useState({
     requester: {
       requester_id: "",
@@ -19,12 +20,7 @@ const NewRequestInput = (props) => {
     sharer_points: 0,
     requester_points: 0,
   });
-  //   const handleChange = (event) => {
-  //     setRequest({
-  //       ...request,
-  //       [event.target.name]: event.target.value,
-  //     });
-  //   };
+
   const handleDateChange = (event) => {
     setRequest({
       ...request,
@@ -39,25 +35,35 @@ const NewRequestInput = (props) => {
       alert("Start date and end date are required.");
       return;
     }
-    if (!request.requester.requester_id) {
-      alert("You must be signed in to make a request.");
+
+    if (request.end_date < request.start_date) {
+      alert("End date must be after start date.");
       return;
     }
-    console.log("requester", props.requester.requester_id);
-    if (request.requester.requester_id === request.sharer.sharer_id) {
-      alert("You cannot request your own item.");
-      return;
-    }
+    //   if (!request.requester.requester_id) {
+    //   alert("You must be signed in to make a request.");
+    //   return;
+    // }
+    // if (request.requester.requester_id === request.sharer.sharer_id) {
+    //   alert("You cannot request your own item.");
+    //   return;
+    // }
     const currentDate = new Date();
     const startDate = new Date(request.start_date);
     const endDate = new Date(request.end_date);
+
+    // const [startDate, setStartDate] = useState<string | null>(null);
+    // const [endDate, setEndDate] = useState<string | null>(null);
 
     if (startDate < currentDate || endDate < currentDate) {
       alert("Start date and end date must be in the future.");
       return;
     }
 
-    props.onSubmit && props.onSubmit(request);
+    const totalPoints = calculateTotalPoints();
+    const totalRewards = calculateTotalRewards();
+
+    props.onSubmit && props.onSubmit(request, totalPoints, totalRewards);
     setRequest({
       requester: {
         requester_id: "",
@@ -77,7 +83,29 @@ const NewRequestInput = (props) => {
       requester_points: 0,
     });
   };
+  const youGetPoints = Math.ceil(props.points * 0.2);
 
+  const calculateTotalPoints = () => {
+    if (request.start_date && request.end_date) {
+      const start = new Date(request.start_date);
+      const end = new Date(request.end_date);
+      const diffTime = Math.abs(end.getTime() - start.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays * props.points;
+    }
+    return 0;
+  };
+
+  const calculateTotalRewards = () => {
+    if (request.start_date && request.end_date) {
+      const start = new Date(request.start_date);
+      const end = new Date(request.end_date);
+      const diffTime = Math.abs(end.getTime() - start.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays * youGetPoints;
+    }
+    return 0;
+  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="date-container">
@@ -113,7 +141,8 @@ const NewRequestInput = (props) => {
 };
 
 const NewRequest = (props) => {
-  const addRequest = (request) => {
+  console.log("inside new request", props);
+  const addRequest = (request, totalPoints, totalRewards) => {
     const body = {
       ...request,
       requester_id: props.requester.requester_id,
@@ -122,18 +151,29 @@ const NewRequest = (props) => {
       sharer_id: props.sharer.sharer_id,
       sharer_name: props.sharer.sharer_name,
       title: props.title,
+      sharer_points: totalPoints, // Use calculated totalPoints
+      requester_points: totalRewards,
     };
     post("/api/newrequest", body).then((requestObj) => {
+      console.log("total points", totalPoints);
       console.log("request added", requestObj);
     });
   };
   return (
-    <NewRequestInput
-      onSubmit={addRequest}
-      requester_id={props.requester.requester_id}
-      requester_name={props.requester.requester_name}
-      item_id={props.item_id}
-    />
+    <div>
+      <NewRequestInput
+        onSubmit={(request, totalPoints, totalRewards) =>
+          addRequest(request, totalPoints, totalRewards)
+        }
+        requester_id={props.requester.requester_id}
+        requester_name={props.requester.requester_name}
+        item_id={props.item_id}
+        sharer_points={props.sharer_points}
+        requester_points={props.requester_points}
+      />
+      <p>Total Points:</p>
+      <p>{props.sharer_points}</p>
+    </div>
   );
 };
 

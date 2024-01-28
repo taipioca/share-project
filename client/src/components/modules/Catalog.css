@@ -2,6 +2,68 @@
   --small: 1em; /* Adjust this as needed */
 }
 
+.cat-header-search-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Aligns items to the end of the container */
+  margin-top: 100px;
+  margin-left: 100px;
+  gap: 0.1em; /* Adjust this as needed */
+}
+
+.cat-animated-header {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 30ch; /* Adjusted to match the maximum number of characters in the phrases */
+}
+
+.cat-search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%; /* Adjust this as needed */
+}
+/* .search-bar-container {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+} */
+
+
+.cat-search-input-container {
+  position: relative;
+  width: 60%; 
+}
+
+input[type="text"] {
+  width: 100%; /* Makes the input field cover the entire container */
+  /* padding-right: 10px;  */
+  border-radius: 30px; /* Adds rounded edges to the search bar */
+}
+input[type="text"]:focus {
+  outline: none;
+  border: none;
+}
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: inherit; /* Makes the search icon's background the same as the input field's */
+}
+.clear-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.9em;
+  color: #888;
+}
 .catalog {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
@@ -17,7 +79,6 @@
   color: black;
   text-align: left; /* Aligns text to the left */
   transition: transform 0.3s ease-in-out; /* Adds a smooth transition effect */
-
 }
 
 .item:hover {
@@ -57,7 +118,6 @@
 
 .rating i {
   margin-right: 0.25em;
-
 }
 
 .rating .fas {
@@ -68,37 +128,4 @@
   color: gray; /* Makes the empty stars gray */
 }
 
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%; /* Adjust this as needed */
-}
 
-.search-bar-container input {
-  width: 90%; /* Adjust this as needed */
-  border-radius: 2em; /* Gives the search bar rounded edges */
-  padding: 1em; /* Adds padding inside the search bar */
-}
-.search-bar-container button {
-  margin-left: 0.5em; /* Adds space to the left of the search button */
-}
-.search-input-container {
-  position: relative;
-}
-
-.search-icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.clear-search {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 0.9em;
-  color: #888;
-}

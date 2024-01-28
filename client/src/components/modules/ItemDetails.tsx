@@ -32,8 +32,7 @@ type Item = {
 const ItemDetails = (props) => {
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
+
   const [user, setUser] = useState<User>();
   const [isActive, setIsActive] = useState(false);
 
@@ -62,26 +61,7 @@ const ItemDetails = (props) => {
   }
 
   const youGetPoints = Math.ceil(item.points * 0.2);
-  const calculateTotalPoints = () => {
-    if (startDate && endDate && item) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays * item.points;
-    }
-    return 0;
-  };
-  const calculateTotalRewards = () => {
-    if (startDate && endDate && item) {
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-      const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays * youGetPoints;
-    }
-    return 0;
-  };
+
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
@@ -124,15 +104,18 @@ const ItemDetails = (props) => {
                 <p>You get: {youGetPoints} Points /day</p>
               </div>
               <p>{item.description ?? ""}</p>
+
               <NewRequest
                 item={item}
                 requester={{ requester_id: props.userId, requester_name: user?.name ?? "" }}
                 item_id={item.id}
                 sharer={{ sharer_id: item.sharer.sharer_id, sharer_name: item.sharer.sharer_name }}
                 title={item.title}
+                // sharer_points={calculateTotalPoints()}
+                // requester_points={calculateTotalRewards()}
               />
-              <p>Total Points: {calculateTotalPoints()}</p>
-              <p>Your Total Rewards: {calculateTotalRewards()}</p>
+              {/* <p>Total Points: {calculateTotalPoints()}</p>
+              <p>Your Total Rewards: {calculateTotalRewards()}</p> */}
             </div>
           </div>
         </div>

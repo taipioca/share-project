@@ -35,11 +35,14 @@ const Home = (props: HomeProps) => {
       <section className="header">
         <h1 className="animated-title">s h a r e d o m</h1>
         <p>borrow anything for FREE</p>
-        <Link to="/catalog">
+        <Link to="/catalog" className = "start-browsing">
           <button>Start Browsing</button>
         </Link>{" "}
-        <ScrollLink to="how-it-works" smooth={true} duration={500} id = "how-direct">
-          How it works <i className="fas fa-arrow-down"></i>
+        <ScrollLink to="how-it-works" smooth={true} duration={500} id="how-direct">
+          <div>How it works</div>
+          <div>
+            <i className="fas fa-caret-down"></i>
+          </div>
         </ScrollLink>
       </section>
 
@@ -57,7 +60,7 @@ const Home = (props: HomeProps) => {
       </section>
       <section>
         <h2>
-          See What Others are Sharing{" "}
+          See What Others are Sharing
           <section className="item-container">
             {items.map((item, index) => (
               <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">

@@ -3,18 +3,30 @@
   justify-content: space-between;
   align-items: center;
   padding: var(--s) var(--m);
-  background-color: var(--white);
+  background: rgba(255, 255, 255, 0.9); /* white with 90% opacity */
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  height: 40px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 0 10px var(--primary--dim); /* creates a glow effect */
 }
-
+body {
+  margin-top: 50px; /* adds space at the top of the page equal to the height of the navbar */
+}
+.NavBar-left {
+  /* display: flex; */
+  align-items: center;
+  justify-content: start;
+}
 .NavBar-right {
   display: flex;
-  align-items: center;
+  align-items: center; /* aligns items vertically */
+  justify-content: flex-end;
+  margin-right: 50px;
 }
 .NavBar-title {
   color: var(--primary);
-  display: flex;
   margin-left: var(--l);
   font-size: 20px;
   text-decoration: none;
@@ -31,14 +43,12 @@
   text-decoration: none;
   font-size: var(--sfont);
 }
-.NavBar-link:visited {
-  color: var(--primary);
-  opacity: 0.6;
-  text-decoration: none;
-}
+
 
 .NavBar-link:hover {
   opacity: 0.8;
+  transform: scale(1.1); /* Adjust this as needed */
+  transition: transform 0.3s ease-in-out; /* Smooth transition */
 }
 
 /* .NavBar-link.NavBar-login {
@@ -47,4 +57,17 @@
 
 .NavBar-link + .NavBar-link {
   margin-left: var(--m);
+}
+
+
+.custom-google-login {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 40px;
+  padding: 7px 15px;
+  font-size: 0.8em;
+  border: none;
+  cursor: pointer;
+  align-self: center; /* aligns the button vertically within its container */
+
 }
