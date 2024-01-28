@@ -304,13 +304,6 @@ const EditItem = ({ item_id }) => {
     });
   }, []);
 
-  // useEffect(() => {
-  //   get("/api/catalog").then((itemsObjs) => {
-  //     const foundItem = itemsObjs.find((item: Item) => item.id === item_id);
-  //     setFoundItem(foundItem);
-  //   });
-  // }, []);
-
   const submitUpdate = (item) => {
     const body = { ...item, id: item_id };
     post("/api/updateproduct", body).then((productDetails) => {

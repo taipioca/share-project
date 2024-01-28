@@ -61,9 +61,16 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
 
 // get a products from the database.
 router.get("/getproduct", (req, res) => {
-  Product.find({ item_id: req.query.item }).then((product) => {
-    res.send(product);
-  });
+  console.log("req.query.item:", req.query.item);
+  console.log("typeof req.query.item:", typeof req.query.item);
+  if (typeof req.query.item === "string") {
+    Product.findOne({ id: req.query.item }).then((product) => {
+      res.send(product);
+    });
+  } else {
+    // handle the case where req.query.item is not a string
+    console.log("req.query.item is not a string");
+  }
 });
 
 // update a product in the database.
@@ -76,6 +83,8 @@ router.post("/updateproduct", auth.ensureLoggedIn, (req, res) => {
     } else {
       res.status(200).json(doc);
     }
+  }).then((product) => {
+    res.send(product);
   });
 });
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { post } from "../../utilities";
+import { post, get } from "../../utilities";
 import "./NewRequest.css";
 
 const NewRequestInput = (props) => {
@@ -135,7 +135,16 @@ const NewRequest = (props) => {
       title: props.title,
     };
     post("/api/newrequest", body).then((requestObj) => {
-      console.log("request added", requestObj);
+      console.log("request added:", requestObj);
+      console.log("requestObj.item_id:", requestObj.item_id);
+      get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
+        console.log("Found item:", foundItem);
+        const updateBody = { ...foundItem, status: "pending" };
+        console.log("updateBody:", updateBody);
+        post("/api/updateproduct", updateBody).then((productDetails) => {
+          console.log("Returned updateProduct:", productDetails);
+        });
+      });
     });
   };
   return (
