@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
 import "./NewRequest.css";
 
@@ -20,8 +20,16 @@ const NewRequestInput = (props) => {
     end_date: "",
     sharer_points: 0,
     requester_points: 0,
+    status: props.status,
   });
   const [requestSent, setRequestSent] = useState(false);
+
+  useEffect(() => {
+    if (request.status === "pending") {
+      // alert("Start date and end date are required.");
+      setRequestSent(true);
+    }
+  }, []);
 
   const handleDateChange = (event) => {
     setRequest({
@@ -64,24 +72,25 @@ const NewRequestInput = (props) => {
     }
 
     props.onSubmit && props.onSubmit(request);
-    setRequest({
-      requester: {
-        requester_id: "",
-        requester_name: "",
-      },
-      sharer: {
-        sharer_id: "",
-        sharer_name: "",
-      },
-      title: "",
+    // setRequest({
+    //   requester: {
+    //     requester_id: "",
+    //     requester_name: "",
+    //   },
+    //   sharer: {
+    //     sharer_id: "",
+    //     sharer_name: "",
+    //   },
+    //   title: "",
 
-      item_id: "",
-      sharer_id: "",
-      start_date: "",
-      end_date: "",
-      sharer_points: 0,
-      requester_points: 0,
-    });
+    //   item_id: "",
+    //   sharer_id: "",
+    //   start_date: "",
+    //   end_date: "",
+    //   sharer_points: 0,
+    //   requester_points: 0,
+    //   status: "",
+    // });
     setRequestSent(true);
   };
 
@@ -112,7 +121,7 @@ const NewRequestInput = (props) => {
         </label>
       </div>
       {requestSent ? (
-        <p style={{ color: "red" }}>Request Sent!</p>
+        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
           Request Item
@@ -135,12 +144,8 @@ const NewRequest = (props) => {
       title: props.title,
     };
     post("/api/newrequest", body).then((requestObj) => {
-      console.log("request added:", requestObj);
-      console.log("requestObj.item_id:", requestObj.item_id);
       get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
-        console.log("Found item:", foundItem);
         const updateBody = { ...foundItem, status: "pending" };
-        console.log("updateBody:", updateBody);
         post("/api/updateproduct", updateBody).then((productDetails) => {
           console.log("Returned updateProduct:", productDetails);
         });
@@ -154,6 +159,7 @@ const NewRequest = (props) => {
       requester_name={props.requester.requester_name}
       item_id={props.item_id}
       sharer={{ sharer_id: props.sharer.sharer_id, sharer_name: props.sharer.sharer_name }}
+      status={props.status}
     />
   );
 };

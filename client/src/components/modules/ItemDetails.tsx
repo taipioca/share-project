@@ -25,9 +25,10 @@ type Item = {
   pickupNotes: string;
   returnNotes: string;
   sharer: {
-    sharer_id: String;
-    sharer_name: String;
+    sharer_id: string;
+    sharer_name: string;
   };
+  status: string;
 };
 const ItemDetails = (props) => {
   const id = props.id;
@@ -48,7 +49,7 @@ const ItemDetails = (props) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
-      // console.log(foundItem);
+      console.log("foundItem:", foundItem);
       setItem(foundItem);
     });
   }, [id]);
@@ -130,6 +131,7 @@ const ItemDetails = (props) => {
                 item_id={item.id}
                 sharer={{ sharer_id: item.sharer.sharer_id, sharer_name: item.sharer.sharer_name }}
                 title={item.title}
+                status={item.status}
               />
               <p>Total Points: {calculateTotalPoints()}</p>
               <p>Your Total Rewards: {calculateTotalRewards()}</p>
