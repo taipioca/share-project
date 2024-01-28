@@ -83,8 +83,6 @@ router.post("/updateproduct", auth.ensureLoggedIn, (req, res) => {
     } else {
       res.status(200).json(doc);
     }
-  }).then((product) => {
-    res.send(product);
   });
 });
 
