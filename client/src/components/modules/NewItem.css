@@ -13,8 +13,17 @@
   background-color: #fefefe;
   margin: 5% auto;
   padding: 50px;
+  padding-right: 75px;
   border: 1px solid #888;
   width: 50%;
+  border-radius: 10px; /* This rounds the corners */
+
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content textarea {
+  border-radius: 0; /* This removes the rounded corners */
 }
 
 .close {
@@ -36,7 +45,6 @@
   justify-content: space-between;
 }
 
-
 label {
   display: block;
   margin-bottom: 10px;
@@ -54,25 +62,34 @@ label textarea {
 }
 
 .form-row.half-width label {
-  width: 48%;
+  width: 46%;
 }
 
 .form-row.third-width label {
-    width: 30%;
-  }
+  width: 30%;
+}
+
+input,
+textarea {
+  background-color: rgba(236, 230, 227, 0.734);
+  border: none;
+  outline: none;
+  padding: 15px;
+}
+
+input:focus,
+textarea:focus {
+  background-color: rgba(241, 241, 241, 0.734);
+  /* border-bottom: 1px solid var(--primary); */
+}
+
+
+#submit {
   
-  input, textarea {
-    background-color: rgba(236, 230, 227, 0.734);
-    border: none;
-    outline: none;
-    padding: 15px;
-  }
-  
-  input:focus, textarea:focus {
-    background-color: rgba(241, 241, 241, 0.734);
-    border-bottom: 1px solid var(--primary);
-  }
-  
-  input:focus, textarea:focus {
-    border-bottom: 1px solid var(--primary);
-  }
+  border-radius: 5px; /* This rounds the corners */
+
+}
+/* input:focus,
+textarea:focus {
+  border-bottom: 1px solid var(--primary);
+} */

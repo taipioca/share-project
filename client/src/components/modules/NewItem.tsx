@@ -17,7 +17,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
 
   const actionTextMap = {
     add: "Upload a New Share",
-    edit: "Edit a Share",
+    edit: <i className="fas fa-edit"> Edit </i>,
     delete: "Delete a Share",
   };
   const [widget, setWidget] = useState<null | { open: () => void }>(null);
@@ -213,8 +213,8 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    openWidget();
-                  }}
+                    openWidget(); 
+                  }} id = "upload"
                 >
                   Upload Image
                 </button>
@@ -222,7 +222,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                   <img src={item.image} alt="Uploaded" style={{ width: "100px", height: "auto" }} />
                 )}
               </div>
-              <button type="submit">Confirm and Submit</button>
+              <button type="submit" id = "submit">Confirm and Submit</button>
             </form>
           </div>
         </div>

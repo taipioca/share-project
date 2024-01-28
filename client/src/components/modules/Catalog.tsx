@@ -116,7 +116,7 @@ const Catalog = () => {
               <img src={item.image} alt={item.title} />
             </div>
             <h4 className="item-text">{item.title}</h4>
-            <div className="rating">
+            <div className="cat-rating">
               {[...Array(5)].map((star, i) => {
                 const ratingValue = i + 1;
                 return (

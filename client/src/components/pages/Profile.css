@@ -1,12 +1,66 @@
+.Profile-avatarContainer,
+.catalog {
+  margin-top: 100px; /* Adjust this as needed */
+}
+
 .Profile-avatar {
-    width: 20%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  width: 8%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
 }
 
 .image-container {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-  }
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--primary); /* Add this line */
+}
+
+.tabs button {
+  background-color: white;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-bottom: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  width: 500px;
+  text-align: center;
+}
+
+.tabs button:focus {
+  outline: none;
+}
+
+.tabs button.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.item-buttons {
+  display: flex;
+}
+
+.item-buttons > * {
+  font-family: "Inter", sans-serif;
+  font-size: 0.8em;
+  border-radius: 5px; /* This makes the corners rounded */
+  margin: 0 3px;
+}
+
+.profile-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 30px;
+}

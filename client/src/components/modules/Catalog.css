@@ -110,21 +110,21 @@ input[type="text"]:focus {
   border-radius: 0.5em; /* Adjust this as needed */
 }
 
-.rating {
+.cat-rating {
   display: flex; /* Makes the stars horizontal */
   margin-top: 0.5em; /* Adds space above the stars */
   margin-bottom: 0.1em; /* Adds space below the stars */
 }
 
-.rating i {
+.cat-rating i {
   margin-right: 0.25em;
 }
 
-.rating .fas {
+.cat-rating .fas {
   color: rgb(255, 227, 103); /* Makes the filled stars yellow */
 }
 
-.rating .far {
+.cat-rating .far {
   color: gray; /* Makes the empty stars gray */
 }
 

@@ -27,6 +27,11 @@ type Item = {
 const Profile = (props) => {
   const [user, setUser] = useState<User>();
   const [items, setItems] = useState<Item[]>([]);
+  const [selectedTab, setSelectedTab] = useState("orders");
+
+  const handleTabClick = (tabName) => {
+    setSelectedTab(tabName);
+  };
 
   useEffect(() => {
     get("/api/catalog").then((itemsObjs: Item[]) => {
@@ -48,34 +53,61 @@ const Profile = (props) => {
     <>
       <div className="Profile-avatarContainer">
         <img
-          src="https://cdn.pixabay.com/photo/2016/03/08/20/03/flag-1244649_1280.jpg"
+          src="https://i.pinimg.com/564x/0d/42/90/0d42905fc5e9d14fa032d8ea0282bf68.jpg"
           alt="User Avatar"
           className="Profile-avatar"
         />
 
         <h1 className="Profile-name u-textCenter">{user.name}</h1>
-        <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
-        <h2 className="Profile-points u-textCenter">Rating: {user.rating}/5</h2>
-        <NewItem sharer_name={user.name} sharer_id={props.userId} />
-        <Orders user={user} />
-        <NewReview reviewerName={user.name} reviewerId={props.userId} />
-
-        {/* <NewReview reviewerName={user.name} reviewerId={props.userId} /> */}
-      </div>
-      <div className="catalog">
-        {items.map((item) => (
-          <div key={item.id} className="item">
-            <div className="image-container">
-              <img src={item.image} alt={item.title} />
-            </div>
-            <h4 className="item-text">{item.title}</h4>
-            <p className="item-text">Rating: 5/5 (1 review)</p>
-            <h3 className="item-text">{item.points} Points/day</h3>
-            <EditItem item_id={item.id} />
-            <ItemActivityButton itemId={item.id} />
+        <div className="Profile-pointsContainer">
+          <div className="profile-rating">
+            {[...Array(5)].map((star, i) => {
+              const ratingValue = i + 1;
+              return (
+                <label key={i}>
+                  <i className={ratingValue <= user.rating ? "fas fa-star" : "far fa-star"}></i>
+                </label>
+              );
+            })}
           </div>
-        ))}
+          <h2 className="Profile-points u-textCenter">{user.points} Points</h2>
+        </div>
       </div>
+      <div className="tabs">
+        <button
+          className={selectedTab === "orders" ? "active" : ""}
+          onClick={() => handleTabClick("orders")}
+        >
+          Orders
+        </button>
+        <button
+          className={selectedTab === "items" ? "active" : ""}
+          onClick={() => handleTabClick("items")}
+        >
+          My Shares
+        </button>
+      </div>
+      {selectedTab === "orders" ? (
+        <Orders user={user} />
+      ) : (
+        <div className="catalog">
+          <NewItem sharer_name={user.name} sharer_id={props.userId} />
+          {items.map((item) => (
+            <div key={item.id} className="item">
+              <div className="image-container">
+                <img src={item.image} alt={item.title} />
+              </div>
+              <h4 className="item-text">{item.title}</h4>
+              <p className="item-text">Rating: 5/5 (1 review)</p>
+              <h3 className="item-text">{item.points} Points/day</h3>
+              <div className="item-buttons">
+                <EditItem item_id={item.id} />
+                <ItemActivityButton itemId={item.id} />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

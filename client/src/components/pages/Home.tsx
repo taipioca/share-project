@@ -58,7 +58,7 @@ const Home = (props: HomeProps) => {
           <button>Sign In to Get Started</button>
         </Link>
       </section>
-      <section>
+      {/* <section>
         <h2>
           See What Others are Sharing
           <section className="item-container">
@@ -74,7 +74,7 @@ const Home = (props: HomeProps) => {
             ))}
           </section>
         </h2>
-      </section>
+      </section> */}
     </div>
   );
 };
