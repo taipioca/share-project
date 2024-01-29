@@ -16,7 +16,18 @@ type Item = {
 const Catalog = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const phrases = ["sleeping bag", "basketball", "scooter", "camera", "power strip", "vacuum", "party dress", "usb drive", "bike", "hair straightener"];
+  const phrases = [
+    "sleeping bag",
+    "basketball",
+    "scooter",
+    "camera",
+    "power strip",
+    "vacuum",
+    "party dress",
+    "usb drive",
+    "bike",
+    "hair straightener",
+  ];
   const [currentPhrase, setCurrentPhrase] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -73,6 +84,7 @@ const Catalog = () => {
 
   return (
     <>
+      {/* <div className="page-background"></div> */}
       <div className="cat-header-search-container">
         <div>
           <h1 className="cat-animated-header search-text">

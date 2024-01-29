@@ -120,7 +120,7 @@ const NewRequestInput = (props) => {
     <form onSubmit={handleSubmit}>
       <div className="date-container">
         <label className="date-field">
-          Start Date:
+          Start Date
           <input
             type="date"
             name="start_date"
@@ -131,7 +131,7 @@ const NewRequestInput = (props) => {
           />
         </label>
         <label className="date-field">
-          End Date:
+          End Date
           <input
             type="date"
             name="end_date"
@@ -146,10 +146,18 @@ const NewRequestInput = (props) => {
         <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
-          Request Item
+          Send Request
         </button>
       )}
-      <hr />
+      <hr
+        style={{
+          marginTop: "5%",
+          borderWidth: "2px",
+          borderRadius: "5px",
+          borderStyle: "solid",
+          borderColor: "#DDD8D8",
+        }}
+      />
     </form>
   );
 };

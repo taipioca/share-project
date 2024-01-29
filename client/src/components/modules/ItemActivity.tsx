@@ -61,7 +61,7 @@ const ItemActivityButton = (props: Props) => {
 
   return (
     <div >
-      <button onClick={openModal}><i className="fas fa-eye"> Activity </i></button>
+      <button onClick={openModal}><i className="fas fa-eye"></i>  Activity</button>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <div>
           <p style={{ fontSize: "2em", fontWeight: "bold" }}>Status</p>

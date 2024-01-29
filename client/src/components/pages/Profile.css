@@ -1,14 +1,21 @@
-.Profile-avatarContainer,
-.catalog {
+body {
+  background-color:rgba(241, 237, 234, 0.734);
+}
+
+.Profile-avatarContainer {
   margin-top: 100px; /* Adjust this as needed */
 }
 
 .Profile-avatar {
-  width: 8%;
+  width: 40%;
   display: block;
   margin-left: auto;
   margin-right: auto;
   border-radius: 50%;
+}
+
+.Profile-name span {
+  letter-spacing: 2px; /* Adjust this as needed */
 }
 
 .image-container {
@@ -17,28 +24,49 @@
   overflow: hidden;
 }
 
+.profile-container {
+  position:sticky;
+  display: flex; /* This makes the .profile-container a flex container */
+}
+
+.profile-info {
+  position: relative;
+  top: 75px; /* Adjust this value as needed */
+  margin-right: 20px; /* This adds some space between the profile information and the tabs */
+}
+.tabs-container {
+  flex-grow: 1; /* This makes the .tabs-container take up the remaining space */
+  display: flex; /* This makes the .tabs-container a flex container */
+  flex-direction: column; /* This stacks the tabs and their containers vertically */
+  margin-top: 100px;
+  margin-right: 50px;
+}
+
 .tabs {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--primary); /* Add this line */
+  flex-direction: row; /* This aligns the tabs horizontally */
+  justify-content: flex-start; /* This aligns the tabs at the left */
+  margin-bottom: 0; /* This removes the space between the tabs and their containers */
+  border-bottom: 1px solid var(--primary); /* This adds a line below the tabs */
 }
 
 .tabs button {
   background-color: white;
   color: var(--primary);
   border: 1px solid var(--primary);
-  border-bottom: none;
+  border-bottom: 1px solid var(--primary); /* This adds a border to the bottom of the inactive tab */
   padding: 10px 20px;
   margin: 0 5px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  width: 500px;
+  width: 200px; /* This makes the tabs smaller */
   text-align: center;
+  margin-bottom: -1px; /* This makes the tabs touch their containers */
 }
 
 .tabs button:focus {
   outline: none;
+  margin-bottom: -1px; /* This makes the tabs touch their containers */
 }
 
 .tabs button.active {
@@ -63,4 +91,157 @@
   align-items: center;
   margin-bottom: 20px;
   font-size: 30px;
+}
+
+@keyframes popRotatePulse {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slow-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.star {
+  transition: transform 2s;
+
+  margin-right: 5px; /* This adds a gap to the right of each star */
+}
+
+.star-1 {
+  animation: popRotatePulse 1s ease-out 0.2s;
+ /* This delays the animation of the first star */
+}
+
+.star-2 {
+  animation: popRotatePulse 1s ease-out 0.4s; /* This delays the animation of the second star */
+}
+
+.star-3 {
+  animation: popRotatePulse 1s ease-out 0.6s; /* This delays the animation of the third star */
+}
+
+.star-4 {
+  animation: popRotatePulse 1s ease-out 0.8s; /* This delays the animation of the fourth star */
+}
+
+.star-5 {
+  animation: popRotatePulse 1s ease-out 1s; /* This delays the animation of the fifth star */
+}
+
+.profile-catalog {
+  display: flex; /* This makes the .catalog a flex container */
+  flex-direction: column; /* This stacks the children of .catalog vertically */
+  align-items: flex-end; /* This aligns the children of .catalog at the end */
+}
+
+
+.items-container {
+  display: grid; 
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.edit-button {
+  background-color: var(--white); /* This sets the background color to white */
+  color: white;
+  border-radius: none; /* This rounds the corners */
+}
+
+
+#edit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  transition: transform 0.3s ease-in-out; 
+}
+
+@keyframes confetti {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+  }
+  
+  30% {
+    opacity: 0; /* Start decreasing opacity halfway through the animation */
+  }
+  100% {
+    transform: translateX(calc((0.5 - var(--random)) * 100vw)) translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: -10%; /* Adjust this value to move the confetti */
+  left: 50%;
+  animation: confetti 2s ease-out forwards;
+  --random: 0; /* This will be replaced with a random value */
+}
+
+.confetti.red {
+  background-color: rgb(207, 93, 118);
+}
+
+.confetti.blue {
+  background-color: rgb(240, 176, 81);
+}
+
+.confetti.green {
+  background-color: rgb(129, 91, 179);
+}
+
+.Profile-points h2 {
+  margin-bottom: 0; /* Adjust this value as needed */
+}
+
+.Profile-points h3 {
+  margin-top: 0; /* Adjust this value as needed */
+}
+
+
+.Profile-points {
+  position: relative;
+  /* existing styles... */
+}
+
+.Profile-points::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 75%;
+  height: 120%;
+  background: radial-gradient(circle, rgb(255, 255, 255), transparent);
+  z-index: -1;
+  animation: glow 4s infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    transform: translateX(-50%) scale(1, 1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(0.8, 1.5);
+    opacity: 0.5;
+  }
 }

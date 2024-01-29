@@ -10,14 +10,14 @@ declare global {
   }
 }
 
-const NewItemInput = ({ action, defaultValue, onSubmit }) => {
+const NewItemInput = ({ action, defaultValue, onSubmit, className }) => {
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
   // const [file, setFile] = useState<File | null>(null);
 
   const actionTextMap = {
     add: "Upload a New Share",
-    edit: <i className="fas fa-edit"> Edit </i>,
+    edit: <div><i className="fas fa-edit"></i> Edit</div>,
     delete: "Delete a Share",
   };
   const [widget, setWidget] = useState<null | { open: () => void }>(null);
@@ -102,131 +102,154 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>{actionTextMap[action]}</button>
-      {isOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={() => setIsOpen(false)}>
-              &times;
-            </span>
-            <form onSubmit={handleSubmit}>
-              <h2>{actionTextMap[action]}</h2>
-              <div className="form-row full-width">
-                <label>
-                  Item Title:
-                  <input
-                    type="text"
-                    name="title"
-                    value={item.title}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-              </div>
-              <div className="form-row full-width">
-                <label>
-                  Item Description:
-                  <textarea
-                    name="description"
-                    value={item.description}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-              </div>
-              <div className="form-row third-width">
-                <label>
-                  Price (points/day):
-                  <input
-                    type="number"
-                    name="points"
-                    value={item.points}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>{" "}
-                <label>
-                  Minimum Share Days:
-                  <input
-                    type="number"
-                    name="minShareDays"
-                    value={item.minShareDays}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-                <label>
-                  Maximum Share Days:
-                  <input
-                    type="number"
-                    name="maxShareDays"
-                    value={item.maxShareDays}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>{" "}
-              </div>
-              <div className="form-row half-width">
-                <label>
-                  Pickup Location:
-                  <input
-                    type="text"
-                    name="pickupLocation"
-                    value={item.pickupLocation}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>{" "}
-                <label>
-                  Return Location:
-                  <input
-                    type="text"
-                    name="returnLocation"
-                    value={item.returnLocation}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>{" "}
-              </div>
-              <div className="form-row half-width">
-                <label>
-                  Pickup Notes:
-                  <textarea
-                    name="pickupNotes"
-                    value={item.pickupNotes}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>
-                <label>
-                  Return Notes:
-                  <textarea
-                    name="returnNotes"
-                    value={item.returnNotes}
-                    onChange={handleChange}
-                    required
-                  />
-                </label>{" "}
-              </div>
+      <div className={className}>
+        <button onClick={() => setIsOpen(true)} className="upload-button">
+          {actionTextMap[action]}
+        </button>
+        {isOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={() => setIsOpen(false)}>
+                &times;
+              </span>
+              <form onSubmit={handleSubmit}>
+                <h2>{actionTextMap[action]}</h2>
+                <div className="form-row full-width">
+                  <label>
+                    Item Title:
+                    <p className = "upload-desc">(Max 100 characters.)</p>
+                    <input
+                      type="text"
+                      name="title"
+                      value={item.title}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="form-row full-width">
+                  <label>
+                    Item Description:
+                    <p className = "upload-desc">Be as descriptive as possible. Include details such as size or model for applicable items (300 character max)</p>
 
-              <div className="form-row">
-                <button
-                  onClick={(e) => {
-                    e.preventDefault();
-                    openWidget(); 
-                  }} id = "upload"
-                >
-                  Upload Image
+                    <textarea
+                      name="description"
+                      value={item.description}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="form-row third-width">
+                  <label>
+                    Price (points/day):
+                    <input
+                      type="number"
+                      name="points"
+                      value={item.points}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>{" "}
+                  <label>
+                    Minimum Share Days:
+                    <input
+                      type="number"
+                      name="minShareDays"
+                      value={item.minShareDays}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Maximum Share Days:
+                    <input
+                      type="number"
+                      name="maxShareDays"
+                      value={item.maxShareDays}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>{" "}
+                </div>
+                <div className="form-row half-width">
+                  <label>
+                    Pickup Location:
+                    <p className = "upload-desc">(Max 100 characters)</p>
+
+                    <input
+                      type="text"
+                      name="pickupLocation"
+                      value={item.pickupLocation}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>{" "}
+                  <label>
+                    Return Location:
+                    <p className = "upload-desc">(Max 100 characters)</p>
+
+                    <input
+                      type="text"
+                      name="returnLocation"
+                      value={item.returnLocation}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>{" "}
+                </div>
+                <div className="form-row half-width">
+                  <label>
+                    Pickup Notes:
+                    <p className = "upload-desc">More details such as time of day or setup instructions. </p>
+
+                    <textarea
+                      name="pickupNotes"
+                      value={item.pickupNotes}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Return Notes:
+                    <p className = "upload-desc">More details such as time of day or product care. </p>
+
+                    <textarea
+                      name="returnNotes"
+                      value={item.returnNotes}
+                      onChange={handleChange}
+                      required
+                    />
+                  </label>{" "}
+                </div>
+
+                <div className="form-row">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openWidget();
+                    }}
+                    id="upload"
+                    className="upload-image"
+                  >
+                    Upload Image
+                  </button>
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt="Uploaded"
+                      style={{ width: "100px", height: "auto" }}
+                    />
+                  )}
+                </div>
+                <button type="submit" id="submit">
+                  Confirm and Submit
                 </button>
-                {item.image && (
-                  <img src={item.image} alt="Uploaded" style={{ width: "100px", height: "auto" }} />
-                )}
-              </div>
-              <button type="submit" id = "submit">Confirm and Submit</button>
-            </form>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };
@@ -271,7 +294,12 @@ const NewItem = (props) => {
 
   return (
     <>
-      <NewItemInput action={"add"} defaultValue={initialItemState} onSubmit={addItem} />
+      <NewItemInput
+        action={"add"}
+        defaultValue={initialItemState}
+        onSubmit={addItem}
+        className="upload-button"
+      />
     </>
   );
 };
@@ -313,7 +341,12 @@ const EditItem = ({ item_id }) => {
   };
 
   return foundItem ? (
-    <NewItemInput action={"edit"} defaultValue={foundItem} onSubmit={submitUpdate} />
+    <NewItemInput
+      action={"edit"}
+      defaultValue={foundItem}
+      onSubmit={submitUpdate}
+      className="edit-button"
+    />
   ) : null;
 };
 export { NewItem, EditItem };

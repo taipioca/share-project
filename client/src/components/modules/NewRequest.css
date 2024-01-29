@@ -3,10 +3,38 @@
   justify-content: flex-start; /* Change from space-between to flex-start */
 }
 
+.date-field:first-of-type {
+  margin-right: 30px;
+}
+
 .date-field {
-  margin-right: 20px; /* Reduce the margin-right */
+  font-weight: bold;
 }
 
 .date-input {
   width: 100px; /* adjust as needed */
+}
+
+.date-input {
+  background-color: white;
+  border: 1px solid var(--primary--dim);
+  font-size: 0.8em;
+  padding: 5px;
+  font-family: 'Inter', sans-serif; /* Add this line */
+}
+
+.NewRequestInput-button {
+  width: 100%; /* take up the entire container width wise */
+  height: 60px; /* make the button a lot taller */
+  border-radius: 10px; /* rounded corners */
+  background-color: var(--primary--dim); /* main color */
+  color: white; /* white text */
+  padding: 10px 20px; /* more padding between text and edge of button */
+  transition: background-color 0.3s ease; /* transition for hover effect */
+  font-weight: bold; /* make the text bold */
+  font-size: 1.2em; /* make the text 1.2em in size */
+}
+
+.NewRequestInput-button:hover {
+  background-color: var(--primary); /* hover makes background var(--primary) */
 }

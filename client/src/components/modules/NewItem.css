@@ -10,6 +10,7 @@
 }
 
 .modal-content {
+  color: black;
   background-color: #fefefe;
   margin: 5% auto;
   padding: 50px;
@@ -62,11 +63,11 @@ label textarea {
 }
 
 .form-row.half-width label {
-  width: 46%;
+  width: 47%;
 }
 
 .form-row.third-width label {
-  width: 30%;
+  width: 29%;
 }
 
 input,
@@ -93,3 +94,34 @@ textarea:focus {
 textarea:focus {
   border-bottom: 1px solid var(--primary);
 } */
+
+.upload-image {
+  background-color: white; /* This sets the background color to white */
+  color: black; /* This sets the text color to brown */
+  border: 1px solid var(--primary); /* This sets the border width to 1px, style to solid, and color to --primary */
+  font-size: 0.8em; /* This makes the text size smaller */
+  border-radius: 5px;
+  padding: 7px; /* This decreases the padding around the text */
+
+}
+
+.upload-image:hover {
+  background-color:rgba(236, 230, 227, 0.734); /* This sets the background color to --primary */
+  cursor: pointer; /* This changes the cursor to a pointer */
+}
+
+.upload-button {
+  width: auto; /* This makes the button take up only as much width as it needs */
+  margin-bottom: 20px;
+  margin-left: auto; /* This pushes the button to the right */
+  color: white; /* This sets the text color to brown */
+  border-radius: 5px; /* This rounds the corners */
+  font-size: 0.8em; /* This makes the text size smaller */
+}
+
+.upload-desc {
+  color:black;
+  font-size: 0.9em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

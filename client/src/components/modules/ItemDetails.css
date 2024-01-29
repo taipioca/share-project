@@ -1,15 +1,28 @@
 .item-container {
   position: relative;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+  margin-top: 50px; /* Adjust this value as needed */
   max-width: 1200px;
   padding: 20px;
   font-family: Arial, sans-serif;
   transform: translateX(20%);
   transition: transform 0.2s;
+}
+
+#item-title  {
+  margin-top: 5px;
+  font-size: 2em;
+margin-bottom: 5px;
+}
+
+
+#item-sharername {
+  margin-top: 10px;
+  margin-bottom: 30px;
+
 }
 
 .item-container.active {
@@ -30,7 +43,7 @@
   flex-direction: column;
   align-items: center;
   width: 450px; /* adjust as needed */
-  margin-right: 20px; /* Add some spetween the image and the text */
+  margin-right: 7%; /* Increase this value as needed */
 }
 .item-image-container {
   width: 450px;
@@ -83,14 +96,13 @@ input[type="date"] {
 
 .location-container {
   display: flex;
+  margin-top: 3%;
   justify-content: space-between;
-  width: 400px; /* adjust as needed to match the width of the image container */
-  /* your other styles... */
+  width: 100%; /* adjust to span the whole container width-wise */
 }
 
 .location-container .location-details {
-  width: 45%; /* Adjust as needed */
-  /* your other styles... */
+  width: 50%; /* Adjust to take half the space of the container */
 }
 .back-button-link {
   text-decoration: none; /* remove underline */
@@ -109,6 +121,8 @@ input[type="date"] {
   align-items: center;
   text-decoration: none; /* remove underline */
   transition: background-color 0.3s, color 0.3s; /* smooth transition */
+margin-right: 10%;
+
 }
 
 .back-button:hover {
@@ -117,11 +131,17 @@ input[type="date"] {
 }
 
 .rounded-box {
-  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2); /* adjust as needed */
-  border: none; /* remove the border */
-  border-radius: 15px; /* adjust as needed */
-  padding: 10px; /* adjust as needed */
-  margin: 10px 0; /* adjust as needed */
+  background-color: white;
+  box-shadow: 0px 0px 7px rgb(221, 220, 216);
+  border: none;
+  border-radius: 15px;
+  padding-left: 5%; /* Increase this value as needed */
+  padding-right: 5%; /* Increase this value as needed */
+  padding-top: 3%; /* Increase this value as needed */
+  padding-bottom: 5%; /* Increase this value as needed */
+
+  /* margin: 10px 0; */
+  width: 80%; /* Decrease this value as needed */
 }
 .uploader-rating {
   display: flex;
@@ -129,7 +149,58 @@ input[type="date"] {
   align-items: center;
 }
 
+
+
+.details-rating {
+  display: flex; /* Makes the stars horizontal */
+  margin-top: 0.5em; /* Adds space above the stars */
+  margin-bottom: 0.1em; /* Adds space below the stars */
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.details-rating i {
+  margin-right: 0.25em;
+}
+
+.details-rating .fas {
+  color: rgb(255, 227, 103); /* Makes the filled stars yellow */
+}
+
+.details-rating .far {
+  color: gray; /* Makes the empty stars gray */
+}
+
+.details-description {
+  margin-bottom: 8%; /* Adjust this value as needed */
+
+}
 .points-container {
-  display: flex;
-  justify-content: space-between;
+  display: flex; /* make the children align in a row */
+  align-items: baseline; /* align the children along their baseline */
+}
+
+.details-points {
+  margin-top: 2%;
+  font-size: 1.5em; /* make the text bigger */
+  font-weight: bold; /* make the text bold */
+  margin-right: 2%;
+}
+
+.details-points-unit {
+  font-size: 1em; /* make the text normal size */
+}
+
+.details-rewards {
+  margin-left: auto; /* push the element to the right */
+  text-align: right; /* make the text right-aligned */
+}
+
+.details-rewards div:first-child {
+  font-weight: bold; /* make "You get" bold */
+  margin-bottom: 3%;
+}
+
+.points-color {
+  color: var(--primary); /* make the text brown */
 }
