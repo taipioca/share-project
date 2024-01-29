@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
 import "./NewRequest.css";
-
+import { Link } from "@reach/router";
 const NewRequestInput = (props) => {
   console.log("inside new request input", props);
   const [request, setRequest] = useState({
@@ -143,7 +143,10 @@ const NewRequestInput = (props) => {
         </label>
       </div>
       {requestSent ? (
-        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
+        <p className="request-sent">
+          Request Sent! Check your{" "}
+          <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
+        </p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
           Send Request

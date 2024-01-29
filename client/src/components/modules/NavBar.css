@@ -68,6 +68,6 @@ body {
   font-size: 0.8em;
   border: none;
   cursor: pointer;
-  align-self: center; /* aligns the button vertically within its container */
-
+  align-self: center; 
+  margin-top:1%;
 }

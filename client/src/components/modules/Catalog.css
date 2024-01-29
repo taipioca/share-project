@@ -54,10 +54,12 @@ input[type="text"] {
   width: 100%; /* Makes the input field cover the entire container */
   /* padding-right: 10px;  */
   border-radius: 30px; /* Adds rounded edges to the search bar */
+  background-color: white;
 }
 input[type="text"]:focus {
   outline: none;
   border: none;
+background-color: rgba(236, 230, 227, 0.734)
 }
 .search-icon {
   position: absolute;

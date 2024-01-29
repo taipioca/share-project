@@ -75,7 +75,9 @@ body {
 }
 
 .item-buttons {
-  display: flex;
+  display: flex; /* This makes the children align in a row */
+  align-items: stretch; /* This makes the children the same height */
+  justify-content: space-between; /* This distributes the children evenly */
 }
 
 .item-buttons > * {

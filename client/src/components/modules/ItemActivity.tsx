@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import Modal from "react-modal";
 import { Product as ProductInterface } from "../../../../server/models/Product";
-
+import "./ItemActivity.css";
 Modal.setAppElement("#root");
 
 type Item = {
@@ -61,7 +61,7 @@ const ItemActivityButton = (props: Props) => {
 
   return (
     <div >
-      <button onClick={openModal}><i className="fas fa-eye"></i>  Activity</button>
+      <button onClick={openModal}  className = "activity-button"><i className="fas fa-eye"></i>  Activity</button>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <div>
           <p style={{ fontSize: "2em", fontWeight: "bold" }}>Status</p>
@@ -72,7 +72,7 @@ const ItemActivityButton = (props: Props) => {
               style={{ width: "100px", height: "auto" }}
             />
             <div style={{ marginLeft: "20px" }}>
-              <p> Title: {foundItem ? foundItem.title : ""}</p>
+              <p> {foundItem ? foundItem.title : ""}</p>
               <p> Points: {foundItem ? foundItem.points : ""}</p>
               <p> Status: {foundItem ? foundItem.status : ""}</p>
             </div>
