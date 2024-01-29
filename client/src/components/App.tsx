@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Router, navigate } from "@reach/router";
+import { Router, navigate, Redirect } from "@reach/router";
 import NavBar from "./modules/NavBar";
 import jwt_decode from "jwt-decode";
 import { CredentialResponse } from "@react-oauth/google/dist";
@@ -63,9 +63,10 @@ const App = () => {
       <Router>
         <Home path="/" />
         <Home path="/home" />
+        <Redirect from="*" to="/" noThrow />
         <CatalogPage path="/catalog" />
         <Profile userId={userId} path="/profile/:userId" />
-        <NotFound default={true} />
+        {/* <NotFound default={true} /> */}
         <ItemDetails userId={userId} path="/item/:id" />
 
         {/* <NewProduct path="/newproduct" /> */}

@@ -152,10 +152,7 @@ const NewRequestInput = (props) => {
         </label>
       </div>
       {requestSent ? (
-        <p className="request-sent">
-          Request Sent! Check your&nbsp;<Link to="/profile/">profile</Link>&nbsp;for pending
-          approvals.
-        </p>
+        <p className="request-sent">Request Sent! Check your profile page for pending approvals.</p>
       ) : // <p className="request-sent">
       //   Request Sent! Check your{" "}
       //   <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
