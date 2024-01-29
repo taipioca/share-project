@@ -127,6 +127,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     value={item.title}
                     onChange={handleChange}
                     maxLength={100}
+                    className = "upload-input"
                     required
                   />
                 </label>
@@ -188,6 +189,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     name="pickupLocation"
                     value={item.pickupLocation}
                     onChange={handleChange}
+                    className = "upload-input"
                     maxLength={100}
                     required
                   />
@@ -200,6 +202,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     name="returnLocation"
                     value={item.returnLocation}
                     onChange={handleChange}
+                    className = "upload-input"
                     maxLength={100}
                     required
                   />
@@ -221,7 +224,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                 </label>
                 <label>
                   Return Notes:
-                  <p className="upload-desc">More details such as time of day, product care, or return condition expectations. </p>
+                  <p className="upload-desc">More details such as time of day, product care, or return expectations. </p>
                   <textarea
                     name="returnNotes"
                     value={item.returnNotes}

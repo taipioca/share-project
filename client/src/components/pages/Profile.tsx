@@ -56,98 +56,102 @@ const Profile = (props) => {
   }
 
   return (
-    <>
-      <div className="profile-container">
-        <div className="profile-info">
-          {Array.from({ length: 30 }).map((_, i) => (
-            <div
-              className={`confetti ${confettiColors[i % confettiColors.length]}`}
-              style={
-                {
-                  "--random": Math.random(), // Random horizontal direction
-                  animationDelay: `${Math.random() * 2}s`, // Random start time
-                  animationDuration: `${Math.random() * 3 + 2}s`, // Random duration
-                } as React.CSSProperties
-              }
-            ></div>
-          ))}
-          <div className="Profile-avatarContainer">
-            <img
-              src="https://i.pinimg.com/564x/72/34/28/72342848e6b8dc2f8877605f07e6e249.jpg"
-              alt="User Avatar"
-              className="Profile-avatar"
-            />
-
-            <h1 className="Profile-name u-textCenter">{user.name}</h1>
-            <div className="Profile-pointsContainer">
-              <div className="profile-rating">
-                {[...Array(5)].map((star, i) => {
-                  const ratingValue = i + 1;
-                  return (
-                    <label key={i}>
-                      <i
-                        className={`star star-${ratingValue} ${
-                          ratingValue <= user.rating ? "fas fa-star" : "far fa-star"
-                        }`}
-                        style={{
-                          transform: `rotate(${starRotations[i]}deg)`,
-                        }}
-                      ></i>
-                    </label>
-                  );
-                })}
-              </div>
-              <div className="Profile-points u-textCenter">
-  <h2 style={{ position: 'relative', zIndex: 1 }}>{user.points}</h2>
-  <h3 style={{ position: 'relative', zIndex: 1 }}>POINTS</h3>
-</div>
-            </div>
-          </div>
-        </div>
-        <div className="tabs-container">
-          <div className="tabs">
-            <button
-              className={selectedTab === "orders" ? "active" : ""}
-              onClick={() => handleTabClick("orders")}
-            >
-              Orders
-            </button>
-            <button
-              className={selectedTab === "items" ? "active" : ""}
-              onClick={() => handleTabClick("items")}
-            >
-              My Shares
-            </button>
-          </div>
-          {selectedTab === "orders" ? (
-            <Orders user={user} />
-          ) : (
-            <div className="profile-catalog">
-              <div className="upload-button-container">
-                <NewItem sharer_name={user.name} sharer_id={props.userId} />
-              </div>
-
-              <div className="items-container">
-                {items.map((item) => (
-                  <div key={item.id} id="edit-item">
-                    <div className="image-container">
-                      <img src={item.image} alt={item.title} />
-                    </div>
-                    <h4 className="item-text">{item.title}</h4>
-                    <p className="item-text">Rating: 5/5 (1 review)</p>
-                    <h3 className="item-text">{item.points} Points/day</h3>
-                    <div className="item-buttons">
-                      <EditItem item_id={item.id} />
-                      <ItemActivityButton itemId={item.id} />
-                    </div>
+    <body id="profile-page">
+      <>
+        <div className="profile-container">
+          <div className="profile-info">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <div
+                className={`confetti ${confettiColors[i % confettiColors.length]}`}
+                style={
+                  {
+                    "--random": Math.random(), // Random horizontal direction
+                    animationDelay: `${Math.random() * 2}s`, // Random start time
+                    animationDuration: `${Math.random() * 3 + 2}s`, // Random duration
+                  } as React.CSSProperties
+                }
+              ></div>
+            ))}
+            <div className="Profile-avatarContainer">
+              <img
+                src="https://i.pinimg.com/564x/d6/d4/c3/d6d4c3b6f094885602db999e71516846.jpg"
+                alt="User Avatar"
+                className="Profile-avatar"
+              />
+              <div className="profile-info-box">
+                <h1 className="Profile-name u-textCenter">{user.name}</h1>
+                <div className="Profile-pointsContainer">
+                  <div className="profile-rating">
+                    {[...Array(5)].map((star, i) => {
+                      const ratingValue = i + 1;
+                      return (
+                        <label key={i}>
+                          <i
+                            className={`star star-${ratingValue} ${
+                              ratingValue <= user.rating ? "fas fa-star" : "far fa-star"
+                            }`}
+                            style={{
+                              transform: `rotate(${starRotations[i]}deg)`,
+                            }}
+                          ></i>
+                        </label>
+                      );
+                    })}
                   </div>
-                ))}
+                  <div className="Profile-points u-textCenter">
+                    <h2 style={{ position: "relative", zIndex: 1 }}>{user.points}</h2>
+                    <h3 style={{ position: "relative", zIndex: 1 }}>POINTS</h3>
+                  </div>
+                </div>
               </div>
             </div>
-          )}
+          </div>
+          <div className="tabs-container">
+            <div className="tabs">
+              <button
+                className={selectedTab === "orders" ? "active" : ""}
+                onClick={() => handleTabClick("orders")}
+              >
+                Orders
+              </button>
+              <button
+                className={selectedTab === "items" ? "active" : ""}
+                onClick={() => handleTabClick("items")}
+              >
+                My Shares
+              </button>
+            </div>
+            {selectedTab === "orders" ? (
+              <Orders user={user} />
+            ) : (
+              <div className="profile-catalog">
+                <div className="upload-button-container">
+                  <NewItem sharer_name={user.name} sharer_id={props.userId} />
+                </div>
+
+                <div className="items-container">
+                  {items.map((item) => (
+                    <div key={item.id} id="edit-item">
+                      <div className="image-container">
+                        <img src={item.image} alt={item.title} />
+                      </div>
+                      <h4 className="item-text">{item.title}</h4>
+                      <p className="item-text">Rating: 5/5 (1 review)</p>
+                      <h3 className="item-text">{item.points} Points/day</h3>
+                      <div className="item-buttons">
+                        {" "}
+                        <EditItem item_id={item.id} />
+                        <ItemActivityButton itemId={item.id} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </>
+      </>
+    </body>
   );
 };
 

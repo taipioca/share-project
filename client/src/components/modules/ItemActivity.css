@@ -2,7 +2,7 @@
   height: 65%;
   width: auto; /* This makes the button take up only as much width as it needs */
   margin-bottom: 20px;
-  margin-top:0px;
+  margin-top: 0px;
   margin-left: auto; /* This pushes the button to the right */
   color: var(--primary); /* This sets the text color to var(--primary) */
   border-radius: 5px; /* This rounds the corners */
@@ -13,4 +13,15 @@
 
 .activity-button:hover {
   background-color: transparent; /* This changes the background color to white on hover */
+}
+
+.activity-modal-overlay {
+  margin-top: 50px;
+  width: 80%; /* This makes the modal less wide */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.activity-modal-overlay {
+  background-color: rgba(0, 0, 0, 0.75); /* This sets the background color of the modal overlay to transparent black */
 }

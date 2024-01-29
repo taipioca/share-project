@@ -89,12 +89,13 @@ const Catalog = () => {
         <div>
           <h1 className="cat-animated-header search-text">
             <span>I need a </span>
-            <span style={{ color: "var(--primary)" }}>{currentPhrase}</span>
+            <span style={{ color: "var(--third)" }}>{currentPhrase}</span>
           </h1>
         </div>
         <div className="cat-search-bar-container">
           <div className="cat-search-input-container">
             <input
+            className = "cat-search-input"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

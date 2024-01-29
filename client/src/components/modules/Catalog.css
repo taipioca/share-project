@@ -50,13 +50,13 @@
   width: 60%; 
 }
 
-input[type="text"] {
+.cat-search-input {
   width: 100%; /* Makes the input field cover the entire container */
   /* padding-right: 10px;  */
   border-radius: 30px; /* Adds rounded edges to the search bar */
   background-color: white;
 }
-input[type="text"]:focus {
+.cat-search-input:focus {
   outline: none;
   border: none;
 background-color: rgba(236, 230, 227, 0.734)
