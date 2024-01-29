@@ -49,7 +49,7 @@ const NavBar = (props: Props) => {
               Logout
             </button>
           ) : (
-            <div className="custom-google-login">
+            <div >
               <GoogleLogin
                 onSuccess={handleLogin}
                 onError={() => console.log("Error Logging in")}

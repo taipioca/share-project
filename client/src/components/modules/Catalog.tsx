@@ -16,7 +16,18 @@ type Item = {
 const Catalog = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const phrases = ["sleeping bag", "basketball", "scooter", "camera", "power strip", "vacuum", "party dress", "usb drive", "bike", "hair straightener"];
+  const phrases = [
+    "sleeping bag",
+    "basketball",
+    "scooter",
+    "camera",
+    "power strip",
+    "vacuum",
+    "party dress",
+    "usb drive",
+    "bike",
+    "hair straightener",
+  ];
   const [currentPhrase, setCurrentPhrase] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -73,16 +84,18 @@ const Catalog = () => {
 
   return (
     <>
+      {/* <div className="page-background"></div> */}
       <div className="cat-header-search-container">
         <div>
           <h1 className="cat-animated-header search-text">
             <span>I need a </span>
-            <span style={{ color: "var(--primary)" }}>{currentPhrase}</span>
+            <span style={{ color: "var(--third)" }}>{currentPhrase}</span>
           </h1>
         </div>
         <div className="cat-search-bar-container">
           <div className="cat-search-input-container">
             <input
+            className = "cat-search-input"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

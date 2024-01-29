@@ -63,6 +63,8 @@
   flex-direction: column;
   text-align: center;
   color: var(--primary);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)),
+    url("../samples/a6fa884700ad5da802ed54a2bc9662021.jpg");
 }
 
 #how-direct {
@@ -72,6 +74,10 @@
 
 .start-browsing {
   margin-top: 150px; /* Adjust this as needed */
+  border-radius: 50px;
+  font-size: 0.9em;
+  padding: 15px 25px;
+  background-color: var(--second);
 }
 
 @keyframes bounce {
@@ -87,7 +93,5 @@
   }
   60% {
     transform: translateY(-15px);
-  
-
+  }
 }
-};

@@ -17,7 +17,11 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
 
   const actionTextMap = {
     add: "Upload a New Share",
-    edit: <i className="fas fa-edit"> Edit </i>,
+    edit: (
+      <div>
+        <i className="fas fa-edit"></i> Edit
+      </div>
+    ),
     delete: "Delete a Share",
   };
   const [widget, setWidget] = useState<null | { open: () => void }>(null);
@@ -102,7 +106,9 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>{actionTextMap[action]}</button>
+      <button onClick={() => setIsOpen(true)} className="upload-button">
+        {actionTextMap[action]}
+      </button>
       {isOpen && (
         <div className="modal">
           <div className="modal-content">
@@ -114,11 +120,14 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               <div className="form-row full-width">
                 <label>
                   Item Title:
+                  <p className="upload-desc">(Max 100 characters.)</p>
                   <input
                     type="text"
                     name="title"
                     value={item.title}
                     onChange={handleChange}
+                    maxLength={100}
+                    className = "upload-input"
                     required
                   />
                 </label>
@@ -126,10 +135,15 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               <div className="form-row full-width">
                 <label>
                   Item Description:
+                  <p className="upload-desc">
+                    Be as descriptive as possible. Include details such as size or model for
+                    applicable items (300 character max)
+                  </p>
                   <textarea
                     name="description"
                     value={item.description}
                     onChange={handleChange}
+                    maxLength={300}
                     required
                   />
                 </label>
@@ -169,21 +183,27 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               <div className="form-row half-width">
                 <label>
                   Pickup Location:
+                  <p className="upload-desc">(Max 100 characters)</p>
                   <input
                     type="text"
                     name="pickupLocation"
                     value={item.pickupLocation}
                     onChange={handleChange}
+                    className = "upload-input"
+                    maxLength={100}
                     required
                   />
                 </label>{" "}
                 <label>
                   Return Location:
+                  <p className="upload-desc">(Max 100 characters)</p>
                   <input
                     type="text"
                     name="returnLocation"
                     value={item.returnLocation}
                     onChange={handleChange}
+                    className = "upload-input"
+                    maxLength={100}
                     required
                   />
                 </label>{" "}
@@ -191,19 +211,25 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
               <div className="form-row half-width">
                 <label>
                   Pickup Notes:
+                  <p className="upload-desc">
+                    More details such as time of day or setup instructions.{" "}
+                  </p>
                   <textarea
                     name="pickupNotes"
                     value={item.pickupNotes}
                     onChange={handleChange}
+                    maxLength={200}
                     required
                   />
                 </label>
                 <label>
                   Return Notes:
+                  <p className="upload-desc">More details such as time of day, product care, or return expectations. </p>
                   <textarea
                     name="returnNotes"
                     value={item.returnNotes}
                     onChange={handleChange}
+                    maxLength={200}
                     required
                   />
                 </label>{" "}
@@ -213,8 +239,10 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    openWidget(); 
-                  }} id = "upload"
+                    openWidget();
+                  }}
+                  id="upload"
+                  className="upload-image"
                 >
                   Upload Image
                 </button>
@@ -222,7 +250,9 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                   <img src={item.image} alt="Uploaded" style={{ width: "100px", height: "auto" }} />
                 )}
               </div>
-              <button type="submit" id = "submit">Confirm and Submit</button>
+              <button type="submit" id="submit">
+                Confirm and Submit
+              </button>
             </form>
           </div>
         </div>

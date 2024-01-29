@@ -1,7 +1,17 @@
 :root {
   --small: 1em; /* Adjust this as needed */
 }
-
+.page-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url('https://i.pinimg.com/564x/db/72/71/db72712e85b433cc2cfc43956c8f4b8f.jpg');
+  background-size: cover;
+  transform: rotate(0 deg);
+  z-index: -1;
+}
 .cat-header-search-container {
   display: flex;
   align-items: center;
@@ -40,14 +50,16 @@
   width: 60%; 
 }
 
-input[type="text"] {
+.cat-search-input {
   width: 100%; /* Makes the input field cover the entire container */
   /* padding-right: 10px;  */
   border-radius: 30px; /* Adds rounded edges to the search bar */
+  background-color: white;
 }
-input[type="text"]:focus {
+.cat-search-input:focus {
   outline: none;
   border: none;
+background-color: rgba(236, 230, 227, 0.734)
 }
 .search-icon {
   position: absolute;
@@ -74,11 +86,11 @@ input[type="text"]:focus {
 .item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Aligns items to the left */
+  align-items: flex-start;
   text-decoration: none;
   color: black;
-  text-align: left; /* Aligns text to the left */
-  transition: transform 0.3s ease-in-out; /* Adds a smooth transition effect */
+  text-align: left;
+  transition: transform 0.3s ease-in-out; 
 }
 
 .item:hover {

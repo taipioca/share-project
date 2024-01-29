@@ -29,6 +29,7 @@ type Item = {
     sharer_name: string;
   };
   status: string;
+  reviews: number;
 };
 const ItemDetails = (props) => {
   const id = props.id;
@@ -79,31 +80,75 @@ const ItemDetails = (props) => {
             </div>
             <div className="location-container">
               <div className="location-details">
-                <h3>Pickup Location</h3>
-                <p>{item.pickupLocation}</p>
-                <h3>Pickup Notes</h3>
-                <p>{item.pickupNotes}</p>
+                <h3>Pickup Details</h3>
+                <p>
+                  <i
+                    className="fas fa-map-marker-alt"
+                    style={{ marginLeft: "2px", marginRight: "6px", color: "var(--primary--dim)" }}
+                  ></i>
+                  {item.pickupLocation}
+                </p>{" "}
+                <p>
+                  {" "}
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ marginRight: "5px", color: "var(--primary--dim)" }}
+                  ></i>
+                  {item.pickupNotes}
+                </p>
               </div>
               <div className="location-details">
-                <h3>Return Location</h3>
-                <p>{item.returnLocation}</p>
-                <h3>Return Notes</h3>
-                <p>{item.returnNotes}</p>
+                <h3>Return Details</h3>
+                <p>
+                  <i
+                    className="fas fa-map-marker-alt"
+                    style={{ marginLeft: "2px", marginRight: "6px", color: "var(--primary--dim)" }}
+                  ></i>
+                  {item.returnLocation}
+                </p>
+                <p>
+                  <i
+                    className="fas fa-info-circle"
+                    style={{ marginRight: "5px", color: "var(--primary--dim)" }}
+                  ></i>
+                  {item.returnNotes}
+                </p>
               </div>
             </div>
           </div>
           <div className="item-details">
-            <h2>{item.title ?? ""}</h2>
+            <h2 id="item-title">{item.title ?? ""}</h2>
             <div className="uploader-rating">
-              <p>By {item.sharer.sharer_name}</p>
-              <p>Rating: 5/5 (1 review)</p>
+              <p id="item-sharername" style={{ marginRight: "1%" }}>
+                By <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
+              </p>
+              <div className="details-rating">
+                {[...Array(5)].map((star, i) => {
+                  const ratingValue = i + 1;
+                  return (
+                    <label key={i}>
+                      <i className={ratingValue <= 5 ? "fas fa-star" : "far fa-star"}></i>
+                    </label>
+                  );
+                })}
+                <span>({item.reviews})</span> {/* Add this line */}
+              </div>{" "}
             </div>
             <div className="rounded-box">
               <div className="points-container">
-                <p>{item.points ?? 0} Points /day</p>
-                <p>You get: {youGetPoints} Points /day</p>
+                <span className="details-points">{item.points ?? 0} Points</span>
+                <span className="details-points-unit"> /day</span>{" "}
+                <span className="details-rewards">
+                  <div className="details-rewards">
+                    <div>You get:</div>
+                    <div>
+                      <span className="points-color">{youGetPoints} Points</span> /day
+                    </div>
+                  </div>
+                </span>
               </div>
-              <p>{item.description ?? ""}</p>
+
+              <p className="details-description">{item.description ?? ""}</p>
 
               <NewRequest
                 item={item}

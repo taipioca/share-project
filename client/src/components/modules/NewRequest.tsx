@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
 import "./NewRequest.css";
-
+import { Link } from "@reach/router";
 const NewRequestInput = (props) => {
   console.log("inside new request input", props);
   const [request, setRequest] = useState({
@@ -127,7 +127,7 @@ const NewRequestInput = (props) => {
     <form onSubmit={handleSubmit}>
       <div className="date-container">
         <label className="date-field">
-          Start Date:
+          Start Date
           <input
             type="date"
             name="start_date"
@@ -139,7 +139,7 @@ const NewRequestInput = (props) => {
           />
         </label>
         <label className="date-field">
-          End Date:
+          End Date
           <input
             type="date"
             name="end_date"
@@ -151,21 +151,38 @@ const NewRequestInput = (props) => {
           />
         </label>
       </div>
-      {/* {requestSent ? (
-        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
+      {requestSent ? (
+        <p className="request-sent">
+          Request Sent! Check your&nbsp;<Link to="/profile/">profile</Link>&nbsp;for pending
+          approvals.
+        </p>
+      ) : // <p className="request-sent">
+      //   Request Sent! Check your{" "}
+      //   <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
+      // </p>
+      itemUnavailable ? (
+        <p style={{ color: "red" }}>The item is currently not available.</p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
-          Request Item
+          Send Request
         </button>
-      )} */}
-      {requestSent ? (
+      )}
+      {/* {requestSent ? (
         <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
       ) : itemUnavailable ? (
         <p style={{ color: "red" }}>The item is currently not available.</p>
       ) : (
         <button>Request Item</button>
-      )}
-      <hr />
+      )} */}
+      <hr
+        style={{
+          marginTop: "5%",
+          borderWidth: "2px",
+          borderRadius: "5px",
+          borderStyle: "solid",
+          borderColor: "#DDD8D8",
+        }}
+      />
     </form>
   );
 };
