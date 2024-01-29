@@ -23,11 +23,18 @@ const NewRequestInput = (props) => {
     status: props.status,
   });
   const [requestSent, setRequestSent] = useState(false);
+  const [itemUnavailable, setItemUnavailable] = useState(false);
 
   // If request is pending, set requestSent to true
   useEffect(() => {
     if (request.status === "pending") {
       setRequestSent(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (request.status === "unavailable") {
+      setItemUnavailable(true);
     }
   }, []);
 
@@ -53,10 +60,10 @@ const NewRequestInput = (props) => {
     }
 
     // Check if requester is sharer
-    // if (props.requester_id === request.sharer.sharer_id) {
-    //   alert("You cannot request your own item.");
-    //   return;
-    // }
+    if (props.requester_id === request.sharer.sharer_id) {
+      alert("You cannot request your own item.");
+      return;
+    }
 
     // Check if start_date is before end_date and both are in the future
     const currentDate = new Date();
@@ -128,6 +135,7 @@ const NewRequestInput = (props) => {
             onChange={handleDateChange}
             required
             className="date-input"
+            disabled={requestSent || itemUnavailable}
           />
         </label>
         <label className="date-field">
@@ -139,15 +147,23 @@ const NewRequestInput = (props) => {
             onChange={handleDateChange}
             required
             className="date-input"
+            disabled={requestSent || itemUnavailable}
           />
         </label>
       </div>
-      {requestSent ? (
+      {/* {requestSent ? (
         <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
           Request Item
         </button>
+      )} */}
+      {requestSent ? (
+        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
+      ) : itemUnavailable ? (
+        <p style={{ color: "red" }}>The item is currently not available.</p>
+      ) : (
+        <button>Request Item</button>
       )}
       <hr />
     </form>

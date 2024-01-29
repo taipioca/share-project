@@ -161,21 +161,21 @@ type RequestWithImage = {
 router.get("/pendingproduct", async (req, res) => {
   try {
     const userId = req.query.user_id;
-    const pendingItems = await Product.find({
-      "sharer.sharer_id": userId,
-      status: "pending",
+    const requesterItems = await RequestModel.find({
+      "requester.requester_id": userId,
     });
 
-    let pendingResult: RequestWithImage[] = [];
-    for (let item of pendingItems) {
-      const request = await RequestModel.findOne({ item_id: item.id });
-      if (request) {
-        const requestObject = request.toObject();
-        const requestWithImage: RequestWithImage = { ...requestObject, image: item.image };
-        pendingResult.push(requestWithImage);
+    // console.log("requesterItems (in get(/pendingproduct):", requesterItems);
+    let foundResult: RequestWithImage[] = [];
+    for (let requesterItem of requesterItems) {
+      const product = await ProductModel.findOne({ id: requesterItem.item_id });
+      if (product && product.status === "pending") {
+        const requestObject = requesterItem.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: product.image };
+        foundResult.push(requestWithImage);
       }
     }
-    res.send(pendingResult);
+    res.send(foundResult);
   } catch (error) {
     console.error(error);
     if (error instanceof Error) {

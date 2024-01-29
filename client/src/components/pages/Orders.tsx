@@ -40,6 +40,7 @@ type Item = {
 };
 
 const Orders = (props) => {
+  console.log("props(inside orders)", props);
   const { user } = props;
   const [pendingItems, setPendingItems] = useState<Item[]>([]); // items that are pending approval
   const [inuseItems, setInuseItems] = useState<Item[]>([]); // items that are in use
@@ -48,6 +49,7 @@ const Orders = (props) => {
   // const [unavailableItems, setUnavailableItems] = useState<Item[]>([]); // items that are unavailable
 
   useEffect(() => {
+    console.log("user:", user);
     get("/api/pendingproduct", { user_id: user._id }).then((pendings: Item[]) => {
       console.log("pendings:", pendings);
       setPendingItems(pendings);
