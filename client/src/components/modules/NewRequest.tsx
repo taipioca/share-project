@@ -53,10 +53,10 @@ const NewRequestInput = (props) => {
     }
 
     // Check if requester is sharer
-    if (props.requester_id === request.sharer.sharer_id) {
-      alert("You cannot request your own item.");
-      return;
-    }
+    // if (props.requester_id === request.sharer.sharer_id) {
+    //   alert("You cannot request your own item.");
+    //   return;
+    // }
 
     // Check if start_date is before end_date and both are in the future
     const currentDate = new Date();

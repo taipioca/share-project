@@ -5,10 +5,8 @@ import User from "./models/User";
 import Product from "./models/Product";
 const router = express.Router();
 import Review from "./models/Review";
-import Request from "./models/Request";
-// import fileUpload from "./fileUpload";
-
-// router.use("/files", fileUpload);
+import Request, { RequestDoc } from "./models/Request";
+import RequestModel from "./models/Request";
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -61,14 +59,13 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
 
 // get a products from the database.
 router.get("/getproduct", (req, res) => {
-  console.log("req.query.item:", req.query.item);
-  console.log("typeof req.query.item:", typeof req.query.item);
+  // console.log("req.query.item:", req.query.item);
+  // console.log("typeof req.query.item:", typeof req.query.item);
   if (typeof req.query.item === "string") {
     Product.findOne({ id: req.query.item }).then((product) => {
       res.send(product);
     });
   } else {
-    // handle the case where req.query.item is not a string
     console.log("req.query.item is not a string");
   }
 });
@@ -93,6 +90,7 @@ router.get("/catalog", (req, res) => {
   });
 });
 
+// Create a review for the sharer
 router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   const newReview = new Review({
     reviewer: {
@@ -110,6 +108,7 @@ router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   newReview.save().then((review) => res.send(review));
 });
 
+// create a new request in the database.
 router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({
     requester: {
@@ -130,11 +129,118 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   newRequest.save().then((request) => res.send(request));
 });
 
+// get all requests from the database.
 router.get("/requests", (req, res) => {
   console.log("tried getting request");
   Request.find({}).then((items) => {
     res.send(items);
   });
+});
+
+// get all requests that is pending for approval.
+type RequestWithImage = {
+  requester: {
+    requester_id: string;
+    requester_name: string;
+  };
+  sharer: {
+    sharer_id: string;
+    sharer_name: string;
+  };
+  title: string;
+  item_id: string;
+  _id: string;
+  start_date: string;
+  end_date: string;
+  sharer_points: number;
+  requester_points: number;
+  image?: string;
+};
+
+router.get("/pendingproduct", async (req, res) => {
+  try {
+    const userId = req.query.user_id;
+    const pendingItems = await Product.find({
+      "sharer.sharer_id": userId,
+      status: "pending",
+    });
+
+    let pendingResult: RequestWithImage[] = [];
+    for (let item of pendingItems) {
+      const request = await RequestModel.findOne({ item_id: item.id });
+      if (request) {
+        const requestObject = request.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: item.image };
+        pendingResult.push(requestWithImage);
+      }
+    }
+    res.send(pendingResult);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).send({ error: error.toString() });
+    } else {
+      res.status(500).send({ error: "An unknown error occurred" });
+    }
+  }
+});
+
+// get all requests that is unavailable (i.e. in use).
+router.get("/unavailableproduct", async (req, res) => {
+  try {
+    const userId = req.query.user_id;
+    const unavailableItems = await Product.find({
+      "sharer.sharer_id": userId,
+      status: "unavailable",
+    });
+
+    let unavailableResult: RequestWithImage[] = [];
+    for (let item of unavailableItems) {
+      const request = await RequestModel.findOne({ item_id: item.id });
+      if (request) {
+        const requestObject = request.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: item.image };
+        unavailableResult.push(requestWithImage);
+      }
+    }
+    res.send(unavailableResult);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).send({ error: error.toString() });
+    } else {
+      res.status(500).send({ error: "An unknown error occurred" });
+    }
+  }
+});
+
+// get all requests that are ended (i.e. items are returned).
+router.get("/returnedproduct", async (req, res) => {
+  try {
+    const userId = req.query.user_id;
+    const returnedItems = await Product.find({
+      "sharer.sharer_id": userId,
+      status: "available",
+    });
+
+    let returnedItemsResult: RequestWithImage[] = [];
+    for (let item of returnedItems) {
+      const request = await RequestModel.findOne({ item_id: item.id });
+      if (request) {
+        const requestObject = request.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: item.image };
+        returnedItemsResult.push(requestWithImage);
+      }
+    }
+    res.send(returnedItemsResult);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).send({ error: error.toString() });
+    } else {
+      res.status(500).send({ error: "An unknown error occurred" });
+    }
+  }
 });
 
 // anything else falls to this "not found" case

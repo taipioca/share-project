@@ -17,7 +17,7 @@ const RequestSchema = new Schema({
   requester_points: Number,
 });
 
-export interface Request extends Document {
+export interface RequestDoc extends Document {
   requester: {
     requester_id: string;
     requester_name: string;
@@ -35,5 +35,5 @@ export interface Request extends Document {
   requester_points: number;
 }
 
-const RequestModel = model<Request>("Request", RequestSchema);
+const RequestModel = model<RequestDoc>("Request", RequestSchema);
 export default RequestModel;

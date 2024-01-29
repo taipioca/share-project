@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RouteComponentProps, Link } from "@reach/router";
+import { Link } from "@reach/router";
 import { get } from "../../utilities";
 import { NewRequest } from "./NewRequest";
 
@@ -62,7 +62,6 @@ const ItemDetails = (props) => {
   }
 
   const youGetPoints = Math.ceil(item.points * 0.2);
-
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
