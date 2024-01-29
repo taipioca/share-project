@@ -42,27 +42,36 @@ type Item = {
 const Orders = (props) => {
   const { user } = props;
   const [pendingItems, setPendingItems] = useState<Item[]>([]); // items that are pending approval
-  const [unavailableItems, setunavailableItems] = useState<Item[]>([]); // items that are unavailable/in use
-  const [returnedItems, setreturnedItems] = useState<Item[]>([]); // items that are returned
+  const [inuseItems, setInuseItems] = useState<Item[]>([]); // items that are in use
+  const [orderHistoryItems, setOrderHistoryItems] = useState<Item[]>([]);
+  // const [returnedItems, setReturnedItems] = useState<Item[]>([]); // items that are returned
+  // const [unavailableItems, setUnavailableItems] = useState<Item[]>([]); // items that are unavailable
 
   useEffect(() => {
-    // console.log("inside Orders-Props:", props);
-    // console.log("User:", user);
-
     get("/api/pendingproduct", { user_id: user._id }).then((pendings: Item[]) => {
       console.log("pendings:", pendings);
       setPendingItems(pendings);
     });
 
-    get("/api/unavailableproduct", { user_id: user._id }).then((unavailables: Item[]) => {
-      console.log("unavailables:", unavailables);
-      setunavailableItems(unavailables);
+    get("/api/inuseproduct", { user_id: user._id }).then((inuses: Item[]) => {
+      console.log("inuses:", inuses);
+      setInuseItems(inuses);
     });
 
-    get("/api/returnedproduct", { user_id: user._id }).then((returns: Item[]) => {
-      console.log("returns:", returns);
-      setreturnedItems(returns);
+    get("/api/orderhistoryproduct", { user_id: user._id }).then((orders: Item[]) => {
+      console.log("orders:", orders);
+      setOrderHistoryItems(orders);
     });
+
+    // get("/api/unavailableproduct", { user_id: user._id }).then((unavailables: Item[]) => {
+    //   console.log("unavailables:", unavailables);
+    //   setUnavailableItems(unavailables);
+    // });
+
+    // get("/api/returnedproduct", { user_id: user._id }).then((returns: Item[]) => {
+    //   console.log("returns:", returns);
+    //   setReturnedItems(returns);
+    // });
   }, [user]);
 
   return (
@@ -74,6 +83,7 @@ const Orders = (props) => {
             <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
             <p>Title: {item.title}</p>
             <p>Sharer: {item.sharer.sharer_name}</p>
+            <p>requester: {item.requester.requester_name}</p>
             <p>Start Date: {item.start_date}</p>
             <p>End Date: {item.end_date}</p>
             <hr></hr>
@@ -82,11 +92,12 @@ const Orders = (props) => {
       </div>
       <div>
         <p style={{ fontSize: "2em", fontWeight: "bold" }}>In Use</p>
-        {unavailableItems.map((item, index) => (
+        {inuseItems.map((item, index) => (
           <div key={index}>
             <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
             <p>Title: {item.title}</p>
             <p>Sharer: {item.sharer.sharer_name}</p>
+            <p>requester: {item.requester.requester_name}</p>
             <p>Start Date: {item.start_date}</p>
             <p>End Date: {item.end_date}</p>
             <hr></hr>
@@ -95,11 +106,12 @@ const Orders = (props) => {
       </div>
       <div>
         <p style={{ fontSize: "2em", fontWeight: "bold" }}>Order History</p>
-        {returnedItems.map((item, index) => (
+        {orderHistoryItems.map((item, index) => (
           <div key={index}>
             <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
             <p>Title: {item.title}</p>
             <p>Sharer: {item.sharer.sharer_name}</p>
+            <p>requester: {item.requester.requester_name}</p>
             <p>Start Date: {item.start_date}</p>
             <p>End Date: {item.end_date}</p>
             <hr></hr>

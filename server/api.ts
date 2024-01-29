@@ -3,6 +3,7 @@ import auth from "./auth";
 import socketManager from "./server-socket";
 import User from "./models/User";
 import Product from "./models/Product";
+import ProductModel from "./models/Product";
 const router = express.Router();
 import Review from "./models/Review";
 import Request, { RequestDoc } from "./models/Request";
@@ -185,7 +186,63 @@ router.get("/pendingproduct", async (req, res) => {
   }
 });
 
-// get all requests that is unavailable (i.e. in use).
+// get in-use products for a requester.
+router.get("/inuseproduct", async (req, res) => {
+  try {
+    const userId = req.query.user_id;
+    const requesterItems = await RequestModel.find({
+      "requester.requester_id": userId,
+    });
+
+    let foundResult: RequestWithImage[] = [];
+    for (let requesterItem of requesterItems) {
+      const product = await ProductModel.findOne({ id: requesterItem.item_id });
+      if (product && product.status === "unavailable") {
+        const requestObject = requesterItem.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: product.image };
+        foundResult.push(requestWithImage);
+      }
+    }
+    res.send(foundResult);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).send({ error: error.toString() });
+    } else {
+      res.status(500).send({ error: "An unknown error occurred" });
+    }
+  }
+});
+
+// get order history for a requester.
+router.get("/orderhistoryproduct", async (req, res) => {
+  try {
+    const userId = req.query.user_id;
+    const requestHistory = await RequestModel.find({
+      $or: [{ "requester.requester_id": userId }, { "sharer.sharer_id": userId }],
+    });
+
+    let foundResult: RequestWithImage[] = [];
+    for (let item of requestHistory) {
+      const product = await ProductModel.findOne({ id: item.item_id, status: "available" });
+      if (product) {
+        const requestObject = item.toObject();
+        const requestWithImage: RequestWithImage = { ...requestObject, image: product.image };
+        foundResult.push(requestWithImage);
+      }
+    }
+    res.send(foundResult);
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      res.status(500).send({ error: error.toString() });
+    } else {
+      res.status(500).send({ error: "An unknown error occurred" });
+    }
+  }
+});
+
+// get all products that is unavailable for ther sharer.
 router.get("/unavailableproduct", async (req, res) => {
   try {
     const userId = req.query.user_id;
