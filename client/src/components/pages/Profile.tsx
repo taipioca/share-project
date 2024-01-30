@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import "./Profile.css";
 import Orders from "./Orders";
-
+import { Link } from "@reach/router";
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
 import { EditItem, NewItem } from "../modules/NewItem";
 import ItemActivityButton from "../modules/ItemActivity";
 import { ReviewList } from "../modules/ReviewList";
-
 
 interface User {
   name: string;
@@ -58,7 +57,7 @@ const Profile = (props) => {
   if (!user) {
     return <div> Loading! </div>;
   }
-  console.log('Number of Reviews:', user.numreviews);
+  console.log("Number of Reviews:", user.numreviews);
 
   return (
     <body id="profile-page">
@@ -132,7 +131,6 @@ const Profile = (props) => {
                 onClick={() => handleTabClick("reviews")}
               >
                 Reviews for Me ({user.numreviews}){" "}
-                
               </button>
             </div>
             {selectedTab === "orders" ? (
@@ -145,19 +143,21 @@ const Profile = (props) => {
 
                 <div className="items-container">
                   {items.map((item) => (
-                    <div key={item.id} id="edit-item">
-                      <div className="image-container">
-                        <img src={item.image} alt={item.title} />
+                    <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
+                      <div key={item.id} id="edit-item">
+                        <div className="image-container">
+                          <img src={item.image} alt={item.title} className="item-image" />
+                        </div>
+                        <h4 className="item-text">{item.title}</h4>
+                        <h3 className="item-text">{item.points} Points/day</h3>
+
+                        <div className="item-buttons">
+                          {" "}
+                          <EditItem item_id={item.id} />
+                          <ItemActivityButton itemId={item.id} />
+                        </div>
                       </div>
-                      <h4 className="item-text">{item.title}</h4>
-                      <p className="item-text">Rating: 5/5 (1 review)</p>
-                      <h3 className="item-text">{item.points} Points/day</h3>
-                      <div className="item-buttons">
-                        {" "}
-                        <EditItem item_id={item.id} />
-                        <ItemActivityButton itemId={item.id} />
-                      </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>
