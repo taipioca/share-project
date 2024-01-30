@@ -54,12 +54,7 @@ const App = () => {
 
   return (
     <>
-      <NavBar
-        // isLoggedIn={true}
-        handleLogin={handleLogin}
-        handleLogout={handleLogout}
-        userId={userId}
-      />
+      <NavBar handleLogin={handleLogin} handleLogout={handleLogout} userId={userId} />
       <Router>
         <Home path="/" />
         <Home path="/home" />
@@ -68,8 +63,6 @@ const App = () => {
         <Profile userId={userId} path="/profile/:userId" />
         {/* <NotFound default={true} /> */}
         <ItemDetails userId={userId} path="/item/:id" />
-
-        {/* <NewProduct path="/newproduct" /> */}
         <NewReview path="/newreview" />
         <NewRequest path="/newrequest" />
         <Orders path="/orders" />
