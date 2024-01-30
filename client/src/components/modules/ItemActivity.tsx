@@ -59,11 +59,16 @@ const ItemActivityButton = (props: Props) => {
     foundItem?.sharer?.sharer_id
   );
 
+  // Testing update user data
   useEffect(() => {
     if (foundItem) {
       get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
         console.log("userObj:", userObj);
-        post("/api/user", userObj).then((userObj2) => console.log("userObj2:", userObj2));
+        const updatedObj = userObj;
+        updatedObj.points -= 1; // Deduct 1 from userObj.points
+        post("/api/user", updatedObj).then((returnedUserObj) =>
+          console.log("returnedUserObj:", returnedUserObj)
+        );
       });
     }
   }, [foundItem?.sharer?.sharer_id]);
@@ -80,6 +85,14 @@ const ItemActivityButton = (props: Props) => {
       }).then((updatedItem) => {
         setFoundItem(updatedItem);
         setApproveRequest(false);
+      });
+      get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
+        console.log("userObj:", userObj);
+        // const updatedObj = userObj;
+        // updatedObj.points -= 10; // Deduct 10 from userObj.points
+        // post("/api/user", updatedObj).then((returnedUserObj) =>
+        //   console.log("returnedUserObj:", returnedUserObj)
+        // );
       });
     } catch (error) {
       console.error(error);
