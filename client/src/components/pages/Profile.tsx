@@ -143,21 +143,20 @@ const Profile = (props) => {
 
                 <div className="items-container">
                   {items.map((item) => (
-                    <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
-                      <div key={item.id} id="edit-item">
+                    <div key={item.id} id="edit-item">
+                      <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
                         <div className="image-container">
                           <img src={item.image} alt={item.title} className="item-image" />
                         </div>
                         <h4 className="item-text">{item.title}</h4>
                         <h3 className="item-text">{item.points} Points/day</h3>
-
-                        <div className="item-buttons">
-                          {" "}
-                          <EditItem item_id={item.id} />
-                          <ItemActivityButton itemId={item.id} />
-                        </div>
+                      </Link>
+                      <div className="item-buttons">
+                        {" "}
+                        <EditItem item_id={item.id} />
+                        <ItemActivityButton itemId={item.id} />
                       </div>
-                    </Link>
+                    </div>
                   ))}
                 </div>
               </div>

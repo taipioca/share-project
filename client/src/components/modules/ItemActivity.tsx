@@ -84,8 +84,8 @@ const ItemActivityButton = (props: Props) => {
 
   return (
     <div>
-      <button onClick={openModal}>
-        <i className="fas fa-eye"> Activity </i>
+      <button onClick={openModal} className = "upload-button">
+        <i className="fas fa-eye"> </i>Activity
       </button>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
         <div>
