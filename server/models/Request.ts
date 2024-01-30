@@ -17,7 +17,7 @@ const RequestSchema = new Schema({
   requester_points: Number,
   status: {
     type: String,
-    enum: ["open", "close"],
+    enum: ["open", "pending", "close"],
     default: "open",
   },
 });
@@ -37,7 +37,7 @@ export interface RequestDoc extends Document {
   end_date: string;
   sharer_points: number;
   requester_points: number;
-  status?: "open" | "close";
+  status?: "open" | "pending" | "close";
   _id: string;
 }
 

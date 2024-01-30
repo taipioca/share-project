@@ -62,7 +62,7 @@ const Profile = (props) => {
   console.log("Number of Reviews:", user.numreviews);
 
   return (
-    <body id="profile-page">
+    <div id="profile-page">
       <>
         <div className="profile-container">
           <div className="profile-info">
@@ -168,7 +168,7 @@ const Profile = (props) => {
           </div>
         </div>
       </>
-    </body>
+    </div>
   );
 };
 

@@ -30,7 +30,7 @@ router.get("/user", (req, res) => {
 
 // update a user in the database. Input: user object. Output: updated user object.
 router.post("/user", async (req, res) => {
-  console.log("req (in router.post(/user):", req);
+  // console.log("req (in router.post(/user):", req);
   try {
     const userId = req.body._id;
     const updatedData = req.body;
@@ -204,6 +204,28 @@ router.get("/requests", (req, res) => {
   Request.find({}).then((items) => {
     res.send(items);
   });
+});
+
+// get a single request from the database. Input: request_id. Output: request object.
+router.get("/singlerequest", async (req, res) => {
+  const requestId = req.query.request_id;
+
+  if (!requestId) {
+    return res.status(400).send({ error: "request_id is required" });
+  }
+
+  try {
+    const request = await RequestModel.findById(requestId);
+
+    if (!request) {
+      return res.status(404).send({ error: "Request not found" });
+    }
+
+    res.send(request);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "An unknown error occurred" });
+  }
 });
 
 // declare a new type 'RequestWithImage' that allow to add image url to the request object.

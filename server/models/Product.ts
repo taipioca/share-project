@@ -21,6 +21,7 @@ const ProductSchema = new Schema({
     enum: ["available", "pending", "unavailable"],
     default: "available",
   },
+  request_id: String,
 });
 
 export interface Product extends Document {
@@ -33,7 +34,6 @@ export interface Product extends Document {
   pickupLocation?: string;
   returnLocation?: string;
   pickupNotes?: string;
-  a;
   returnNotes?: string;
   image?: string;
   sharer?: {
@@ -41,6 +41,7 @@ export interface Product extends Document {
     sharer_name?: string;
   };
   status?: "available" | "pending" | "unavailable";
+  request_id: string;
 
   _id?: string;
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
 import "./NewRequest.css";
-import { Link } from "@reach/router";
+// import { Link } from "@reach/router";
 const NewRequestInput = (props) => {
-  // console.log("inside new request input", props);
+  console.log("props(inside NewRrequestInput", props);
   const [request, setRequest] = useState({
     requester: {
       requester_id: props.requester_id,
@@ -78,6 +78,42 @@ const NewRequestInput = (props) => {
       return;
     }
 
+    const youGetPoints = Math.ceil(props.points * 0.2);
+
+    console.log("request.start_date:", request.start_date);
+    console.log("request.end_date:", request.end_date);
+    const calculateTotalPoints = () => {
+      if (request.start_date && request.end_date) {
+        const start = new Date(request.start_date);
+        const end = new Date(request.end_date);
+        console.log("start:", start);
+        console.log("end:", end);
+        const diffTime = Math.abs(end.getTime() - start.getTime());
+        console.log("diffTime:", diffTime);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        console.log("diffDays:", diffDays);
+        return diffDays * props.points;
+      }
+      return 0;
+    };
+    const totalPoints = calculateTotalPoints();
+    request.sharer_points = totalPoints;
+    // console.log("request(after adding sharer_points):", request);
+
+    const calculateTotalRewards = () => {
+      if (request.start_date && request.end_date) {
+        const start = new Date(request.start_date);
+        const end = new Date(request.end_date);
+        const diffTime = Math.abs(end.getTime() - start.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays * youGetPoints;
+      }
+      return 0;
+    };
+    const totalRewards = calculateTotalRewards();
+    request.requester_points = totalRewards;
+    // console.log("request(after adding requester_points):", request);
+
     props.onSubmit && props.onSubmit(request);
     // setRequest({
     //   requester: {
@@ -100,29 +136,7 @@ const NewRequestInput = (props) => {
     // });
     setRequestSent(true);
   };
-  const youGetPoints = Math.ceil(props.points * 0.2);
 
-  const calculateTotalPoints = () => {
-    if (request.start_date && request.end_date) {
-      const start = new Date(request.start_date);
-      const end = new Date(request.end_date);
-      const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays * props.points;
-    }
-    return 0;
-  };
-
-  const calculateTotalRewards = () => {
-    if (request.start_date && request.end_date) {
-      const start = new Date(request.start_date);
-      const end = new Date(request.end_date);
-      const diffTime = Math.abs(end.getTime() - start.getTime());
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays * youGetPoints;
-    }
-    return 0;
-  };
   return (
     <form onSubmit={handleSubmit}>
       <div className="date-container">
@@ -158,19 +172,14 @@ const NewRequestInput = (props) => {
       //   <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
       // </p>
       itemUnavailable ? (
-        <p className = "unavailable-item-notice">This item is currently shared with someone else. Check back soon!</p>
+        <p className="unavailable-item-notice">
+          This item is currently shared with someone else. Check back soon!
+        </p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
           Send Request
         </button>
       )}
-      {/* {requestSent ? (
-        <p style={{ color: "red" }}>Request Sent! Pending for approval...</p>
-      ) : itemUnavailable ? (
-        <p style={{ color: "red" }}>The item is currently not available.</p>
-      ) : (
-        <button>Request Item</button>
-      )} */}
       <hr
         style={{
           marginTop: "5%",
@@ -185,8 +194,8 @@ const NewRequestInput = (props) => {
 };
 
 const NewRequest = (props) => {
-  console.log("inside new request", props);
-  const addRequest = (request, totalPoints, totalRewards) => {
+  console.log("props(inside new request)", props);
+  const addRequest = (request) => {
     const body = {
       ...request,
       requester_id: props.requester.requester_id,
@@ -195,12 +204,15 @@ const NewRequest = (props) => {
       sharer_id: props.sharer.sharer_id,
       sharer_name: props.sharer.sharer_name,
       title: props.title,
-      sharer_points: totalPoints, // Use calculated totalPoints
-      requester_points: totalRewards,
+      // sharer_points: totalPoints, // Use calculated totalPoints
+      // requester_points: totalRewards,
     };
     post("/api/newrequest", body).then((requestObj) => {
+      // console.log("Returned requestObj (/api/newrequest):", requestObj);
       get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
-        const updateBody = { ...foundItem, status: "pending" };
+        // console.log("foundItem (/api/getproduct):", foundItem);
+        const updateBody = { ...foundItem, status: "pending", request_id: requestObj._id };
+        // console.log("updateBody (/api/updateproduct):", updateBody);
         post("/api/updateproduct", updateBody).then((productDetails) => {
           // console.log("Returned updateProduct:", productDetails);
         });
@@ -215,6 +227,7 @@ const NewRequest = (props) => {
       item_id={props.item_id}
       sharer={{ sharer_id: props.sharer.sharer_id, sharer_name: props.sharer.sharer_name }}
       status={props.status}
+      points={props.points}
     />
   );
 };

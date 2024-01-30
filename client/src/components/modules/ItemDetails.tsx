@@ -32,6 +32,7 @@ type Item = {
   reviews: number;
 };
 const ItemDetails = (props) => {
+  console.log("props(inside itemDetails):", props);
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
   const [sharer, setSharer] = useState<User>();
@@ -50,7 +51,7 @@ const ItemDetails = (props) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
-      // console.log("foundItem:", foundItem);
+      console.log("foundItem (get(/api/catalog)):", foundItem);
       setItem(foundItem);
       setSharer(foundItem.sharer);
     });
@@ -175,6 +176,7 @@ const ItemDetails = (props) => {
                 sharer={{ sharer_id: item.sharer.sharer_id, sharer_name: item.sharer.sharer_name }}
                 title={item.title}
                 status={item.status}
+                points={item.points}
               />
               {/* <p>Total Points: {calculateTotalPoints()}</p>
               <p>Your Total Rewards: {calculateTotalRewards()}</p> */}

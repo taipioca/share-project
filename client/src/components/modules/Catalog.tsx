@@ -34,30 +34,35 @@ const Catalog = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   useEffect(() => {
+    let isMounted = true; // add this line
     const typingSpeed = 5000; // 1 second per letter
     const deletingSpeed = 4000; // 0.75 seconds per letter
     const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
-  
+
     // If we've finished typing or deleting a phrase, switch to the other operation
     if (!isDeleting && charIndex === phrases[phraseIndex].length) {
-      setTimeout(() => setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
+      setTimeout(() => isMounted && setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
     } else if (isDeleting && charIndex === 0) {
-      setIsDeleting(false);
-      setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
+      isMounted && false;
+      isMounted && setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
     }
-  
+
     // If we're not waiting to switch operations, proceed with typing or deleting
     if (!isDeleting && charIndex < phrases[phraseIndex].length) {
-      setCurrentPhrase((prevPhrase) => prevPhrase + phrases[phraseIndex].charAt(charIndex));
-      setCharIndex((prevIndex) => prevIndex + 1);
+      isMounted &&
+        setCurrentPhrase((prevPhrase) => prevPhrase + phrases[phraseIndex].charAt(charIndex));
+      isMounted && setCharIndex((prevIndex) => prevIndex + 1);
     } else if (isDeleting && charIndex > 0) {
-      setCurrentPhrase((prevPhrase) => prevPhrase.slice(0, -1));
-      setCharIndex((prevIndex) => prevIndex - 1);
+      isMounted && setCurrentPhrase((prevPhrase) => prevPhrase.slice(0, -1));
+      isMounted && setCharIndex((prevIndex) => prevIndex - 1);
     }
-  
+
     const timeoutId = setTimeout(() => {}, currentSpeed);
-  
-    return () => clearTimeout(timeoutId); // Clean up the timeout on unmount
+
+    return () => {
+      isMounted = false; // add this line
+      clearTimeout(timeoutId); // Clean up the timeout on unmount
+    };
   }, [currentPhrase, isDeleting]);
 
   // Load product items from MongoDB when component mounts

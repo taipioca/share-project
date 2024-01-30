@@ -29,7 +29,7 @@ type Props = {
 };
 
 const ItemActivityButton = (props: Props) => {
-  console.log("props(inside itemActivitiyButton):", props);
+  // console.log("props(inside itemActivitiyButton):", props);
   const { itemId } = props;
   const [itemRequests, setItemRequests] = useState<Item[]>([]);
   const [foundItem, setFoundItem] = useState<ProductInterface | null>(null);
@@ -53,25 +53,6 @@ const ItemActivityButton = (props: Props) => {
       }
     });
   }, [itemId]);
-  console.log("foundItem(inside itemActivitiyButton):", foundItem);
-  console.log(
-    "foundItem.share.sharer_id(inside itemActivitiyButton):",
-    foundItem?.sharer?.sharer_id
-  );
-
-  // Testing update user data
-  useEffect(() => {
-    if (foundItem) {
-      get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
-        console.log("userObj:", userObj);
-        const updatedObj = userObj;
-        updatedObj.points -= 1; // Deduct 1 from userObj.points
-        post("/api/user", updatedObj).then((returnedUserObj) =>
-          console.log("returnedUserObj:", returnedUserObj)
-        );
-      });
-    }
-  }, [foundItem?.sharer?.sharer_id]);
 
   const changeProductStatus = async () => {
     if (!foundItem) {
@@ -86,14 +67,50 @@ const ItemActivityButton = (props: Props) => {
         setFoundItem(updatedItem);
         setApproveRequest(false);
       });
-      get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
-        console.log("userObj:", userObj);
-        // const updatedObj = userObj;
-        // updatedObj.points -= 10; // Deduct 10 from userObj.points
-        // post("/api/user", updatedObj).then((returnedUserObj) =>
-        //   console.log("returnedUserObj:", returnedUserObj)
-        // );
-      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updatePoints = () => {
+    if (!foundItem) {
+      console.error("foundItem is null");
+      return;
+    }
+    try {
+      if (foundItem) {
+        if (foundItem.request_id !== undefined) {
+          // console.log("foundItem.request_id(before api/singlerequest)::", foundItem.request_id);
+          get("/api/singlerequest", { request_id: foundItem.request_id }).then((requestObj) => {
+            // console.log("requestObj(api/singlerequest):", requestObj);
+            const earnedPoints = requestObj.sharer_points;
+            const earnedRewards = requestObj.requester_points;
+            // console.log("earnedPoints:", earnedPoints);
+
+            get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
+              // console.log("userObj:", userObj);
+              const updatedObj = userObj;
+              updatedObj.points += earnedPoints;
+              post("/api/user", updatedObj);
+              // post("/api/user", updatedObj).then((returnedUserObj) =>
+              //   console.log("returnedUserObj:", returnedUserObj)
+              // );
+            });
+
+            get(`/api/user`, { userid: requestObj.requester.requester_id }).then(
+              (requesterUserObj) => {
+                // console.log("userObj:", userObj);
+                const updatedObj = requesterUserObj;
+                updatedObj.points += earnedRewards;
+                post("/api/user", updatedObj);
+                // post("/api/user", updatedObj).then((returnedUserObj) =>
+                //   console.log("returnedUserObj:", returnedUserObj)
+                // );
+              }
+            );
+          });
+        }
+      }
     } catch (error) {
       console.error(error);
     }
@@ -107,9 +124,14 @@ const ItemActivityButton = (props: Props) => {
     setModalIsOpen(false);
   };
 
+  const handleApprovalButtonClick = () => {
+    changeProductStatus();
+    updatePoints();
+  };
+
   return (
     <div>
-      <button onClick={openModal} className = "upload-button">
+      <button onClick={openModal} className="upload-button">
         <i className="fas fa-eye"> </i>Activity
       </button>
       <Modal isOpen={modalIsOpen} onRequestClose={closeModal}>
@@ -123,14 +145,14 @@ const ItemActivityButton = (props: Props) => {
             />
             <div style={{ marginLeft: "20px" }}>
               <p> Title: {foundItem ? foundItem.title : ""}</p>
-              <p> Points: {foundItem ? foundItem.points : ""}</p>
+              <p> Points/day: {foundItem ? foundItem.points : ""}</p>
               <p> Status: {foundItem ? foundItem.status : ""}</p>
               {approveRequest ? (
                 <button
                   type="submit"
                   className="NewRequestInput-button u-pointer"
                   value="Submit"
-                  onClick={changeProductStatus}
+                  onClick={handleApprovalButtonClick}
                 >
                   Confirm to approve the request
                 </button>
