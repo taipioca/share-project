@@ -64,13 +64,19 @@ const NewReviewInput = (props) => {
 const NewReview = (props) => {
   const addReview = (value, rating) => {
     const body = {
-      reviewerName: props.reviewerName,
-      reviewerId: props.reviewerId,
-      content: value,
+      reviewer: {
+        reviewer_id: props.reviewer_id,
+        reviewer_name: props.reviewer_name,
+      },
+      sharer: {
+        sharer_id: props.sharer_id,
+        sharer_name: props.sharer_name,
+      },
       rating: rating,
+      comment: value,
     };
     post("/api/newreview", body).then((review) => {
-      console.log(review);
+      console.log("review", review);
     });
   };
 

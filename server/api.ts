@@ -95,20 +95,25 @@ router.get("/catalog", (req, res) => {
 router.post("/newreview", auth.ensureLoggedIn, (req, res) => {
   const newReview = new Review({
     reviewer: {
-      reviewer_id: req.body.reviewerId,
-      reviewer_name: req.body.reviewerName,
+      reviewer_id: req.body.reviewer.reviewer_id,
+      reviewer_name: req.body.reviewer.reviewer_name,
     },
     sharer: {
-      sharer_id: "req.body.sharer_id",
-      sharer_name: "req.body.sharer_name",
+      sharer_id: req.body.sharer.sharer_id,
+      sharer_name: req.body.sharer.sharer_name,
     },
     rating: req.body.rating,
-    comment: req.body.content,
+    comment: req.body.comment,
     timestamp: new Date().toISOString(),
   });
   newReview.save().then((review) => res.send(review));
 });
 
+router.get("/getreview", (req, res) => {
+  Review.find({}).then((reviews) => {
+    res.send(reviews);
+  });
+});
 // create a new request in the database.
 router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   const newRequest = new Request({

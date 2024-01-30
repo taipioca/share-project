@@ -25,6 +25,8 @@ const getOrCreateUser = (user: TokenPayload) => {
         name: user.name,
         googleid: user.sub,
         points: 100,
+        rating: 0.0,
+        numreviews: 0,
       });
       return newUser.save();
     }

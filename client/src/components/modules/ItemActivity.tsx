@@ -97,7 +97,13 @@ const ItemActivityButton = (props: Props) => {
                 </p>
                 <p>Start Date: {request.start_date}</p>
                 <p>End Date: {request.end_date}</p>
-                <NewReview reviewerName="John Doe" reviewerId="123" />                <hr />
+                <NewReview
+                  reviewer_name={request.requester.requester_name}
+                  reviewer_id={request.requester.requester_id}
+                  sharer_id={request.sharer.sharer_id}
+                  sharer_name={request.sharer.sharer_name}
+                />
+                <hr />
               </div>
             ))}
           </div>

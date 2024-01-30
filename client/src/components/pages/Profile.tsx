@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import "./Profile.css";
 import Orders from "./Orders";
-// import icon from ;
 
 import "../../utilities.css";
 import { NewReview } from "../modules/NewReview";
 import { EditItem, NewItem } from "../modules/NewItem";
 import ItemActivityButton from "../modules/ItemActivity";
+import { ReviewList } from "../modules/ReviewList";
 
 interface User {
   name: string;
   userid: string;
   points: number;
   rating: number;
+  numreviews: number;
 }
 type Item = {
   id: string;
@@ -31,6 +32,8 @@ const Profile = (props) => {
   const [selectedTab, setSelectedTab] = useState("orders");
   const [starRotations, setStarRotations] = useState([0, 0, 0, 0, 0]);
   const confettiColors = ["red", "blue", "green"];
+  const [showReviews, setShowReviews] = useState(false);
+
   // Set a random rotation for each star when the component mounts
   useEffect(() => {
     setStarRotations(starRotations.map(() => Math.random() * 360));
@@ -54,7 +57,9 @@ const Profile = (props) => {
   if (!user) {
     return <div> Loading! </div>;
   }
-
+  const handleClick = () => {
+    setShowReviews(!showReviews);
+  };
   return (
     <body id="profile-page">
       <>
@@ -97,6 +102,7 @@ const Profile = (props) => {
                         </label>
                       );
                     })}
+                    <div>{showReviews && <ReviewList userid={props.userId} />} </div>{" "}
                   </div>
                   <div className="Profile-points u-textCenter">
                     <h2 style={{ position: "relative", zIndex: 1 }}>{user.points}</h2>
@@ -120,10 +126,16 @@ const Profile = (props) => {
               >
                 My Shares
               </button>
+              <button
+                className={selectedTab === "reviews" ? "active" : ""}
+                onClick={() => handleTabClick("reviews")}
+              >
+                Reviews for Me ({user.numreviews}){" "}
+              </button>
             </div>
             {selectedTab === "orders" ? (
               <Orders user={user} />
-            ) : (
+            ) : selectedTab === "items" ? (
               <div className="profile-catalog">
                 <div className="upload-button-container">
                   <NewItem sharer_name={user.name} sharer_id={props.userId} />
@@ -147,6 +159,8 @@ const Profile = (props) => {
                   ))}
                 </div>
               </div>
+            ) : (
+              <ReviewList userid={props.userId} />
             )}
           </div>
         </div>
