@@ -34,6 +34,7 @@ type Item = {
 const ItemDetails = (props) => {
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
+  const [sharer, setSharer] = useState<User>();
 
   const [user, setUser] = useState<User>();
   const [isActive, setIsActive] = useState(false);
@@ -51,6 +52,7 @@ const ItemDetails = (props) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
       // console.log("foundItem:", foundItem);
       setItem(foundItem);
+      setSharer(foundItem.sharer);
     });
   }, [id]);
   useEffect(() => {
@@ -61,7 +63,15 @@ const ItemDetails = (props) => {
   if (!item) {
     return <div>No item found</div>;
   }
-
+  // useEffect(() => {
+  //   get("/api/catalog").then((itemsObjs) => {
+  //     const foundItem = itemsObjs.find((item: Item) => item.id === id);
+  //     setItem(foundItem);
+  //     if (foundItem) {
+  //       setSharer(foundItem.sharer);
+  //     }
+  //   });
+  // }, [id]);
   const youGetPoints = Math.ceil(item.points * 0.2);
 
   return (
@@ -123,14 +133,22 @@ const ItemDetails = (props) => {
                 By <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
               </p>
               <div className="details-rating">
-                {[...Array(5)].map((star, i) => {
-                  const ratingValue = i + 1;
-                  return (
-                    <label key={i}>
-                      <i className={ratingValue <= 5 ? "fas fa-star" : "far fa-star"}></i>
-                    </label>
-                  );
-                })}
+                {sharer ? (
+                  [...Array(5)].map((star, i) => {
+                    const ratingValue = i + 1;
+                    return (
+                      <label key={i}>
+                        <i
+                          className={
+                            ratingValue <= Math.floor(sharer.rating) ? "fas fa-star" : "far fa-star"
+                          }
+                        ></i>
+                      </label>
+                    );
+                  })
+                ) : (
+                  <p>Loading...</p>
+                )}
                 <span>({item.reviews})</span> {/* Add this line */}
               </div>{" "}
             </div>

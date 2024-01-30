@@ -95,17 +95,21 @@ body {
 }
 
 .item-buttons {
-  display: flex; /* This makes the children align in a row */
-  align-items: stretch; /* This makes the children the same height */
-  justify-content: space-between; /* This distributes the children evenly */
+  display: flex; 
+  justify-content: space-between; 
+  margin-top: -5%;
+  margin-bottom: 0%;
+  gap: 5%;
 }
 
-.item-buttons > * {
+
+/*.item-buttons > * {
   font-family: "Inter", sans-serif;
   font-size: 0.8em;
-  border-radius: 5px; /* This makes the corners rounded */
+  border-radius: 5px;
   margin: 0 3px;
-}
+  height: 30%;
+} */
 
 .profile-rating {
   display: flex;
@@ -267,4 +271,47 @@ body {
     transform: translateX(-50%) scale(0.8, 1.5);
     opacity: 0.5;
   }
+}
+
+.image-container {
+  width: 12.5em; /* Adjust this as needed */
+  height: 12.5em;
+  overflow: hidden;
+}
+
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0.5em; /* Adjust this as needed */
+}
+
+
+
+#edit-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: black;
+  text-align: left;
+  transition: transform 0.3s ease-in-out; 
+}
+
+/* #edit-item:hover {
+  transform: scale(1.05); 
+} */
+
+.item-text h3 {
+  font-size: var(--small);
+  margin-top: 0.01em; /* Adjust this as needed */
+}
+
+.item-text h4 {
+  margin-top: 0.5em; /* Adjust this as needed */
+  margin-bottom: 0.05em; /* Adjust this as needed */
+  font-size: var(--small);
+  font-weight: 400;
 }

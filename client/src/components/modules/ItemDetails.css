@@ -12,17 +12,15 @@
   transition: transform 0.2s;
 }
 
-#item-title  {
+#item-title {
   margin-top: 5px;
   font-size: 2em;
-margin-bottom: 5px;
+  margin-bottom: 5px;
 }
-
 
 #item-sharername {
   margin-top: 10px;
   margin-bottom: 30px;
-
 }
 
 .item-container.active {
@@ -111,7 +109,6 @@ input[type="date"] {
   background-color: white;
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 5px rgb(211, 211, 211);
   color: var(--primary);
   font-size: 16px;
   width: 40px; /* adjust as needed */
@@ -121,13 +118,13 @@ input[type="date"] {
   align-items: center;
   text-decoration: none; /* remove underline */
   transition: background-color 0.3s, color 0.3s; /* smooth transition */
-margin-right: 10%;
-
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .back-button:hover {
-  background-color: var(--primary--dim); /* change background color on hover */
-  color: white; /* change icon color on hover */
+  box-shadow: 0 0 6px rgb(208, 207, 207);
+  background-color: white;
 }
 
 .rounded-box {
@@ -148,8 +145,6 @@ margin-right: 10%;
 
   align-items: center;
 }
-
-
 
 .details-rating {
   display: flex; /* Makes the stars horizontal */
@@ -173,7 +168,6 @@ margin-right: 10%;
 
 .details-description {
   margin-bottom: 8%; /* Adjust this value as needed */
-
 }
 .points-container {
   display: flex; /* make the children align in a row */

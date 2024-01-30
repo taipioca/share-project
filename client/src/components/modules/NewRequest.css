@@ -20,7 +20,7 @@
   border: 1px solid var(--primary--dim);
   font-size: 0.8em;
   padding: 5px;
-  font-family: 'Inter', sans-serif; /* Add this line */
+  font-family: "Inter", sans-serif; /* Add this line */
 }
 
 .NewRequestInput-button {
@@ -51,4 +51,8 @@
   display: flex; /* This makes the button a flex container */
   justify-content: center; /* This centers the text horizontally */
   align-items: center; /* This centers the text vertically */
+}
+
+.unavailable-item-notice {
+  color: var(--second);
 }

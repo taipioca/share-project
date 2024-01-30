@@ -25,6 +25,7 @@ const Catalog = () => {
     "vacuum",
     "party dress",
     "usb drive",
+    "tennis racket",
     "bike",
     "hair straightener",
   ];
@@ -33,10 +34,10 @@ const Catalog = () => {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   useEffect(() => {
-    const typingSpeed = 750; // 0.75 seconds per letter
-    const deletingSpeed = 750; // 0.75 seconds per letter
+    const typingSpeed = 5000; // 1 second per letter
+    const deletingSpeed = 4000; // 0.75 seconds per letter
     const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
-
+  
     // If we've finished typing or deleting a phrase, switch to the other operation
     if (!isDeleting && charIndex === phrases[phraseIndex].length) {
       setTimeout(() => setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
@@ -44,7 +45,7 @@ const Catalog = () => {
       setIsDeleting(false);
       setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
     }
-
+  
     // If we're not waiting to switch operations, proceed with typing or deleting
     if (!isDeleting && charIndex < phrases[phraseIndex].length) {
       setCurrentPhrase((prevPhrase) => prevPhrase + phrases[phraseIndex].charAt(charIndex));
@@ -53,9 +54,9 @@ const Catalog = () => {
       setCurrentPhrase((prevPhrase) => prevPhrase.slice(0, -1));
       setCharIndex((prevIndex) => prevIndex - 1);
     }
-
+  
     const timeoutId = setTimeout(() => {}, currentSpeed);
-
+  
     return () => clearTimeout(timeoutId); // Clean up the timeout on unmount
   }, [currentPhrase, isDeleting]);
 
@@ -95,7 +96,7 @@ const Catalog = () => {
         <div className="cat-search-bar-container">
           <div className="cat-search-input-container">
             <input
-            className = "cat-search-input"
+              className="cat-search-input"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

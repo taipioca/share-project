@@ -158,7 +158,7 @@ const NewRequestInput = (props) => {
       //   <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
       // </p>
       itemUnavailable ? (
-        <p style={{ color: "red" }}>The item is currently not available.</p>
+        <p className = "unavailable-item-notice">This item is currently shared with someone else. Check back soon!</p>
       ) : (
         <button type="submit" className="NewRequestInput-button u-pointer" value="Submit">
           Send Request

@@ -62,10 +62,10 @@ const ReviewList = ({ userid }) => {
         }
       });
       setReviews(userReviews);
-
+      console.log("userReviews:", userReviews);
       const averageRating = calculateAverageRating(userReviews);
       const numberOfReviews = calculateNumberOfReviews(userReviews);
-
+      
       updateUserRating(userid, averageRating, numberOfReviews);
     });
   }, [userid]);
