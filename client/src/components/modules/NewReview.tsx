@@ -68,7 +68,8 @@ const NewReviewInput = (props) => {
 
   return (
     <div className="u-flex">
-      <p>select a rating for your experience</p>
+      <p>Leave a review for 5 points!</p>
+      <p> Rate your experience:</p>
       <select value={rating} onChange={handleRatingChange}>
         <option value=""></option>
         <option value="1">1 - Poor</option>
@@ -120,11 +121,11 @@ const NewReview = (props) => {
     };
     post("/api/newreview", body).then((review) => {
       console.log("review", review);
-  
+
       // Fetch the user after the new review is posted
       get(`/api/user`, { userid: props.sharer_id }).then((userObj) => {
         console.log("userObj:", userObj);
-  
+
         // Fetch the reviews for the user
         get("/api/getreview").then((allReviews: Review[]) => {
           const userReviews = allReviews.filter((review) => {
@@ -135,21 +136,25 @@ const NewReview = (props) => {
               return false;
             }
           });
-  
+
           if (userReviews.length > 0) {
             const averageRating = calculateAverageRating(userReviews);
             const numberOfReviews = calculateNumberOfReviews(userReviews);
-  
+
             // Update the user info with the average rating and number of reviews
-            post("/api/user", { ...userObj, rating: averageRating, numreviews: numberOfReviews }).then(
-              (userObj2) => console.log("userObj2:", userObj2)
-            );
+            post("/api/user", {
+              ...userObj,
+              rating: averageRating,
+              numreviews: numberOfReviews,
+            }).then((userObj2) => console.log("userObj2:", userObj2));
           }
         });
       });
     });
   };
-  return <NewReviewInput defaultText="Write a Review for _____" onSubmit={addReview} />;
+  return (
+    <NewReviewInput defaultText={`Your comment`} onSubmit={addReview} />
+  );
 };
 
 export { NewReview };

@@ -1,0 +1,58 @@
+.rev-rating i {
+  margin-right: 0.25em;
+  font-size: 30px;
+  text-align: center;
+}
+.average-rating {
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+  margin-top: 2em; /* Adds more space between the overall rating and the top */
+}
+
+.rev-rating {
+  display: flex; /* Makes the stars horizontal */
+  justify-content: center; /* Centers the stars horizontally */
+  margin: 0%; /* Reduces space above and below the stars */
+}
+
+.number-of-reviews {
+  text-align: center;
+  font-size: 16px;
+  margin-top: 1%;
+  margin-bottom: 1em; /* Reduces space below the number of reviews */
+}
+.review-comment {
+  font-style: italic;
+}
+
+.divide-line {
+  border: 1px solid rgba(151, 101, 104, 0.5); /* Adds a line above the first review */
+  width: 92%;
+}
+
+.divide-line-review {
+  border: 1px solid rgba(151, 101, 104, 0.5); /* Adds a line above the first review */
+  width: 100%;
+}
+
+.review {
+  padding: 0.7em 0; /* Adds space above and below each review */
+  width: 90%; /* Decreases the width of the reviews */
+  margin: 0 auto; /* Centers the reviews */
+}
+
+.review-rating {
+  display: flex; /* Makes the stars and rating horizontal */
+  justify-content: space-between; /* Adds space between the stars and rating */
+  margin-bottom: 0.5em; /* Adds space below the stars */
+}
+
+.review-rating i {
+  margin-right: 0.5em; /* Adds space between each star */
+}
+
+.reviewer-name {
+  margin-left: auto; /* Moves the reviewer name to the right */
+  font-size: 0.8em; /* Makes the reviewer name smaller */
+}

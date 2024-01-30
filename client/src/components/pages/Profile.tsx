@@ -88,14 +88,16 @@ const Profile = (props) => {
               <div className="profile-info-box">
                 <h1 className="Profile-name u-textCenter">{user.name}</h1>
                 <div className="Profile-pointsContainer">
-                  <div className="profile-rating">
+                  <div className="profile-rating" onClick={() => setSelectedTab("reviews")}>
                     {[...Array(5)].map((star, i) => {
                       const ratingValue = i + 1;
                       return (
                         <label key={i}>
                           <i
                             className={`star star-${ratingValue} ${
-                              ratingValue <= user.rating ? "fas fa-star" : "far fa-star"
+                              ratingValue <= user.rating
+                                ? "fas fa-star star-filled"
+                                : "far fa-star star-empty"
                             }`}
                             style={{
                               transform: `rotate(${starRotations[i]}deg)`,

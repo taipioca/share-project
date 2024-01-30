@@ -7,7 +7,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)), url('https://i.pinimg.com/564x/db/72/71/db72712e85b433cc2cfc43956c8f4b8f.jpg');
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)),
+    url("https://i.pinimg.com/564x/db/72/71/db72712e85b433cc2cfc43956c8f4b8f.jpg");
   background-size: cover;
   transform: rotate(0 deg);
   z-index: -1;
@@ -44,10 +45,9 @@
   width: 100%;
 } */
 
-
 .cat-search-input-container {
   position: relative;
-  width: 60%; 
+  width: 60%;
 }
 
 .cat-search-input {
@@ -59,7 +59,7 @@
 .cat-search-input:focus {
   outline: none;
   border: none;
-background-color: rgba(236, 230, 227, 0.734)
+  background-color: rgb(243, 236, 231);
 }
 .search-icon {
   position: absolute;
@@ -90,7 +90,7 @@ background-color: rgba(236, 230, 227, 0.734)
   text-decoration: none;
   color: black;
   text-align: left;
-  transition: transform 0.3s ease-in-out; 
+  transition: transform 0.3s ease-in-out;
 }
 
 .item:hover {
@@ -139,5 +139,3 @@ background-color: rgba(236, 230, 227, 0.734)
 .cat-rating .far {
   color: gray; /* Makes the empty stars gray */
 }
-
-

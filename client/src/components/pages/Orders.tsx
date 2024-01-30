@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
 import { NewReview } from "../modules/NewReview";
+import "./Orders.css";
+import { format } from "date-fns";
 // type Item = {
 //   id: string;
 //   image: string;
@@ -78,53 +80,103 @@ const Orders = (props) => {
 
   return (
     <>
-      <div>
-        <p style={{ fontSize: "2em", fontWeight: "bold" }}>Requests Pending for Approval</p>
-        {pendingItems.map((item, index) => (
-          <div key={index}>
-            <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
-            <p>Title: {item.title}</p>
-            <p>Sharer: {item.sharer.sharer_name}</p>
-            <p>requester: {item.requester.requester_name}</p>
-            <p>Start Date: {item.start_date}</p>
-            <p>End Date: {item.end_date}</p>
-            <hr></hr>
-          </div>
-        ))}
-      </div>
-      <div>
-        <p style={{ fontSize: "2em", fontWeight: "bold" }}>In Use</p>
-        {inuseItems.map((item, index) => (
-          <div key={index}>
-            <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
-            <p>Title: {item.title}</p>
-            <p>Sharer: {item.sharer.sharer_name}</p>
-            <p>requester: {item.requester.requester_name}</p>
-            <p>Start Date: {item.start_date}</p>
-            <p>End Date: {item.end_date}</p>
-            <hr></hr>
-          </div>
-        ))}
-      </div>
-      <div>
-        <p style={{ fontSize: "2em", fontWeight: "bold" }}>Order History</p>
-        {orderHistoryItems.map((item, index) => (
-          <div key={index}>
-            <img src={item.image} alt="ProductImange" style={{ width: "100px", height: "auto" }} />
-            <p>Title: {item.title}</p>
-            <p>Sharer: {item.sharer.sharer_name}</p>
-            <p>requester: {item.requester.requester_name}</p>
-            <p>Start Date: {item.start_date}</p>
-            <p>End Date: {item.end_date}</p>
-            <NewReview
-              reviewer_name={item.requester.requester_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
-              reviewer_id={item.requester.requester_id}
-              sharer_id={item.sharer.sharer_id}
-              sharer_name={item.sharer.sharer_name}
-            />
-            <hr></hr>
-          </div>
-        ))}
+      <div className="orders-container">
+        <div>
+          <p className="orders-category">Requests Pending for Approval</p>
+          {pendingItems.length > 0 ? (
+            pendingItems.map((item, index) => (
+              <div key={index} className="orders-item-details">
+                <img src={item.image} alt="ProductImange" className="orders-product-image" />
+                <p className="orders-item-title">{item.title}</p>
+                <p>
+                  Shared by:{" "}
+                  <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
+                </p>
+                <p>
+                  From{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.start_date), "MMMM d, yyyy")}
+                  </span>{" "}
+                  to{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.end_date), "MMMM d, yyyy")}
+                  </span>
+                </p>
+                {/* <hr className="order-divide-line" /> */}
+              </div>
+            ))
+          ) : (
+            <p>No items.</p>
+          )}
+        </div>
+        <div>
+          <p className="orders-category">In Use</p>
+          {inuseItems.length > 0 ? (
+            inuseItems.map((item, index) => (
+              <div key={index} className="orders-item-details">
+                <img src={item.image} alt="ProductImange" className="orders-product-image" />
+                <p className="orders-item-title">{item.title}</p>
+                <p>
+                  Shared by:{" "}
+                  <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
+                </p>
+                <p>
+                  From{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.start_date), "MMMM d, yyyy")}
+                  </span>{" "}
+                  to{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.end_date), "MMMM d, yyyy")}
+                  </span>
+                </p>
+
+                <NewReview
+                  reviewer_name={item.requester.requester_name}
+                  reviewer_id={item.requester.requester_id}
+                  sharer_id={item.sharer.sharer_id}
+                  sharer_name={item.sharer.sharer_name}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No items.</p>
+          )}
+        </div>
+        <div>
+          <p className="orders-category">Order History</p>
+          
+          {orderHistoryItems.length > 0 ? (
+            orderHistoryItems.map((item, index) => (
+              <div key={index} className="orders-item-details">
+                <img src={item.image} alt="ProductImange" className="orders-product-image" />
+                <p className="orders-item-title">{item.title}</p>
+                <p>
+                  Shared by:{" "}
+                  <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
+                </p>
+                <p>
+                  From{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.start_date), "MMMM d, yyyy")}
+                  </span>{" "}
+                  to{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(item.end_date), "MMMM d, yyyy")}
+                  </span>
+                </p>
+                <NewReview
+                  reviewer_name={item.requester.requester_name}
+                  reviewer_id={item.requester.requester_id}
+                  sharer_id={item.sharer.sharer_id}
+                  sharer_name={item.sharer.sharer_name}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No items.</p>
+          )}
+        </div>
       </div>
     </>
   );

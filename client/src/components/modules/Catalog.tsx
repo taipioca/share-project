@@ -185,7 +185,9 @@ const Catalog = () => {
                   <label key={i}>
                     <i
                       className={
-                        ratingValue <= (item.sharerRating || 0) ? "fas fa-star" : "far fa-star"
+                        ratingValue <= (item.sharerRating || 0) 
+                        ? "fas fa-star star-filled"
+                        : "far fa-star star-empty"
                       }
                     ></i>
                   </label>

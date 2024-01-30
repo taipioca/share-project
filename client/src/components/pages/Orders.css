@@ -1,0 +1,50 @@
+.orders-category {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .orders-product-image {
+    width: 100px;
+    height: auto;
+    float: left;
+    margin-right: 20px; /* Add space to the right of the image */
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+  }
+  
+  .orders-item-details {
+    line-height: 1; /* Reduce the spacing between lines */
+    background-color: rgba(255, 255, 255, 0.6); /* Slightly white background */
+    margin-bottom: 10px; /* Small empty space between each item */
+    padding: 10px; /* Padding around the content */
+  }
+  
+  .orders-item-title {
+    margin-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .orders-item-sharer, .orders-item-date {
+    color: var(--primary); /* Make the sharer name and dates colored */
+  }
+  
+  .orders-item-date {
+    font-style: italic;
+  }
+  
+  .orders-container {
+    width: 95%;
+    margin: auto;
+  }
+  
+  .all-orders {
+    width: 95%;
+  }
+
+  .order-divide-line {
+    border: 1px solid rgba(151, 101, 104, 0.5); /* Adds a line above the first review */
+    width: 92%;
+  }
