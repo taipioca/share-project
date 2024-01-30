@@ -50,6 +50,8 @@ const Profile = (props) => {
     document.title = "Profile Page";
     get(`/api/user`, { userid: props.userId }).then((userObj) => setUser(userObj));
   }, []);
+  console.log("user:", user);
+  console.log("props.userId:", props.userId);
 
   if (!user) {
     return <div> Loading! </div>;

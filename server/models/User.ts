@@ -9,8 +9,8 @@ const UserSchema = new Schema({
 export interface User extends Document {
   name: string;
   googleid: string;
-  _id: string;
   points: number;
+  _id: string;
 }
 
 const UserModel = model<User>("User", UserSchema);

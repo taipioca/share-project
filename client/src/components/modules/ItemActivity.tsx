@@ -46,15 +46,12 @@ const ItemActivityButton = (props: Props) => {
       const foundItem =
         (itemsObjs as ProductInterface[]).find((item: ProductInterface) => item.id === itemId) ||
         null;
-      console.log("foundItem:", foundItem);
       setFoundItem(foundItem);
       if (foundItem && foundItem.status === "pending") {
         setApproveRequest(true);
       }
     });
   }, [itemId]);
-  // console.log("itemRequests:", itemRequests);
-  // console.log("foundItem:", foundItem);
 
   const changeProductStatus = async () => {
     if (!foundItem) {
