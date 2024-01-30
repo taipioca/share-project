@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { get } from "../../utilities";
-
+import { NewReview } from "../modules/NewReview";
 // type Item = {
 //   id: string;
 //   image: string;
@@ -116,6 +116,12 @@ const Orders = (props) => {
             <p>requester: {item.requester.requester_name}</p>
             <p>Start Date: {item.start_date}</p>
             <p>End Date: {item.end_date}</p>
+            <NewReview
+              reviewer_name={item.requester.requester_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
+              reviewer_id={item.requester.requester_id}
+              sharer_id={item.sharer.sharer_id}
+              sharer_name={item.sharer.sharer_name}
+            />
             <hr></hr>
           </div>
         ))}

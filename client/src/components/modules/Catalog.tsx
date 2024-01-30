@@ -25,6 +25,7 @@ const Catalog = () => {
     "vacuum",
     "party dress",
     "usb drive",
+    "tennis racket",
     "bike",
     "hair straightener",
   ];

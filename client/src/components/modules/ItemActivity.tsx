@@ -124,11 +124,12 @@ const ItemActivityButton = (props: Props) => {
             <p>Start Date: {request.start_date}</p>
             <p>End Date: {request.end_date}</p>
             <NewReview
-              reviewer_name={request.requester.requester_name}
-              reviewer_id={request.requester.requester_id}
-              sharer_id={request.sharer.sharer_id}
-              sharer_name={request.sharer.sharer_name}
+              reviewer_name={request.sharer.sharer_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
+              reviewer_id={request.sharer.sharer_id}
+              sharer_id={request.requester.requester_id}
+              sharer_name={request.requester.requester_name}
             />
+
             <hr></hr>
           </div>
         ))}

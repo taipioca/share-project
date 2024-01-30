@@ -9,6 +9,7 @@ import { EditItem, NewItem } from "../modules/NewItem";
 import ItemActivityButton from "../modules/ItemActivity";
 import { ReviewList } from "../modules/ReviewList";
 
+
 interface User {
   name: string;
   userid: string;
@@ -57,9 +58,8 @@ const Profile = (props) => {
   if (!user) {
     return <div> Loading! </div>;
   }
-  const handleClick = () => {
-    setShowReviews(!showReviews);
-  };
+  console.log('Number of Reviews:', user.numreviews);
+
   return (
     <body id="profile-page">
       <>
@@ -132,6 +132,7 @@ const Profile = (props) => {
                 onClick={() => handleTabClick("reviews")}
               >
                 Reviews for Me ({user.numreviews}){" "}
+                
               </button>
             </div>
             {selectedTab === "orders" ? (
