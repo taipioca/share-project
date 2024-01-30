@@ -135,6 +135,37 @@ router.post("/newrequest", auth.ensureLoggedIn, (req, res) => {
   newRequest.save().then((request) => res.send(request));
 });
 
+// change the status of a product in the database.
+router.post("/changeproductstatus", async (req, res) => {
+  try {
+    const itemId = req.body.item_id;
+    const itemStatus = req.body.item_status;
+
+    // Validate itemStatus
+    if (!["available", "pending", "unavailable"].includes(itemStatus)) {
+      return res.status(400).send({ error: "Invalid item_status" });
+    }
+
+    // Find the product and update its status
+    const product = await ProductModel.findOneAndUpdate(
+      { id: itemId },
+      { status: itemStatus },
+      { new: true } // This option returns the updated document
+    );
+
+    // If no product was found, send an error
+    if (!product) {
+      return res.status(404).send({ error: "Product not found" });
+    }
+
+    // Send the updated product
+    res.send(product);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "An unknown error occurred" });
+  }
+});
+
 // get all requests from the database.
 router.get("/requests", (req, res) => {
   console.log("tried getting request");
@@ -143,7 +174,7 @@ router.get("/requests", (req, res) => {
   });
 });
 
-// get all requests that is pending for approval.
+// declare a new type 'RequestWithImage' that allow to add image url to the request object.
 type RequestWithImage = {
   requester: {
     requester_id: string;
@@ -163,11 +194,13 @@ type RequestWithImage = {
   image?: string;
 };
 
+// get all requests that is pending for approval.
 router.get("/pendingproduct", async (req, res) => {
   try {
     const userId = req.query.user_id;
     const requesterItems = await RequestModel.find({
       "requester.requester_id": userId,
+      status: "open",
     });
 
     // console.log("requesterItems (in get(/pendingproduct):", requesterItems);
@@ -191,7 +224,7 @@ router.get("/pendingproduct", async (req, res) => {
   }
 });
 
-// get in-use products for a requester.
+// get all in-use products for a requester.
 router.get("/inuseproduct", async (req, res) => {
   try {
     const userId = req.query.user_id;

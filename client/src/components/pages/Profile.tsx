@@ -67,6 +67,7 @@ const Profile = (props) => {
           <div className="profile-info">
             {Array.from({ length: 30 }).map((_, i) => (
               <div
+                key={i}
                 className={`confetti ${confettiColors[i % confettiColors.length]}`}
                 style={
                   {

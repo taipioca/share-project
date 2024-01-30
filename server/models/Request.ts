@@ -15,6 +15,11 @@ const RequestSchema = new Schema({
   end_date: String,
   sharer_points: Number,
   requester_points: Number,
+  status: {
+    type: String,
+    enum: ["open", "close"],
+    default: "open",
+  },
 });
 
 export interface RequestDoc extends Document {
@@ -28,11 +33,12 @@ export interface RequestDoc extends Document {
   };
   title: string;
   item_id: string;
-  _id: string;
   start_date: string;
   end_date: string;
   sharer_points: number;
   requester_points: number;
+  status?: "open" | "close";
+  _id: string;
 }
 
 const RequestModel = model<RequestDoc>("Request", RequestSchema);
