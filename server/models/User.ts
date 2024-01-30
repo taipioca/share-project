@@ -4,12 +4,16 @@ const UserSchema = new Schema({
   name: String,
   googleid: String,
   points: Number,
+  rating: Number,
+  numreviews: Number,
 });
 
 export interface User extends Document {
   name: string;
   googleid: string;
+  numreviews: number;
   points: number;
+  rating: number;
   _id: string;
 }
 

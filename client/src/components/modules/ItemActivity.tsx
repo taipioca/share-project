@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { get, post } from "../../utilities";
 import Modal from "react-modal";
 import { Product as ProductInterface } from "../../../../server/models/Product";
-
+import { NewReview } from "../modules/NewReview";
 Modal.setAppElement("#root");
 
 type Item = {
@@ -120,6 +120,12 @@ const ItemActivityButton = (props: Props) => {
             </p>
             <p>Start Date: {request.start_date}</p>
             <p>End Date: {request.end_date}</p>
+            <NewReview
+              reviewer_name={request.requester.requester_name}
+              reviewer_id={request.requester.requester_id}
+              sharer_id={request.sharer.sharer_id}
+              sharer_name={request.sharer.sharer_name}
+            />
             <hr></hr>
           </div>
         ))}
