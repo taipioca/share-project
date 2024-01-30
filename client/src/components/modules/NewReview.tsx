@@ -1,8 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import "./NewReview.css";
-import { post } from "../../utilities";
+import { post, get } from "../../utilities";
 
+interface User {
+  userid: string;
+  rating: number;
+  numreviews: number;
+}
+
+interface Review {
+  _id: string;
+  reviewer: {
+    reviewer_id: string;
+    reviewer_name: string;
+  };
+  sharer: {
+    sharer_id: string;
+    sharer_name: string;
+  };
+  rating: number;
+  comment: string;
+}
+
+const updateUserRating = (userid, reviews) => {
+  if (reviews.length > 0) {
+    const averageRating = calculateAverageRating(reviews);
+    const numberOfReviews = calculateNumberOfReviews(reviews);
+
+    console.log("USERIDDDD", userid);
+    post("/api/user", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
+      (error) => {
+        console.error("Error updating user:", error);
+      }
+    );
+  }
+};
+
+const calculateAverageRating = (reviews: Review[]) => {
+  const totalRating = reviews.reduce((total, review) => total + review.rating, 0);
+  const averageRating = totalRating / reviews.length;
+  return Math.round(averageRating * 10) / 10;
+};
+
+const calculateNumberOfReviews = (reviews: Review[]) => {
+  return reviews.length;
+};
 const NewReviewInput = (props) => {
   const [value, setValue] = useState("");
   const [rating, setRating] = useState(""); // new state for the rating
@@ -77,9 +120,35 @@ const NewReview = (props) => {
     };
     post("/api/newreview", body).then((review) => {
       console.log("review", review);
+  
+      // Fetch the user after the new review is posted
+      get(`/api/user`, { userid: props.sharer_id }).then((userObj) => {
+        console.log("userObj:", userObj);
+  
+        // Fetch the reviews for the user
+        get("/api/getreview").then((allReviews: Review[]) => {
+          const userReviews = allReviews.filter((review) => {
+            if (review.sharer && review.sharer.sharer_id) {
+              return review.sharer.sharer_id === props.sharer_id;
+            } else {
+              console.log("No sharer_id found for review:", review);
+              return false;
+            }
+          });
+  
+          if (userReviews.length > 0) {
+            const averageRating = calculateAverageRating(userReviews);
+            const numberOfReviews = calculateNumberOfReviews(userReviews);
+  
+            // Update the user info with the average rating and number of reviews
+            post("/api/user", { ...userObj, rating: averageRating, numreviews: numberOfReviews }).then(
+              (userObj2) => console.log("userObj2:", userObj2)
+            );
+          }
+        });
+      });
     });
   };
-
   return <NewReviewInput defaultText="Write a Review for _____" onSubmit={addReview} />;
 };
 

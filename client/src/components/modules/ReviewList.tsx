@@ -40,35 +40,37 @@ const calculateNumberOfReviews = (reviews: Review[]) => {
   return reviews.length;
 };
 
-const updateUserRating = (userid: string, averageRating: number, numberOfReviews: number) => {
-  post("/api/updateuser", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
-    (error) => {
-      console.error("Error updating user:", error);
-    }
-  );
-};
+// const updateUserRating = (userid: string, averageRating: number, numberOfReviews: number) => {
+//   post("/api/user", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
+//     (error) => {
+//       console.error("Error updating user:", error);
+//     }
+//   );
+// };
 
 const ReviewList = ({ userid }) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
+  
 
-  useEffect(() => {
-    get("/api/getreview").then((allReviews: Review[]) => {
-      const userReviews = allReviews.filter((review) => {
-        if (review.sharer && review.sharer.sharer_id) {
-          return review.sharer.sharer_id === userid;
-        } else {
-          console.log("No sharer_id found for review:", review);
-          return false;
-        }
+  
+    useEffect(() => {
+      get("/api/getreview").then((allReviews: Review[]) => {
+        const userReviews = allReviews.filter((review) => {
+          if (review.sharer && review.sharer.sharer_id) {
+            return review.sharer.sharer_id === userid;
+          } else {
+            console.log("No sharer_id found for review:", review);
+            return false;
+          }
+        });
+        setReviews(userReviews);
+        console.log("userReviews:", userReviews);
+  
       });
-      setReviews(userReviews);
-      console.log("userReviews:", userReviews);
-      const averageRating = calculateAverageRating(userReviews);
-      const numberOfReviews = calculateNumberOfReviews(userReviews);
-      
-      updateUserRating(userid, averageRating, numberOfReviews);
-    });
-  }, [userid]);
+    }, [userid]);
+  
+    console.log("reviews:", reviews);
+ 
 
   // Replace 'userid' with the actual user id
   const userReviews = displayUserReviews(reviews);

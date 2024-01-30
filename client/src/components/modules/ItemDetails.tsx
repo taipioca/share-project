@@ -10,6 +10,7 @@ interface User {
   userid: string;
   points: number;
   rating: number;
+  numreviews: number;
 }
 
 type Item = {
@@ -38,6 +39,8 @@ const ItemDetails = (props) => {
 
   const [user, setUser] = useState<User>();
   const [isActive, setIsActive] = useState(false);
+  const [sharerRating, setSharerRating] = useState(0.0);
+  const [sharerNum, setSharerNum] = useState(0);
 
   useEffect(() => {
     setIsActive(true);
@@ -63,16 +66,17 @@ const ItemDetails = (props) => {
   if (!item) {
     return <div>No item found</div>;
   }
-  // useEffect(() => {
-  //   get("/api/catalog").then((itemsObjs) => {
-  //     const foundItem = itemsObjs.find((item: Item) => item.id === id);
-  //     setItem(foundItem);
-  //     if (foundItem) {
-  //       setSharer(foundItem.sharer);
-  //     }
-  //   });
-  // }, [id]);
+
   const youGetPoints = Math.ceil(item.points * 0.2);
+  if (sharer) {
+    get(`/api/user`, { userid: item.sharer.sharer_id }).then((userObj) => {
+      console.log("userObj:", userObj.rating);
+      setSharerRating(userObj.rating);
+      setSharerNum(userObj.numreviews);
+    });
+  }
+
+  console.log("sharerRating:", sharerRating);
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
@@ -140,7 +144,9 @@ const ItemDetails = (props) => {
                       <label key={i}>
                         <i
                           className={
-                            ratingValue <= Math.floor(sharer.rating) ? "fas fa-star" : "far fa-star"
+                            sharerRating !== null && ratingValue <= Math.floor(sharerRating)
+                              ? "fas fa-star"
+                              : "far fa-star"
                           }
                         ></i>
                       </label>
@@ -149,7 +155,7 @@ const ItemDetails = (props) => {
                 ) : (
                   <p>Loading...</p>
                 )}
-                <span>({item.reviews})</span> {/* Add this line */}
+                <span>({sharerNum})</span> {/* Add this line */}
               </div>{" "}
             </div>
             <div className="rounded-box">

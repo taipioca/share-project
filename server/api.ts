@@ -22,7 +22,6 @@ router.get("/whoami", (req, res) => {
 
 // get a user from the database. Input: userid. Output: user object.
 router.get("/user", (req, res) => {
-  console.log("req.query.userid:", req.query.userid);
   User.findById(req.query.userid).then((user) => {
     res.send(user);
   });
