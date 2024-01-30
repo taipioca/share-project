@@ -29,6 +29,7 @@ type Props = {
 };
 
 const ItemActivityButton = (props: Props) => {
+  console.log("props(inside itemActivitiyButton):", props);
   const { itemId } = props;
   const [itemRequests, setItemRequests] = useState<Item[]>([]);
   const [foundItem, setFoundItem] = useState<ProductInterface | null>(null);
@@ -46,15 +47,26 @@ const ItemActivityButton = (props: Props) => {
       const foundItem =
         (itemsObjs as ProductInterface[]).find((item: ProductInterface) => item.id === itemId) ||
         null;
-      console.log("foundItem:", foundItem);
       setFoundItem(foundItem);
       if (foundItem && foundItem.status === "pending") {
         setApproveRequest(true);
       }
     });
   }, [itemId]);
-  // console.log("itemRequests:", itemRequests);
-  // console.log("foundItem:", foundItem);
+  console.log("foundItem(inside itemActivitiyButton):", foundItem);
+  console.log(
+    "foundItem.share.sharer_id(inside itemActivitiyButton):",
+    foundItem?.sharer?.sharer_id
+  );
+
+  useEffect(() => {
+    if (foundItem) {
+      get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
+        console.log("userObj:", userObj);
+        post("/api/user", userObj).then((userObj2) => console.log("userObj2:", userObj2));
+      });
+    }
+  }, [foundItem?.sharer?.sharer_id]);
 
   const changeProductStatus = async () => {
     if (!foundItem) {

@@ -3,7 +3,7 @@ import { post, get } from "../../utilities";
 import "./NewRequest.css";
 import { Link } from "@reach/router";
 const NewRequestInput = (props) => {
-  console.log("inside new request input", props);
+  // console.log("inside new request input", props);
   const [request, setRequest] = useState({
     requester: {
       requester_id: props.requester_id,

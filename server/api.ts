@@ -8,6 +8,7 @@ const router = express.Router();
 import Review from "./models/Review";
 import Request, { RequestDoc } from "./models/Request";
 import RequestModel from "./models/Request";
+import UserModel from "./models/User";
 
 router.post("/login", auth.login);
 router.post("/logout", auth.logout);
@@ -18,11 +19,42 @@ router.get("/whoami", (req, res) => {
   }
   res.send(req.user);
 });
+
+// get a user from the database. Input: userid. Output: user object.
 router.get("/user", (req, res) => {
+  console.log("req.query.userid:", req.query.userid);
   User.findById(req.query.userid).then((user) => {
     res.send(user);
   });
 });
+
+// update a user in the database. Input: user object. Output: updated user object.
+router.post("/user", async (req, res) => {
+  console.log("req (in router.post(/user):", req);
+  try {
+    const userId = req.body._id;
+    const updatedData = req.body;
+
+    // Find the user and update it
+    const user = await UserModel.findByIdAndUpdate(
+      userId,
+      updatedData,
+      { new: true } // This option returns the updated document
+    );
+
+    // If no user was found, send an error
+    if (!user) {
+      return res.status(404).send({ error: "User not found" });
+    }
+
+    // Send the updated user
+    res.send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "An unknown error occurred" });
+  }
+});
+
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) {
