@@ -132,7 +132,6 @@ const ItemActivityButton = (props: Props) => {
   return (
     <div>
       <button onClick={openModal} className="upload-button">
-      <button onClick={openModal} className="upload-button">
         <i className="fas fa-eye"> </i>Activity
       </button>
       <Modal
