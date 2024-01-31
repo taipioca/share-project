@@ -1,5 +1,5 @@
 body {
-  background-color:rgba(241, 237, 234, 0.734);
+  background-color: rgba(241, 237, 234, 0.734);
 }
 
 .Profile-avatarContainer {
@@ -30,12 +30,11 @@ body {
 }
 
 .Profile-name {
-  color: var(--primary)
+  color: var(--primary);
 }
 
 .Profile-name span {
   letter-spacing: 2px; /* Adjust this as needed */
-  
 }
 
 .image-container {
@@ -45,7 +44,7 @@ body {
 }
 
 .profile-container {
-  position:sticky;
+  position: sticky;
   display: flex; /* This makes the .profile-container a flex container */
 }
 
@@ -95,13 +94,12 @@ body {
 }
 
 .item-buttons {
-  display: flex; 
-  justify-content: space-between; 
+  display: flex;
+  justify-content: space-between;
   margin-top: -5%;
   margin-bottom: 0%;
   gap: 5%;
 }
-
 
 /*.item-buttons > * {
   font-family: "Inter", sans-serif;
@@ -117,7 +115,6 @@ body {
   align-items: center;
   margin-bottom: 20px;
   font-size: 25px;
-  
 }
 
 @keyframes popRotatePulse {
@@ -151,7 +148,7 @@ body {
 
 .star-1 {
   animation: popRotatePulse 1s ease-out 0.2s;
- /* This delays the animation of the first star */
+  /* This delays the animation of the first star */
 }
 
 .star-2 {
@@ -173,14 +170,20 @@ body {
 .profile-catalog {
   display: flex; /* This makes the .catalog a flex container */
   flex-direction: column; /* This stacks the children of .catalog vertically */
-  align-items: flex-end; /* This aligns the children of .catalog at the end */
+  align-items: flex-start; /* This aligns the children of .catalog at the end */
 }
 
+.upload-button-container {
+  display: flex; /* Add this line */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
 
 .items-container {
-  display: grid; 
+  display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  justify-content: flex-start;
 }
 
 .edit-button {
@@ -189,23 +192,12 @@ body {
   border-radius: none; /* This rounds the corners */
 }
 
-
-#edit-item {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-decoration: none;
-  color: black;
-  text-align: left;
-  transition: transform 0.3s ease-in-out; 
-}
-
 @keyframes confetti {
   0% {
     transform: translate(0, 0) rotate(0deg);
     opacity: 1;
   }
-  
+
   30% {
     opacity: 0; /* Start decreasing opacity halfway through the animation */
   }
@@ -246,40 +238,17 @@ body {
   margin-top: 0; /* Adjust this value as needed */
 }
 
-
 .Profile-points {
   position: relative;
   /* existing styles... */
 }
 
-.Profile-points::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  width: 75%;
-  height: 120%;
-  background: radial-gradient(circle, rgb(255, 255, 255), transparent);
-  z-index: -1;
-  animation: glow 4s infinite;
-}
-
-@keyframes glow {
-  0%, 100% {
-    transform: translateX(-50%) scale(1, 1);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(-50%) scale(0.8, 1.5);
-    opacity: 0.5;
-  }
-}
 
 .image-container {
   width: 12.5em; /* Adjust this as needed */
   height: 12.5em;
   overflow: hidden;
 }
-
 
 .item-image {
   width: 100%;
@@ -289,8 +258,6 @@ body {
   border-radius: 0.5em; /* Adjust this as needed */
 }
 
-
-
 #edit-item {
   display: flex;
   flex-direction: column;
@@ -298,7 +265,7 @@ body {
   text-decoration: none;
   color: black;
   text-align: left;
-  transition: transform 0.3s ease-in-out; 
+  transition: transform 0.3s ease-in-out;
 }
 
 /* #edit-item:hover {

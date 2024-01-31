@@ -40,13 +40,10 @@
 }
 
 .request-sent {
-  width: 90%; /* take up the entire container width wise */
+  width: 95%; /* take up the entire container width wise */
   height: 50px; /* make the button a lot taller */
-  border-radius: 10px; /* rounded corners */
   background-color: white; /* main color */
   color: var(--primary); /* white text */
-  padding: 10px 20px; /* more padding between text and edge of button */
-  transition: background-color 0.3s ease; /* transition for hover effect */
   font-size: 1em; /* make the text 1.2em in size */
   display: flex; /* This makes the button a flex container */
   justify-content: center; /* This centers the text horizontally */

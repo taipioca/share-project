@@ -67,17 +67,19 @@ const NewReviewInput = (props) => {
   };
 
   return (
-    <div className="u-flex">
-      <p>Leave a review for 5 points!</p>
-      <p> Rate your experience:</p>
-      <select value={rating} onChange={handleRatingChange}>
-        <option value=""></option>
-        <option value="1">1 - Poor</option>
-        <option value="2">2 - Unsatisfied</option>
-        <option value="3">3 - Neutral</option>
-        <option value="4">4 - Good</option>
-        <option value="5">5 - Excellent</option>
-      </select>
+    <div className="review-container">
+      <p className="review-prompt">Leave a review for 5 points!</p>
+      <div className="rating-container">
+        <p>Rate your experience:</p>
+        <select value={rating} onChange={handleRatingChange}>
+          <option value=""></option>
+          <option value="1">1 - Poor</option>
+          <option value="2">2 - Unsatisfied</option>
+          <option value="3">3 - Neutral</option>
+          <option value="4">4 - Good</option>
+          <option value="5">5 - Excellent</option>
+        </select>
+      </div>
       <input
         type="text"
         placeholder={props.defaultText}
@@ -85,7 +87,6 @@ const NewReviewInput = (props) => {
         onChange={handleChange}
         className="NewPostInput-input"
       />
-
       <button
         type="submit"
         className="NewPostInput-button u-pointer"
