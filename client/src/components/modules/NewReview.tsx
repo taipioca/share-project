@@ -120,7 +120,14 @@ const NewReview = (props) => {
       comment: value,
     };
     post("/api/newreview", body).then((review) => {
-      console.log("review", review);
+      console.log("review:", review);
+
+      // 5 points for the reviewer for leaving a review
+      get(`/api/user`, { userid: review.reviewer.reviewer_id }).then((userObj) => {
+        const updatedObj = userObj;
+        updatedObj.points += 5;
+        post("/api/user", updatedObj);
+      });
 
       // Fetch the user after the new review is posted
       get(`/api/user`, { userid: props.sharer_id }).then((userObj) => {
@@ -152,9 +159,7 @@ const NewReview = (props) => {
       });
     });
   };
-  return (
-    <NewReviewInput defaultText={`Your comment`} onSubmit={addReview} />
-  );
+  return <NewReviewInput defaultText={`Your comment`} onSubmit={addReview} />;
 };
 
 export { NewReview };

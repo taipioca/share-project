@@ -80,13 +80,11 @@ const ItemActivityButton = (props: Props) => {
     try {
       if (foundItem) {
         if (foundItem.request_id !== undefined) {
-          // console.log("foundItem.request_id(before api/singlerequest)::", foundItem.request_id);
           get("/api/singlerequest", { request_id: foundItem.request_id }).then((requestObj) => {
-            // console.log("requestObj(api/singlerequest):", requestObj);
             const earnedPoints = requestObj.sharer_points;
             const earnedRewards = requestObj.requester_points;
-            // console.log("earnedPoints:", earnedPoints);
 
+            // add earned points to sharer
             get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
               // console.log("userObj:", userObj);
               const updatedObj = userObj;
@@ -97,10 +95,12 @@ const ItemActivityButton = (props: Props) => {
               // );
             });
 
+            // deduct sharer's earned points from requester and add reward points to requester
             get(`/api/user`, { userid: requestObj.requester.requester_id }).then(
               (requesterUserObj) => {
                 // console.log("userObj:", userObj);
                 const updatedObj = requesterUserObj;
+                updatedObj.points -= earnedPoints;
                 updatedObj.points += earnedRewards;
                 post("/api/user", updatedObj);
                 // post("/api/user", updatedObj).then((returnedUserObj) =>

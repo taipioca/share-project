@@ -63,7 +63,7 @@ const Catalog = () => {
   //   });
   // };
   useEffect(() => {
-    let isMounted = true; // add this line
+    let isMounted = true;
     const typingSpeed = 5000; // 1 second per letter
     const deletingSpeed = 4000; // 0.75 seconds per letter
     const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
@@ -86,13 +86,16 @@ const Catalog = () => {
       isMounted && setCharIndex((prevIndex) => prevIndex - 1);
     }
 
-    const timeoutId = setTimeout(() => {}, currentSpeed);
+    const timeoutId = setTimeout(() => {
+      if (isMounted) {
+        // Update the state here
+      }
+    }, currentSpeed);
 
     return () => {
-      isMounted = false; // add this line
+      isMounted = false;
       clearTimeout(timeoutId); // Clean up the timeout on unmount
     };
-    // return () => clearTimeout(timeoutId); // Clean up the timeout on unmount
   }, [currentPhrase, isDeleting]);
 
   // Load product items from MongoDB when component mounts
