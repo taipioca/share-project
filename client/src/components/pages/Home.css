@@ -74,8 +74,8 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: linear-gradient(to bottom, rgba(228, 190, 164, 0.623), rgb(243, 236, 231)),
-    url("../samples/overall.gif");
+  background-image: linear-gradient(to bottom, rgba(224, 208, 198, 0.623), rgb(243, 236, 231)),
+    url("../samples/overall2.gif");
   background-size: cover;
   background-position: center;
   filter: blur(5px);
@@ -149,7 +149,7 @@
   text-align: center;
   font-weight: bold;
   margin-bottom: 3%;
-  line-height: 1.5; 
+  line-height: 1.5;
 }
 .instructions-ending {
   margin-top: 10%;
