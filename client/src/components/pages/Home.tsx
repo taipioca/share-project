@@ -46,7 +46,7 @@ const Home = (props: HomeProps) => {
       </section>
 
       <section className="how-it-works">
-        <h2 className = "instructions-title">Making borrowing items easy, convenient, and FREE through a cyclic point system</h2>
+        <h2 className = "instructions-title">Discover the ultimate way to borrow anything you need for FREE with Sharedom's innovative point system. Access anything you need without purchasing while connecting with your community and creating a more sustainable way of living.</h2>
         <div>
           <div className="instructions-text">Browse or search for an item you need</div>
           <div className="instructions-step" id="browse"></div>
