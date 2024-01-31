@@ -44,7 +44,6 @@ const Catalog = () => {
     "vacuum",
     "party dress",
     "usb drive",
-    "tennis racket",
     "bike",
     "hair straightener",
   ];
@@ -52,50 +51,31 @@ const Catalog = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [sharerRating, setSharerRating] = useState(0.0);
-  const [sharerNum, setSharerNum] = useState(0);
-
-  // const getSharerDetails = (sharerId: string) => {
-  //   get(`/api/user`, { userid: sharerId }).then((userObj: User) => {
-  //     console.log("userObj:", userObj);
-  //     setSharerRating(userObj.rating);
-  //     setSharerNum(userObj.numreviews);
-  //   });
-  // };
   useEffect(() => {
-    let isMounted = true;
-    const typingSpeed = 5000; // 1 second per letter
-    const deletingSpeed = 4000; // 0.75 seconds per letter
+    const typingSpeed = 750; // 0.75 seconds per letter
+    const deletingSpeed = 750; // 0.75 seconds per letter
     const currentSpeed = isDeleting ? deletingSpeed : typingSpeed;
 
     // If we've finished typing or deleting a phrase, switch to the other operation
     if (!isDeleting && charIndex === phrases[phraseIndex].length) {
-      setTimeout(() => isMounted && setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
+      setTimeout(() => setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
     } else if (isDeleting && charIndex === 0) {
-      isMounted && false;
-      isMounted && setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
+      setIsDeleting(false);
+      setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
     }
 
     // If we're not waiting to switch operations, proceed with typing or deleting
     if (!isDeleting && charIndex < phrases[phraseIndex].length) {
-      isMounted &&
-        setCurrentPhrase((prevPhrase) => prevPhrase + phrases[phraseIndex].charAt(charIndex));
-      isMounted && setCharIndex((prevIndex) => prevIndex + 1);
+      setCurrentPhrase((prevPhrase) => prevPhrase + phrases[phraseIndex].charAt(charIndex));
+      setCharIndex((prevIndex) => prevIndex + 1);
     } else if (isDeleting && charIndex > 0) {
-      isMounted && setCurrentPhrase((prevPhrase) => prevPhrase.slice(0, -1));
-      isMounted && setCharIndex((prevIndex) => prevIndex - 1);
+      setCurrentPhrase((prevPhrase) => prevPhrase.slice(0, -1));
+      setCharIndex((prevIndex) => prevIndex - 1);
     }
 
-    const timeoutId = setTimeout(() => {
-      if (isMounted) {
-        // Update the state here
-      }
-    }, currentSpeed);
+    const timeoutId = setTimeout(() => {}, currentSpeed);
 
-    return () => {
-      isMounted = false;
-      clearTimeout(timeoutId); // Clean up the timeout on unmount
-    };
+    return () => clearTimeout(timeoutId); // Clean up the timeout on unmount
   }, [currentPhrase, isDeleting]);
 
   // Load product items from MongoDB when component mounts

@@ -44,7 +44,6 @@ const ItemActivityButton = (props: Props) => {
         return request.item_id === itemId;
       });
       setItemRequests(requestsForItem);
-      
     });
     get("/api/catalog").then((itemsObjs: any) => {
       const foundItem =
@@ -161,8 +160,9 @@ const ItemActivityButton = (props: Props) => {
               />
               <div className="activity-margin-left">
                 <p className="activity-item-title">{foundItem ? foundItem.title : ""}</p>
-                <p className = "activity-points">{foundItem ? foundItem.points : ""} points/day</p>
-                <p className = "activity-status">Status: {foundItem ? foundItem.status : ""}</p>                {approveRequest ? (
+                <p className="activity-points">{foundItem ? foundItem.points : ""} points/day</p>
+                <p className="activity-status">Status: {foundItem ? foundItem.status : ""}</p>{" "}
+                {approveRequest ? (
                   <button
                     type="submit"
                     className="activity-approve-button u-pointer"
@@ -176,21 +176,23 @@ const ItemActivityButton = (props: Props) => {
             </div>
           </div>
           <hr className="activity-divide-line" />
-          <p className="activity-history-header">History</p>
+          <p className="activity-history-header">Ongoing and History</p>
           {itemRequests.map((request, index) => (
             <div key={index}>
               <p>
-                Used by <span style={{ color: "var(--primary)" }}>{request.requester ? request.requester.requester_name : "No requester"}</span>
-
-                {" "}from{" "}
-                  <span className="orders-item-date">
-                    {format(new Date(request.start_date), "MMMM d, yyyy")}
-                  </span>{" "}
-                  to{" "}
-                  <span className="orders-item-date">
-                    {format(new Date(request.end_date), "MMMM d, yyyy")}
-                  </span>
-                </p>
+                Used by{" "}
+                <span style={{ color: "var(--primary)" }}>
+                  {request.requester ? request.requester.requester_name : "No requester"}
+                </span>{" "}
+                from{" "}
+                <span className="orders-item-date">
+                  {format(new Date(request.start_date), "MMMM d, yyyy")}
+                </span>{" "}
+                to{" "}
+                <span className="orders-item-date">
+                  {format(new Date(request.end_date), "MMMM d, yyyy")}
+                </span>
+              </p>
               <NewReview
                 reviewer_name={request.sharer.sharer_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
                 reviewer_id={request.sharer.sharer_id}

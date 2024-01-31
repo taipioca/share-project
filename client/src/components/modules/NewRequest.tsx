@@ -107,7 +107,7 @@ const NewRequestInput = (props) => {
     const startDate = new Date(request.start_date);
     const endDate = new Date(request.end_date);
     if (startDate < currentDate || endDate < currentDate) {
-      alert("Start date and end date must be in the future.");
+      alert("Start date and end date must be at least 24 hours from now.");
       return;
     }
     if (startDate > endDate) {
@@ -226,8 +226,14 @@ const NewRequestInput = (props) => {
           borderColor: "#DDD8D8",
         }}
       />
-      <p>Total points spent: {totalPoints}</p>
-      <p>Total reward points: {totalReward}</p>
+      <div className="total-points-container">
+        <p className="total-points-text">Total Points:</p>
+        <p className="total-points-number">{totalPoints} Points</p>
+      </div>
+      <div className="total-rewards-container">
+        <p className="total-rewards-text">Your Total Rewards:</p>
+        <p className="total-rewards-number">{totalReward} Points</p>
+      </div>
     </form>
   );
 };

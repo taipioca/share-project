@@ -53,3 +53,38 @@
 .unavailable-item-notice {
   color: var(--second);
 }
+
+
+.total-points-container {
+  margin-top: -2%;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
+  margin-bottom: -5%; /* Reduce the margin to make the divs closer */
+}
+
+.total-rewards-container {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
+  margin-bottom: -2%;
+}
+.total-points-text {
+  font-size: 1.2em; /* Make the text larger */
+}
+
+.total-points-number {
+  font-weight: bold; /* Make the number bold */
+  font-size: 1.2em; /* Keep the font size the same */
+}
+
+.total-rewards-text {
+  font-size: 0.8em; /* Make the text smaller */
+  color: var(--primary);
+}
+
+.total-rewards-number {
+  font-size: 0.8em; /* Make the text smaller */
+  color: var(--primary);
+  font-weight: bold;
+}
