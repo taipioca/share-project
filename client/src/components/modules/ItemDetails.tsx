@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "@reach/router";
 import { get } from "../../utilities";
 import { NewRequest } from "./NewRequest";
-
+import { ReviewList } from "./ReviewList";
 import "./ItemDetails.css";
+import Modal from "react-modal";
 
 interface User {
   name: string;
   userid: string;
   points: number;
   rating: number;
+  numreviews: number;
 }
 
 type Item = {
@@ -36,9 +38,12 @@ const ItemDetails = (props) => {
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
   const [sharer, setSharer] = useState<User>();
+  const [showReviews, setShowReviews] = useState(false);
 
   const [user, setUser] = useState<User>();
   const [isActive, setIsActive] = useState(false);
+  const [sharerRating, setSharerRating] = useState(0.0);
+  const [sharerNum, setSharerNum] = useState(0);
 
   useEffect(() => {
     setIsActive(true);
@@ -46,6 +51,10 @@ const ItemDetails = (props) => {
 
   const handleClick = () => {
     setIsActive(true);
+  };
+
+  const handleStarClick = () => {
+    setShowReviews(!showReviews);
   };
 
   useEffect(() => {
@@ -64,16 +73,17 @@ const ItemDetails = (props) => {
   if (!item) {
     return <div>No item found</div>;
   }
-  // useEffect(() => {
-  //   get("/api/catalog").then((itemsObjs) => {
-  //     const foundItem = itemsObjs.find((item: Item) => item.id === id);
-  //     setItem(foundItem);
-  //     if (foundItem) {
-  //       setSharer(foundItem.sharer);
-  //     }
-  //   });
-  // }, [id]);
+
   const youGetPoints = Math.ceil(item.points * 0.2);
+  if (sharer) {
+    get(`/api/user`, { userid: item.sharer.sharer_id }).then((userObj) => {
+      console.log("userObj:", userObj.rating);
+      setSharerRating(userObj.rating);
+      setSharerNum(userObj.numreviews);
+    });
+  }
+
+  console.log("sharerRating:", sharerRating);
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
@@ -129,11 +139,15 @@ const ItemDetails = (props) => {
           </div>
           <div className="item-details">
             <h2 id="item-title">{item.title ?? ""}</h2>
-            <div className="uploader-rating">
+            <div className="uploader-rating" style = {{cursor: 'pointer'}}>
               <p id="item-sharername" style={{ marginRight: "1%" }}>
-                By <span style={{ color: "var(--primary)" }}>{item.sharer.sharer_name}</span>
+                By{" "}
+                <span style={{ color: "var(--primary)" }} onClick={handleStarClick}>
+                  {item.sharer.sharer_name}
+                </span>
               </p>
-              <div className="details-rating">
+
+              <div className="details-rating" onClick={handleStarClick}>
                 {sharer ? (
                   [...Array(5)].map((star, i) => {
                     const ratingValue = i + 1;
@@ -141,17 +155,41 @@ const ItemDetails = (props) => {
                       <label key={i}>
                         <i
                           className={
-                            ratingValue <= Math.floor(sharer.rating) ? "fas fa-star" : "far fa-star"
+                            sharerRating !== null && ratingValue <= Math.floor(sharerRating)
+                              ? "fas fa-star star-filled"
+                              : "far fa-star star-empty"
                           }
-                        ></i>
+                          style = {{cursor: 'pointer'}}></i>
                       </label>
                     );
                   })
                 ) : (
                   <p>Loading...</p>
                 )}
-                <span>({item.reviews})</span> {/* Add this line */}
-              </div>{" "}
+                <span>({sharerNum})</span>
+              </div>
+
+              {showReviews && (
+                <Modal
+                  isOpen={showReviews}
+                  onRequestClose={handleStarClick}
+                  shouldCloseOnOverlayClick={true}
+                  className="review-modal"   style={{
+                    overlay: {
+                      backgroundColor: 'transparent'
+                    }
+
+                  }}
+                >
+                  <div className="review-modal-content">
+                    <span className="close" onClick={() => setShowReviews(false)}>
+                      &times;
+                    </span>
+                    <h2>Reviews for {item.sharer.sharer_name}</h2>
+                    <ReviewList userid={item.sharer.sharer_id} />
+                  </div>
+                </Modal>
+              )}
             </div>
             <div className="rounded-box">
               <div className="points-container">

@@ -73,12 +73,11 @@ label textarea {
 
 input,
 textarea {
-  background-color: rgba(236, 230, 227, 0.734);
+  background-color: rgb(243, 236, 231);
   border: none;
   outline: none;
   padding: 15px;
 }
-
 
 input:focus,
 textarea:focus {
@@ -104,7 +103,7 @@ textarea:focus {
 }
 
 .upload-image:hover {
-  background-color: rgba(236, 230, 227, 0.734); /* This sets the background color to --primary */
+  background-color: rgb(243, 236, 231); /* This sets the background color to --primary */
   cursor: pointer; /* This changes the cursor to a pointer */
 }
 

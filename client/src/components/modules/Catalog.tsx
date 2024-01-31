@@ -4,12 +4,31 @@ import "./Catalog.css";
 
 import { post, get } from "../../utilities";
 
+interface User {
+  name: string;
+  userid: string;
+  points: number;
+  rating: number;
+  numreviews: number;
+}
+
 type Item = {
   id: string;
   image: string;
   title: string;
+  description: string;
   points: number;
-  rating: number;
+  minShareDays: string;
+  maxShareDays: string;
+  pickupLocation: string;
+  returnLocation: string;
+  pickupNotes: string;
+  returnNotes: string;
+  sharer: {
+    sharer_id: string;
+    sharer_name: string;
+  };
+  status: string;
   reviews: number;
 };
 
@@ -33,6 +52,16 @@ const Catalog = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [sharerRating, setSharerRating] = useState(0.0);
+  const [sharerNum, setSharerNum] = useState(0);
+
+  // const getSharerDetails = (sharerId: string) => {
+  //   get(`/api/user`, { userid: sharerId }).then((userObj: User) => {
+  //     console.log("userObj:", userObj);
+  //     setSharerRating(userObj.rating);
+  //     setSharerNum(userObj.numreviews);
+  //   });
+  // };
   useEffect(() => {
     let isMounted = true; // add this line
     const typingSpeed = 5000; // 1 second per letter
@@ -63,14 +92,34 @@ const Catalog = () => {
       isMounted = false; // add this line
       clearTimeout(timeoutId); // Clean up the timeout on unmount
     };
+    // return () => clearTimeout(timeoutId); // Clean up the timeout on unmount
   }, [currentPhrase, isDeleting]);
 
   // Load product items from MongoDB when component mounts
+  type ItemWithSharerDetails = Item & { sharerRating?: number; sharerNum?: number };
+
   useEffect(() => {
     document.title = "Catalog";
-    get("/api/catalog").then((itemsObjs) => {
+    get("/api/catalog").then((itemsObjs: Item[]) => {
       let reversedItemsObjs = itemsObjs.reverse();
-      setItems(reversedItemsObjs);
+
+      // Fetch sharer details for each item
+      const itemsWithSharerDetails = reversedItemsObjs.map(async (item) => {
+        if (item.sharer && item.sharer.sharer_id) {
+          const userObj = await get(`/api/user`, { userid: item.sharer.sharer_id });
+          return {
+            ...item,
+            sharerRating: userObj.rating,
+            sharerNum: userObj.numreviews,
+          } as ItemWithSharerDetails;
+        } else {
+          return item;
+        }
+      });
+
+      Promise.all(itemsWithSharerDetails).then((items) => {
+        setItems(items as ItemWithSharerDetails[]);
+      });
     });
   }, []);
 
@@ -129,7 +178,7 @@ const Catalog = () => {
       </div>{" "}
       {/* This is the closing tag for the header-search-container div */}
       <div className="catalog">
-        {items.map((item) => (
+        {items.map((item: ItemWithSharerDetails) => (
           <Link to={`/item/${item.id}`} key={item.id} id={item.id} className="item">
             <div className="image-container">
               <img src={item.image} alt={item.title} />
@@ -140,11 +189,17 @@ const Catalog = () => {
                 const ratingValue = i + 1;
                 return (
                   <label key={i}>
-                    <i className={ratingValue <= item.rating ? "fas fa-star" : "far fa-star"}></i>
+                    <i
+                      className={
+                        ratingValue <= (item.sharerRating || 0)
+                          ? "fas fa-star star-filled"
+                          : "far fa-star star-empty"
+                      }
+                    ></i>
                   </label>
                 );
               })}
-              <span>({item.reviews})</span> {/* Add this line */}
+              <span>({item.sharerNum || 0})</span>
             </div>
             <h3 className="item-text">{item.points} Points/day</h3>
           </Link>

@@ -14,7 +14,7 @@ interface ProfileProps {
 }
 
 const Profile = ({ userId }: ProfileProps) => {
-    console.log(userId)
+    // console.log(userId)
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {

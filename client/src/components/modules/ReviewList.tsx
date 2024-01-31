@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
+import "./ReviewList.css";
 
 interface User {
   userid: string;
@@ -22,13 +23,33 @@ interface Review {
 }
 
 const displayUserReviews = (reviews: Review[]) => {
-  return reviews.map((review) => (
-    <div key={review._id}>
-      <p>Rating: {review.rating}</p>
-      <p>Comment: {review.comment}</p>
-    </div>
-  ));
-};
+    return reviews.map((review) => (
+      <div key={review._id} className="review">
+        <div className="review-rating">
+          {[...Array(5)].map((star, i) => {
+            const ratingValue = i + 1;
+            return (
+              <i
+                key={i}
+                className={
+                  ratingValue <= review.rating
+                    ? "fas fa-star star-filled"
+                    : "far fa-star star-empty"
+                }
+                style={{ fontSize: '16px' }}
+              ></i>
+            );
+          })}
+          <span>Rating: {review.rating}/5</span>
+          <span className="reviewer-name">Posted by {review.reviewer.reviewer_name}</span>
+        </div>
+        <p className="review-comment">"{review.comment}"</p>
+        <hr className = "divide-line-review"/>
+
+      </div>
+    ));
+  };
+  
 
 const calculateAverageRating = (reviews: Review[]) => {
   const totalRating = reviews.reduce((total, review) => total + review.rating, 0);
@@ -40,13 +61,13 @@ const calculateNumberOfReviews = (reviews: Review[]) => {
   return reviews.length;
 };
 
-const updateUserRating = (userid: string, averageRating: number, numberOfReviews: number) => {
-  post("/api/updateuser", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
-    (error) => {
-      console.error("Error updating user:", error);
-    }
-  );
-};
+// const updateUserRating = (userid: string, averageRating: number, numberOfReviews: number) => {
+//   post("/api/user", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
+//     (error) => {
+//       console.error("Error updating user:", error);
+//     }
+//   );
+// };
 
 const ReviewList = ({ userid }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -63,12 +84,10 @@ const ReviewList = ({ userid }) => {
       });
       setReviews(userReviews);
       console.log("userReviews:", userReviews);
-      const averageRating = calculateAverageRating(userReviews);
-      const numberOfReviews = calculateNumberOfReviews(userReviews);
-      
-      updateUserRating(userid, averageRating, numberOfReviews);
     });
   }, [userid]);
+
+  console.log("reviews:", reviews);
 
   // Replace 'userid' with the actual user id
   const userReviews = displayUserReviews(reviews);
@@ -77,7 +96,29 @@ const ReviewList = ({ userid }) => {
 
   return (
     <div>
-      <p>Average Rating: {averageRating}</p>
+      <p className="average-rating">
+        Overall: {averageRating}/5
+      </p>
+      <div className="rev-rating">
+        {[...Array(5)].map((star, i) => {
+          const ratingValue = i + 1;
+          return (
+            <label key={i}>
+              <i
+                className={
+                  ratingValue <= (averageRating || 0)
+                    ? "fas fa-star star-filled"
+                    : "far fa-star star-empty"
+                }
+              ></i>
+            </label>
+          );
+        })}
+      </div>
+      <p className="number-of-reviews">
+        {numberOfReviews} review(s)
+      </p>
+      <hr className = "divide-line"/>
       {userReviews}
     </div>
   );
