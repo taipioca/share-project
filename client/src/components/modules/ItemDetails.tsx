@@ -34,7 +34,7 @@ type Item = {
   reviews: number;
 };
 const ItemDetails = (props) => {
-  console.log("props(inside itemDetails):", props);
+  // console.log("props(inside itemDetails):", props);
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
   const [sharer, setSharer] = useState<User>();
@@ -60,7 +60,7 @@ const ItemDetails = (props) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
-      console.log("foundItem (get(/api/catalog)):", foundItem);
+      // console.log("foundItem (get(/api/catalog)):", foundItem);
       setItem(foundItem);
       setSharer(foundItem.sharer);
     });
@@ -77,13 +77,13 @@ const ItemDetails = (props) => {
   const youGetPoints = Math.ceil(item.points * 0.2);
   if (sharer) {
     get(`/api/user`, { userid: item.sharer.sharer_id }).then((userObj) => {
-      console.log("userObj:", userObj.rating);
+      // console.log("userObj:", userObj.rating);
       setSharerRating(userObj.rating);
       setSharerNum(userObj.numreviews);
     });
   }
 
-  console.log("sharerRating:", sharerRating);
+  // console.log("sharerRating:", sharerRating);
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
@@ -139,7 +139,7 @@ const ItemDetails = (props) => {
           </div>
           <div className="item-details">
             <h2 id="item-title">{item.title ?? ""}</h2>
-            <div className="uploader-rating" style = {{cursor: 'pointer'}}>
+            <div className="uploader-rating" style={{ cursor: "pointer" }}>
               <p id="item-sharername" style={{ marginRight: "1%" }}>
                 By{" "}
                 <span style={{ color: "var(--primary)" }} onClick={handleStarClick}>
@@ -159,7 +159,8 @@ const ItemDetails = (props) => {
                               ? "fas fa-star star-filled"
                               : "far fa-star star-empty"
                           }
-                          style = {{cursor: 'pointer'}}></i>
+                          style={{ cursor: "pointer" }}
+                        ></i>
                       </label>
                     );
                   })
@@ -174,11 +175,11 @@ const ItemDetails = (props) => {
                   isOpen={showReviews}
                   onRequestClose={handleStarClick}
                   shouldCloseOnOverlayClick={true}
-                  className="review-modal"   style={{
+                  className="review-modal"
+                  style={{
                     overlay: {
-                      backgroundColor: 'transparent'
-                    }
-
+                      backgroundColor: "transparent",
+                    },
                   }}
                 >
                   <div className="review-modal-content">
