@@ -1,23 +1,23 @@
 .activity-button {
   height: 65%;
-  width: auto; /* This makes the button take up only as much width as it needs */
+  width: auto; 
   margin-bottom: 20px;
   margin-top: 0px;
-  margin-left: auto; /* This pushes the button to the right */
-  color: var(--primary); /* This sets the text color to var(--primary) */
-  border-radius: 5px; /* This rounds the corners */
-  font-size: 1.1em; /* This makes the text size smaller */
-  background-color: white; /* This clears the background color */
-  border: 1px solid var(--primary); /* This adds a border of var(--primary) color */
+  margin-left: auto; 
+  color: var(--primary); 
+  border-radius: 5px; 
+  font-size: 1.1em; 
+  background-color: white; 
+  border: 1px solid var(--primary);
 }
 
 .activity-button:hover {
-  background-color: transparent; /* This changes the background color to white on hover */
+  background-color: transparent; 
 }
 
 .activity-modal-overlay {
   margin-top: 50px;
-  width: 80%; /* This makes the modal less wide */
+  width: 80%; 
   margin-left: auto;
   margin-right: auto;
 }
@@ -28,7 +28,7 @@
     0,
     0,
     0.75
-  ); /* This sets the background color of the modal overlay to transparent black */
+  ); 
 }
 
 .status-header {
@@ -92,13 +92,13 @@
 .activity-approve-button {
   margin: 1%;
   background-color: var(--primary);
-  font-weight: normal; /* Make the font not bold */
-  font-size: 1em; /* Make the font smaller */
-  padding-top: 5px; /* Reduce the space between the text and the top edge of the button */
-  padding-bottom: 5px; /* Reduce the space between the text and the bottom edge of the button */
+  font-weight: normal; 
+  font-size: 1em; 
+  padding-top: 5px; 
+  padding-bottom: 5px; 
   border-radius: 5px;
-  width: auto; /* Make the button's width automatically adjust to its content */
-  white-space: nowrap; /* Prevent the text from wrapping to the next line */
+  width: auto; 
+  white-space: nowrap; 
 }
 
 .activity-points {

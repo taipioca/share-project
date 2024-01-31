@@ -1,6 +1,6 @@
 .date-container {
   display: flex;
-  justify-content: flex-start; /* Change from space-between to flex-start */
+  justify-content: flex-start; 
 }
 
 .date-field:first-of-type {
@@ -12,7 +12,7 @@
 }
 
 .date-input {
-  width: 100px; /* adjust as needed */
+  width: 100px;
 }
 
 .date-input {
@@ -20,34 +20,34 @@
   border: 1px solid var(--primary--dim);
   font-size: 0.8em;
   padding: 5px;
-  font-family: "Inter", sans-serif; /* Add this line */
+  font-family: "Inter", sans-serif; 
 }
 
 .NewRequestInput-button {
-  width: 100%; /* take up the entire container width wise */
-  height: 60px; /* make the button a lot taller */
-  border-radius: 10px; /* rounded corners */
-  background-color: var(--primary--dim); /* main color */
-  color: white; /* white text */
-  padding: 10px 20px; /* more padding between text and edge of button */
-  transition: background-color 0.3s ease; /* transition for hover effect */
-  font-weight: bold; /* make the text bold */
-  font-size: 1.2em; /* make the text 1.2em in size */
+  width: 100%; 
+  height: 60px; 
+  border-radius: 10px; 
+  background-color: var(--primary--dim); 
+  color: white; 
+  padding: 10px 20px; 
+  transition: background-color 0.3s ease; 
+  font-weight: bold; 
+  font-size: 1.2em; 
 }
 
 .NewRequestInput-button:hover {
-  background-color: var(--primary); /* hover makes background var(--primary) */
+  background-color: var(--primary); 
 }
 
 .request-sent {
-  width: 95%; /* take up the entire container width wise */
-  height: 50px; /* make the button a lot taller */
-  background-color: white; /* main color */
-  color: var(--primary); /* white text */
-  font-size: 1em; /* make the text 1.2em in size */
-  display: flex; /* This makes the button a flex container */
-  justify-content: center; /* This centers the text horizontally */
-  align-items: center; /* This centers the text vertically */
+  width: 95%; 
+  height: 50px; 
+  background-color: white;
+  color: var(--primary);
+  font-size: 1em; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
 }
 
 .unavailable-item-notice {
@@ -59,32 +59,32 @@
   margin-top: -2%;
   display: flex;
   justify-content: space-between;
-  font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
-  margin-bottom: -5%; /* Reduce the margin to make the divs closer */
+  font-family: 'Inter', sans-serif; 
+  margin-bottom: -5%; 
 }
 
 .total-rewards-container {
   display: flex;
   justify-content: space-between;
-  font-family: 'Inter', sans-serif; /* Set the font to "Inter" */
+  font-family: 'Inter', sans-serif; 
   margin-bottom: -2%;
 }
 .total-points-text {
-  font-size: 1.2em; /* Make the text larger */
+  font-size: 1.2em; 
 }
 
 .total-points-number {
-  font-weight: bold; /* Make the number bold */
-  font-size: 1.2em; /* Keep the font size the same */
+  font-weight: bold; 
+  font-size: 1.2em; 
 }
 
 .total-rewards-text {
-  font-size: 0.8em; /* Make the text smaller */
+  font-size: 0.8em; 
   color: var(--primary);
 }
 
 .total-rewards-number {
-  font-size: 0.8em; /* Make the text smaller */
+  font-size: 0.8em; 
   color: var(--primary);
   font-weight: bold;
 }

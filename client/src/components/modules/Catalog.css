@@ -51,22 +51,21 @@
 }
 
 .cat-search-input {
-  width: 100%; /* Makes the input field cover the entire container */
-  /* padding-right: 10px;  */
-  border-radius: 30px; /* Adds rounded edges to the search bar */
+  width: 100%;
+  border-radius: 30px;
   background-color: white;
 }
 .cat-search-input:focus {
   outline: none;
   border: none;
-  background-color: rgb(255,255,255, 0.7);
+  background-color: rgb(255, 255, 255, 0.7);
 }
 .search-icon {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background-color: inherit; /* Makes the search icon's background the same as the input field's */
+  background-color: inherit;
 }
 .clear-search {
   background: none;
@@ -80,7 +79,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(12.5em, 1fr));
   gap: 1.5em;
-  padding: 2em 6em; /* Adjust this as needed */
+  padding: 2em 6em;
 }
 
 .item {
@@ -94,22 +93,22 @@
 }
 
 .item:hover {
-  transform: scale(1.05); /* Scales the size of the item up to 110% when hovered */
+  transform: scale(1.05);
 }
 
 .item h3 {
   font-size: var(--small);
-  margin-top: 0.01em; /* Adjust this as needed */
+  margin-top: 0.01em;
 }
 
 .item h4 {
-  margin-top: 0.5em; /* Adjust this as needed */
-  margin-bottom: 0.05em; /* Adjust this as needed */
+  margin-top: 0.5em;
+  margin-bottom: 0.05em;
   font-size: var(--small);
 }
 
 .image-container {
-  width: 12.5em; /* Adjust this as needed */
+  width: 12.5em;
   height: 12.5em;
   overflow: hidden;
 }
@@ -119,13 +118,13 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 0.5em; /* Adjust this as needed */
+  border-radius: 0.5em;
 }
 
 .cat-rating {
-  display: flex; /* Makes the stars horizontal */
-  margin-top: 0.5em; /* Adds space above the stars */
-  margin-bottom: 0.1em; /* Adds space below the stars */
+  display: flex;
+  margin-top: 0.5em;
+  margin-bottom: 0.1em;
 }
 
 .cat-rating i {
@@ -133,9 +132,9 @@
 }
 
 .cat-rating .fas {
-  color: rgb(255, 227, 103); /* Makes the filled stars yellow */
+  color: rgb(255, 227, 103);
 }
 
 .cat-rating .far {
-  color: gray; /* Makes the empty stars gray */
+  color: gray;
 }

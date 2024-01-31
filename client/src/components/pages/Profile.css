@@ -143,40 +143,40 @@ body {
 .star {
   transition: transform 2s;
 
-  margin-right: 5px; /* This adds a gap to the right of each star */
+  margin-right: 5px; 
 }
 
 .star-1 {
   animation: popRotatePulse 1s ease-out 0.2s;
-  /* This delays the animation of the first star */
+
 }
 
 .star-2 {
-  animation: popRotatePulse 1s ease-out 0.4s; /* This delays the animation of the second star */
+  animation: popRotatePulse 1s ease-out 0.4s; 
 }
 
 .star-3 {
-  animation: popRotatePulse 1s ease-out 0.6s; /* This delays the animation of the third star */
+  animation: popRotatePulse 1s ease-out 0.6s; 
 }
 
 .star-4 {
-  animation: popRotatePulse 1s ease-out 0.8s; /* This delays the animation of the fourth star */
+  animation: popRotatePulse 1s ease-out 0.8s; 
 }
 
 .star-5 {
-  animation: popRotatePulse 1s ease-out 1s; /* This delays the animation of the fifth star */
+  animation: popRotatePulse 1s ease-out 1s; 
 }
 
 .profile-catalog {
-  display: flex; /* This makes the .catalog a flex container */
-  flex-direction: column; /* This stacks the children of .catalog vertically */
-  align-items: flex-start; /* This aligns the children of .catalog at the end */
+  display: flex; 
+  flex-direction: column; 
+  align-items: flex-start; 
 }
 
 .upload-button-container {
-  display: flex; /* Add this line */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
 }
 
 .items-container {
@@ -187,9 +187,9 @@ body {
 }
 
 .edit-button {
-  background-color: var(--white); /* This sets the background color to white */
+  background-color: var(--white); 
   color: white;
-  border-radius: none; /* This rounds the corners */
+  border-radius: none; 
 }
 
 @keyframes confetti {
@@ -199,7 +199,7 @@ body {
   }
 
   30% {
-    opacity: 0; /* Start decreasing opacity halfway through the animation */
+    opacity: 0; 
   }
   100% {
     transform: translateX(calc((0.5 - var(--random)) * 100vw)) translateY(-100vh) rotate(720deg);
@@ -212,10 +212,10 @@ body {
   z-index: 3;
   width: 12px;
   height: 12px;
-  bottom: 0%; /* Adjust this value to move the confetti */
+  bottom: 0%; 
   left: 50%;
   animation: confetti 2s ease-out forwards;
-  --random: 0; /* This will be replaced with a random value */
+  --random: 0;
 }
 
 .confetti.red {
@@ -231,21 +231,21 @@ body {
 }
 
 .Profile-points h2 {
-  margin-bottom: 0; /* Adjust this value as needed */
+  margin-bottom: 0; 
 }
 
 .Profile-points h3 {
-  margin-top: 0; /* Adjust this value as needed */
+  margin-top: 0; 
 }
 
 .Profile-points {
   position: relative;
-  /* existing styles... */
+
 }
 
 
 .image-container {
-  width: 12.5em; /* Adjust this as needed */
+  width: 12.5em; 
   height: 12.5em;
   overflow: hidden;
 }
@@ -255,7 +255,7 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  border-radius: 0.5em; /* Adjust this as needed */
+  border-radius: 0.5em; 
 }
 
 #edit-item {
@@ -268,18 +268,15 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-/* #edit-item:hover {
-  transform: scale(1.05); 
-} */
 
 .item-text h3 {
   font-size: var(--small);
-  margin-top: 0.01em; /* Adjust this as needed */
+  margin-top: 0.01em; 
 }
 
 .item-text h4 {
-  margin-top: 0.5em; /* Adjust this as needed */
-  margin-bottom: 0.05em; /* Adjust this as needed */
+  margin-top: 0.5em; 
+  margin-bottom: 0.05em; 
   font-size: var(--small);
   font-weight: 400;
 }

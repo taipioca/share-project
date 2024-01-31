@@ -18,13 +18,13 @@
   padding-right: 75px;
   border: 1px solid #888;
   width: 50%;
-  border-radius: 10px; /* This rounds the corners */
+  border-radius: 10px; 
 }
 
 .modal-content input[type="text"],
 .modal-content input[type="number"],
 .modal-content textarea {
-  border-radius: 0; /* This removes the rounded corners */
+  border-radius: 0; 
 }
 
 .close {
@@ -82,44 +82,41 @@ textarea {
 input:focus,
 textarea:focus {
   background-color: rgba(241, 241, 241, 0.734);
-  /* border-bottom: 1px solid var(--primary); */
+ 
 }
 
 #submit {
-  border-radius: 5px; /* This rounds the corners */
+  border-radius: 5px; 
 }
-/* input:focus,
-textarea:focus {
-  border-bottom: 1px solid var(--primary);
-} */
+
 
 .upload-image {
-  background-color: white; /* This sets the background color to white */
-  color: black; /* This sets the text color to brown */
-  border: 1px solid var(--primary); /* This sets the border width to 1px, style to solid, and color to --primary */
-  font-size: 0.8em; /* This makes the text size smaller */
+  background-color: white; 
+  color: black; 
+  border: 1px solid var(--primary); 
+  font-size: 0.8em; 
   border-radius: 5px;
-  padding: 7px; /* This decreases the padding around the text */
+  padding: 7px; 
 }
 
 .upload-image:hover {
-  background-color: rgb(243, 236, 231); /* This sets the background color to --primary */
-  cursor: pointer; /* This changes the cursor to a pointer */
+  background-color: rgb(243, 236, 231); 
+  cursor: pointer; 
 }
 
 .upload-button {
-  width: auto; /* This makes the button take up only as much width as it needs */
+  width: auto; 
   margin-bottom: 20px;
-  margin-left: auto; /* This pushes the button to the right */
-  color: var(--primary); /* This sets the text color to var(--primary) */
-  border-radius: 5px; /* This rounds the corners */
-  font-size: 0.9em; /* This makes the text size smaller */
-  background-color: white; /* This clears the background color */
-  border: 1px solid var(--primary); /* This adds a border of var(--primary) color */
+  margin-left: auto; 
+  color: var(--primary); 
+  border-radius: 5px; 
+  font-size: 0.9em; 
+  background-color: white; 
+  border: 1px solid var(--primary); 
 }
 
 .upload-button:hover {
-  background-color: transparent; /* This changes the background color to white on hover */
+  background-color: transparent; 
 }
 .upload-desc {
   color: black;

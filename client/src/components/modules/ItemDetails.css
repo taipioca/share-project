@@ -20,12 +20,11 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 9999;
 }
 
 .review-modal-content {
-
   background-color: #fefefe;
   margin: 5% auto;
   padding: 50px;
@@ -33,7 +32,6 @@
   width: 50%;
   border-radius: 10px;
 }
-
 
 #item-title {
   margin-top: 5px;
@@ -126,7 +124,6 @@ input[type="date"] {
   width: 50%; /* Adjust to take half the space of the container */
 }
 
-
 .back-button-link {
   text-decoration: none; /* remove underline */
 }
@@ -173,12 +170,11 @@ input[type="date"] {
 }
 
 .details-rating {
-  display: flex; /* Makes the stars horizontal */
-  margin-top: 0.5em; /* Adds space above the stars */
-  margin-bottom: 0.1em; /* Adds space below the stars */
+  display: flex;
+  margin-top: 0.5em;
+  margin-bottom: 0.1em;
   margin-top: 10px;
   margin-bottom: 20px;
-  
 }
 
 .details-rating i {
@@ -186,67 +182,62 @@ input[type="date"] {
 }
 
 .details-rating .fas {
-  color: rgb(255, 227, 103); /* Makes the filled stars yellow */
+  color: rgb(255, 227, 103);
 }
 
 .details-rating .far {
-  color: gray; /* Makes the empty stars gray */
+  color: gray;
 }
 
 .details-description {
-  margin-bottom: 8%; /* Adjust this value as needed */
+  margin-bottom: 8%;
   line-height: 1.5;
 }
 .points-container {
-  display: flex; /* make the children align in a row */
-  align-items: baseline; /* align the children along their baseline */
+  display: flex;
+  align-items: baseline;
 }
 
 .details-points {
   margin-top: 2%;
-  font-size: 1.5em; /* make the text bigger */
-  font-weight: bold; /* make the text bold */
+  font-size: 1.5em;
+  font-weight: bold;
   margin-right: 2%;
 }
 
 .details-points-unit {
-  font-size: 1em; /* make the text normal size */
+  font-size: 1em;
 }
 
 .details-rewards {
-  margin-left: auto; /* push the element to the right */
-  text-align: right; /* make the text right-aligned */
+  margin-left: auto;
+  text-align: right;
 }
 
 .details-rewards div:first-child {
-  font-weight: bold; /* make "You get" bold */
+  font-weight: bold;
   margin-bottom: 3%;
 }
 
 .points-color {
-  color: var(--primary); /* make the text brown */
+  color: var(--primary);
 }
 
-
 .fas.fa-star.star-filled::before {
-  content: "\f005"; /* unicode for the star icon */
-  font-family: "Font Awesome 5 Free"; /* font family for the icon */
-  color:  rgb(192, 93, 90);
-  /* text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
-    0 -1px black;  */
+  content: "\f005";
+  font-family: "Font Awesome 5 Free";
+  color: rgb(192, 93, 90);
 }
 
 .fas.fa-star.star-empty::before {
-  content: "\f005"; /* unicode for the star icon */
-  font-family: "Font Awesome 5 Free"; /* font family for the icon */
+  content: "\f005";
+  font-family: "Font Awesome 5 Free";
   color: rgba(241, 237, 234);
-  text-shadow: -1px 0 black, 0 1px black, 1px 0 black,
-    0 -1px black;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .far.fa-star.star-empty::before {
-  content: "\f005"; /* unicode for the star icon */
-  font-family: "Font Awesome 5 Free"; /* font family for the icon */
-  color:  rgb(192, 93, 90);
-
+  content: "\f005";
+  font-family: "Font Awesome 5 Free";
+  color: rgb(192, 93, 90);
 }

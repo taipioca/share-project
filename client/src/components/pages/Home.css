@@ -141,7 +141,7 @@
   color: rgb(192, 93, 90);
   font-weight: bold;
   margin-bottom: 0%;
-  line-height: 1.5; /* Add this */
+  line-height: 1.5;
 }
 .instructions-text {
   margin-top: 10%;
@@ -149,7 +149,7 @@
   text-align: center;
   font-weight: bold;
   margin-bottom: 3%;
-  line-height: 1.5; /* Add this */
+  line-height: 1.5; 
 }
 .instructions-ending {
   margin-top: 10%;
