@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { post, get } from "../../utilities";
 import "./NewRequest.css";
-// import { Link } from "@reach/router";
+
 const NewRequestInput = (props) => {
-  // console.log("props(inside NewRrequestInput", props);
   const [request, setRequest] = useState({
     requester: {
       requester_id: props.requester_id,
@@ -62,7 +61,6 @@ const NewRequestInput = (props) => {
     request.requester_points = newTotalReward;
   }, [request.start_date, request.end_date]);
 
-  // If request is pending, set requestSent to true
   useEffect(() => {
     if (request.status === "pending") {
       setRequestSent(true);
@@ -115,62 +113,8 @@ const NewRequestInput = (props) => {
       return;
     }
 
-    // const youGetPoints = Math.ceil(props.points * 0.2);
-
-    // console.log("request.start_date:", request.start_date);
-    // console.log("request.end_date:", request.end_date);
-    // const calculateTotalPoints = () => {
-    //   if (request.start_date && request.end_date) {
-    //     const start = new Date(request.start_date);
-    //     const end = new Date(request.end_date);
-    //     console.log("start:", start);
-    //     console.log("end:", end);
-    //     const diffTime = Math.abs(end.getTime() - start.getTime());
-    //     console.log("diffTime:", diffTime);
-    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    //     console.log("diffDays:", diffDays);
-    //     return diffDays * props.points;
-    //   }
-    //   return 0;
-    // };
-    // const totalPoints = calculateTotalPoints();
-    // request.sharer_points = totalPoints;
-    // console.log("request(after adding sharer_points):", request);
-
-    // const calculateTotalRewards = () => {
-    //   if (request.start_date && request.end_date) {
-    //     const start = new Date(request.start_date);
-    //     const end = new Date(request.end_date);
-    //     const diffTime = Math.abs(end.getTime() - start.getTime());
-    //     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    //     return diffDays * youGetPoints;
-    //   }
-    //   return 0;
-    // };
-    // const totalRewards = calculateTotalRewards();
-    // request.requester_points = totalRewards;
-    // console.log("request(after adding requester_points):", request);
-
     props.onSubmit && props.onSubmit(request);
-    // setRequest({
-    //   requester: {
-    //     requester_id: "",
-    //     requester_name: "",
-    //   },
-    //   sharer: {
-    //     sharer_id: "",
-    //     sharer_name: "",
-    //   },
-    //   title: "",
 
-    //   item_id: "",
-    //   sharer_id: "",
-    //   start_date: "",
-    //   end_date: "",
-    //   sharer_points: 0,
-    //   requester_points: 0,
-    //   status: "",
-    // });
     setRequestSent(true);
   };
 
@@ -204,11 +148,7 @@ const NewRequestInput = (props) => {
       </div>
       {requestSent ? (
         <p className="request-sent">Request Sent! Check your profile page for pending approvals.</p>
-      ) : // <p className="request-sent">
-      //   Request Sent! Check your{" "}
-      //   <Link to="/profile/${props.requester.requester_id}">profile</Link> for pending approvals.
-      // </p>
-      itemUnavailable ? (
+      ) : itemUnavailable ? (
         <p className="unavailable-item-notice">
           This item is currently shared with someone else. Check back soon!
         </p>
@@ -239,7 +179,6 @@ const NewRequestInput = (props) => {
 };
 
 const NewRequest = (props) => {
-  // console.log("props(inside new request)", props);
   const addRequest = (request) => {
     const body = {
       ...request,
@@ -249,18 +188,11 @@ const NewRequest = (props) => {
       sharer_id: props.sharer.sharer_id,
       sharer_name: props.sharer.sharer_name,
       title: props.title,
-      // sharer_points: totalPoints, // Use calculated totalPoints
-      // requester_points: totalRewards,
     };
     post("/api/newrequest", body).then((requestObj) => {
-      // console.log("Returned requestObj (/api/newrequest):", requestObj);
       get("/api/getproduct", { item: requestObj.item_id }).then((foundItem) => {
-        // console.log("foundItem (/api/getproduct):", foundItem);
         const updateBody = { ...foundItem, status: "pending", request_id: requestObj._id };
-        // console.log("updateBody (/api/updateproduct):", updateBody);
-        post("/api/updateproduct", updateBody).then((productDetails) => {
-          // console.log("Returned updateProduct:", productDetails);
-        });
+        post("/api/updateproduct", updateBody).then((productDetails) => {});
       });
     });
   };

@@ -28,7 +28,6 @@ const updateUserRating = (userid, reviews) => {
     const averageRating = calculateAverageRating(reviews);
     const numberOfReviews = calculateNumberOfReviews(reviews);
 
-    console.log("USERIDDDD", userid);
     post("/api/user", { userid, rating: averageRating, numreviews: numberOfReviews }).catch(
       (error) => {
         console.error("Error updating user:", error);
@@ -121,8 +120,6 @@ const NewReview = (props) => {
       comment: value,
     };
     post("/api/newreview", body).then((review) => {
-      console.log("review:", review);
-
       // 5 points for the reviewer for leaving a review
       get(`/api/user`, { userid: review.reviewer.reviewer_id }).then((userObj) => {
         const updatedObj = userObj;
@@ -130,11 +127,7 @@ const NewReview = (props) => {
         post("/api/user", updatedObj);
       });
 
-      // Fetch the user after the new review is posted
       get(`/api/user`, { userid: props.sharer_id }).then((userObj) => {
-        console.log("userObj:", userObj);
-
-        // Fetch the reviews for the user
         get("/api/getreview").then((allReviews: Review[]) => {
           const userReviews = allReviews.filter((review) => {
             if (review.sharer && review.sharer.sharer_id) {
@@ -149,12 +142,11 @@ const NewReview = (props) => {
             const averageRating = calculateAverageRating(userReviews);
             const numberOfReviews = calculateNumberOfReviews(userReviews);
 
-            // Update the user info with the average rating and number of reviews
             post("/api/user", {
               ...userObj,
               rating: averageRating,
               numreviews: numberOfReviews,
-            }).then((userObj2) => console.log("userObj2:", userObj2));
+            });
           }
         });
       });

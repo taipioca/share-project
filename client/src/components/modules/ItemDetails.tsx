@@ -34,7 +34,6 @@ type Item = {
   reviews: number;
 };
 const ItemDetails = (props) => {
-  // console.log("props(inside itemDetails):", props);
   const id = props.id;
   const [item, setItem] = useState<Item | null>(null);
   const [sharer, setSharer] = useState<User>();
@@ -60,7 +59,6 @@ const ItemDetails = (props) => {
   useEffect(() => {
     get("/api/catalog").then((itemsObjs) => {
       const foundItem = itemsObjs.find((item: Item) => item.id === id);
-      // console.log("foundItem (get(/api/catalog)):", foundItem);
       setItem(foundItem);
       setSharer(foundItem.sharer);
     });
@@ -77,13 +75,10 @@ const ItemDetails = (props) => {
   const youGetPoints = Math.ceil(item.points * 0.2);
   if (sharer) {
     get(`/api/user`, { userid: item.sharer.sharer_id }).then((userObj) => {
-      // console.log("userObj:", userObj.rating);
       setSharerRating(userObj.rating);
       setSharerNum(userObj.numreviews);
     });
   }
-
-  // console.log("sharerRating:", sharerRating);
 
   return (
     <div className={`item-container ${isActive ? "active" : ""}`} onClick={handleClick}>
@@ -217,8 +212,6 @@ const ItemDetails = (props) => {
                 status={item.status}
                 points={item.points}
               />
-              {/* <p>Total Points: {calculateTotalPoints()}</p>
-              <p>Your Total Rewards: {calculateTotalRewards()}</p> */}
             </div>
           </div>
         </div>

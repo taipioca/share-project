@@ -14,7 +14,6 @@ router.post("/login", auth.login);
 router.post("/logout", auth.logout);
 router.get("/whoami", (req, res) => {
   if (!req.user) {
-    // Not logged in.
     return res.send({});
   }
   res.send(req.user);
@@ -29,24 +28,16 @@ router.get("/user", (req, res) => {
 
 // update a user in the database. Input: user object. Output: updated user object.
 router.post("/user", async (req, res) => {
-  // console.log("req (in router.post(/user):", req);
   try {
     const userId = req.body._id;
     const updatedData = req.body;
 
-    // Find the user and update it
-    const user = await UserModel.findByIdAndUpdate(
-      userId,
-      updatedData,
-      { new: true } // This option returns the updated document
-    );
+    const user = await UserModel.findByIdAndUpdate(userId, updatedData, { new: true });
 
-    // If no user was found, send an error
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
 
-    // Send the updated user
     res.send(user);
   } catch (error) {
     console.error(error);
@@ -91,8 +82,6 @@ router.post("/newproduct", auth.ensureLoggedIn, (req, res) => {
 
 // get a products from the database.
 router.get("/getproduct", (req, res) => {
-  // console.log("req.query.item:", req.query.item);
-  // console.log("typeof req.query.item:", typeof req.query.item);
   if (typeof req.query.item === "string") {
     Product.findOne({ id: req.query.item }).then((product) => {
       res.send(product);
@@ -256,7 +245,6 @@ router.get("/pendingproduct", async (req, res) => {
       status: "open",
     });
 
-    // console.log("requesterItems (in get(/pendingproduct):", requesterItems);
     let foundResult: RequestWithImage[] = [];
     for (let requesterItem of requesterItems) {
       const product = await ProductModel.findOne({ id: requesterItem.item_id });

@@ -17,7 +17,6 @@ import User from "../../../shared/User";
 import Orders from "./pages/Orders";
 import "../utilities.css";
 
-
 const App = () => {
   const [userId, setUserId] = useState<string | undefined>(undefined);
 
@@ -39,7 +38,6 @@ const App = () => {
   const handleLogin = (credentialResponse: CredentialResponse) => {
     const userToken = credentialResponse.credential;
     const decodedCredential = jwt_decode(userToken as string) as { name: string; email: string };
-    console.log(`Logged in as ${decodedCredential.name}`);
     post("/api/login", { token: userToken }).then((user) => {
       setUserId(user._id);
       post("/api/initsocket", { socketid: socket.id });
@@ -62,7 +60,6 @@ const App = () => {
         <Redirect from="*" to="/" noThrow />
         <CatalogPage path="/catalog" />
         <Profile userId={userId} path="/profile/:userId" />
-        {/* <NotFound default={true} /> */}
         <ItemDetails userId={userId} path="/item/:id" />
         <NewReview path="/newreview" />
         <NewRequest path="/newrequest" />

@@ -31,7 +31,6 @@ type Props = {
 };
 
 const ItemActivityButton = (props: Props) => {
-  // console.log("props(inside itemActivitiyButton):", props);
   const { itemId } = props;
   const [itemRequests, setItemRequests] = useState<Item[]>([]);
   const [foundItem, setFoundItem] = useState<ProductInterface | null>(null);
@@ -88,26 +87,18 @@ const ItemActivityButton = (props: Props) => {
 
             // add earned points to sharer
             get(`/api/user`, { userid: foundItem?.sharer?.sharer_id }).then((userObj) => {
-              // console.log("userObj:", userObj);
               const updatedObj = userObj;
               updatedObj.points += earnedPoints;
               post("/api/user", updatedObj);
-              // post("/api/user", updatedObj).then((returnedUserObj) =>
-              //   console.log("returnedUserObj:", returnedUserObj)
-              // );
             });
 
             // deduct sharer's earned points from requester and add reward points to requester
             get(`/api/user`, { userid: requestObj.requester.requester_id }).then(
               (requesterUserObj) => {
-                // console.log("userObj:", userObj);
                 const updatedObj = requesterUserObj;
                 updatedObj.points -= earnedPoints;
                 updatedObj.points += earnedRewards;
                 post("/api/user", updatedObj);
-                // post("/api/user", updatedObj).then((returnedUserObj) =>
-                //   console.log("returnedUserObj:", returnedUserObj)
-                // );
               }
             );
           });
@@ -194,7 +185,7 @@ const ItemActivityButton = (props: Props) => {
                 </span>
               </p>
               <NewReview
-                reviewer_name={request.sharer.sharer_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
+                reviewer_name={request.sharer.sharer_name}
                 reviewer_id={request.sharer.sharer_id}
                 sharer_id={request.requester.requester_id}
                 sharer_name={request.requester.requester_name}

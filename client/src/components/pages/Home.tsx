@@ -29,14 +29,13 @@ const Home = (props: HomeProps) => {
     });
   }, []);
 
-  console.log(items);
   return (
     <div>
       <section className="header">
         <h1 className="animated-title">s h a r e d o m</h1>
         <p>borrow anything for FREE</p>
         <Link to="/catalog">
-          <button className = "start-browsing">Start Browsing</button>
+          <button className="start-browsing">Start Browsing</button>
         </Link>{" "}
         <ScrollLink to="how-it-works" smooth={true} duration={500} id="how-direct">
           <div>How it works</div>
@@ -52,8 +51,6 @@ const Home = (props: HomeProps) => {
           <li>Find something you need or share something of your own.</li>
           <li>Earn points to borrow even more!</li>
         </ol>
-
-
       </section>
       {/* <section>
         <h2>

@@ -13,7 +13,6 @@ declare global {
 const NewItemInput = ({ action, defaultValue, onSubmit }) => {
   const [item, setItem] = useState(defaultValue);
   const [isOpen, setIsOpen] = useState(false);
-  // const [file, setFile] = useState<File | null>(null);
 
   const actionTextMap = {
     add: "Upload a New Share",
@@ -32,32 +31,10 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       [event.target.name]: event.target.value,
     });
   };
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files) {
-  //     setFile(event.target.files[0]);
-  //   }
-  // };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // // Create a FormData object
-    // const formData = new FormData();
-
-    // // Add the file to the FormData object
-    // if (file) {
-    //   formData.append("image", file);
-    // }
-
-    // // Add the other form fields to the FormData object
-    // for (const key in item) {
-    //   formData.append(key, item[key]);
-    // }
-
-    // // Send the FormData object to the server
-    // const response = await fetch("/api/newproduct", {
-    //   method: "POST",
-    //   body: formData,
-    // });
     onSubmit && onSubmit(item);
     setItem({
       id: "",
@@ -71,10 +48,6 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       pickupNotes: "",
       returnNotes: "",
       image: "",
-      // sharer: {
-      //   sharer_id: "",
-      //   sharer_name: "",
-      // },
     });
     setIsOpen(false);
   };
@@ -87,7 +60,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          console.log("Done! Here is the image info: ", result.info);
+          // console.log("Done! Here is the image info: ", result.info);
           setItem((prevItem) => ({
             ...prevItem,
             image: result.info.url,
@@ -127,7 +100,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     value={item.title}
                     onChange={handleChange}
                     maxLength={100}
-                    className = "upload-input"
+                    className="upload-input"
                     required
                   />
                 </label>
@@ -189,7 +162,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     name="pickupLocation"
                     value={item.pickupLocation}
                     onChange={handleChange}
-                    className = "upload-input"
+                    className="upload-input"
                     maxLength={100}
                     required
                   />
@@ -202,7 +175,7 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                     name="returnLocation"
                     value={item.returnLocation}
                     onChange={handleChange}
-                    className = "upload-input"
+                    className="upload-input"
                     maxLength={100}
                     required
                   />
@@ -224,7 +197,9 @@ const NewItemInput = ({ action, defaultValue, onSubmit }) => {
                 </label>
                 <label>
                   Return Notes:
-                  <p className="upload-desc">More details such as time of day, product care, or return expectations. </p>
+                  <p className="upload-desc">
+                    More details such as time of day, product care, or return expectations.{" "}
+                  </p>
                   <textarea
                     name="returnNotes"
                     value={item.returnNotes}
@@ -274,13 +249,6 @@ const NewItem = (props) => {
     pickupNotes: "",
     returnNotes: "",
     image: "",
-    // sharer: {
-    //   sharer_id: "",
-    //   sharer_name: "",
-    // },
-    // status: {
-    //   enum: "available",
-    // },
   };
 
   const addItem = (item) => {
@@ -294,7 +262,6 @@ const NewItem = (props) => {
       },
     };
     post("/api/newproduct", body).then((productDetails) => {
-      console.log("Returned addedItem:", productDetails);
       window.location.reload();
     });
   };
@@ -329,7 +296,6 @@ const EditItem = ({ item_id }) => {
 
   useEffect(() => {
     get("/api/getproduct", { item: item_id }).then((foundItem) => {
-      // console.log("Found item:", foundItem);
       setFoundItem(foundItem);
     });
   }, []);
@@ -337,7 +303,6 @@ const EditItem = ({ item_id }) => {
   const submitUpdate = (item) => {
     const body = { ...item, id: item_id };
     post("/api/updateproduct", body).then((productDetails) => {
-      console.log("Returned editedItem:", productDetails);
       window.location.reload();
     });
   };
