@@ -23,5 +23,85 @@
 }
 
 .activity-modal-overlay {
-  background-color: rgba(0, 0, 0, 0.75); /* This sets the background color of the modal overlay to transparent black */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.75
+  ); /* This sets the background color of the modal overlay to transparent black */
+}
+
+.status-header {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.activity-status-header {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 4%;
+  margin-bottom: 2%;
+}
+.activity-item-title {
+  margin-top: 2%;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 1%;
+}
+.activity-flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.activity-item-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.activity-margin-left {
+  margin-left: 20px;
+}
+
+.activity-history-header {
+  font-size: 1.4em;
+  font-weight: bold;
+  margin-top: 4%;
+  margin-bottom: 2%;
+}
+
+.activity-divide-line {
+  border-bottom: 1px solid var(--primary--dim);
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.activity-status {
+  color: rgb(192, 93, 90);
+  font-weight: bold;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+
+.activity-approve-button {
+  margin: 1%;
+  background-color: var(--primary);
+  font-weight: normal; /* Make the font not bold */
+  font-size: 1em; /* Make the font smaller */
+  padding-top: 5px; /* Reduce the space between the text and the top edge of the button */
+  padding-bottom: 5px; /* Reduce the space between the text and the bottom edge of the button */
+  border-radius: 5px;
+  width: auto; /* Make the button's width automatically adjust to its content */
+  white-space: nowrap; /* Prevent the text from wrapping to the next line */
+}
+
+.activity-points {
+  margin-top: 2%;
+  margin-bottom: 2%;
 }

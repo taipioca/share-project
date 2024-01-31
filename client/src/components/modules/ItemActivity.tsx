@@ -3,8 +3,10 @@ import { get, post } from "../../utilities";
 import Modal from "react-modal";
 import { Product as ProductInterface } from "../../../../server/models/Product";
 import { NewReview } from "../modules/NewReview";
-Modal.setAppElement("#root");
+import { format } from "date-fns";
 
+Modal.setAppElement("#root");
+import "./ItemActivity.css";
 type Item = {
   id: string;
   image: string;
@@ -42,6 +44,7 @@ const ItemActivityButton = (props: Props) => {
         return request.item_id === itemId;
       });
       setItemRequests(requestsForItem);
+      
     });
     get("/api/catalog").then((itemsObjs: any) => {
       const foundItem =
@@ -149,40 +152,45 @@ const ItemActivityButton = (props: Props) => {
             &times;
           </span>
           <div>
-            <p style={{ fontSize: "2em", fontWeight: "bold" }}>Status</p>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <p className="activity-status-header">Status</p>
+            <div className="activity-flex-center">
               <img
+                className="activity-item-image"
                 src={foundItem ? foundItem.image : ""}
                 alt={foundItem ? foundItem.title : ""}
-                style={{ width: "100px", height: "auto" }}
               />
-              <div style={{ marginLeft: "20px" }}>
-                <p> Title: {foundItem ? foundItem.title : ""}</p>
-                <p> Points/day: {foundItem ? foundItem.points : ""}</p>
-                <p> Status: {foundItem ? foundItem.status : ""}</p>
-                {approveRequest ? (
+              <div className="activity-margin-left">
+                <p className="activity-item-title">{foundItem ? foundItem.title : ""}</p>
+                <p className = "activity-points">{foundItem ? foundItem.points : ""} points/day</p>
+                <p className = "activity-status">Status: {foundItem ? foundItem.status : ""}</p>                {approveRequest ? (
                   <button
                     type="submit"
-                    className="NewRequestInput-button u-pointer"
+                    className="activity-approve-button u-pointer"
                     value="Submit"
                     onClick={handleApprovalButtonClick}
                   >
-                    Confirm to approve the request
+                    Approve current request
                   </button>
                 ) : null}
               </div>
             </div>
           </div>
-          <hr />
-          <p style={{ fontSize: "2em", fontWeight: "bold" }}>History</p>
+          <hr className="activity-divide-line" />
+          <p className="activity-history-header">History</p>
           {itemRequests.map((request, index) => (
             <div key={index}>
-              <p>Title: {request.title}</p>
               <p>
-                Requester: {request.requester ? request.requester.requester_name : "No requester"}
-              </p>
-              <p>Start Date: {request.start_date}</p>
-              <p>End Date: {request.end_date}</p>
+                Used by <span style={{ color: "var(--primary)" }}>{request.requester ? request.requester.requester_name : "No requester"}</span>
+
+                {" "}from{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(request.start_date), "MMMM d, yyyy")}
+                  </span>{" "}
+                  to{" "}
+                  <span className="orders-item-date">
+                    {format(new Date(request.end_date), "MMMM d, yyyy")}
+                  </span>
+                </p>
               <NewReview
                 reviewer_name={request.sharer.sharer_name} //THERE IS A REALLY BAD NAMING ISSUE LOL SO IT'S ALL MIXED UP
                 reviewer_id={request.sharer.sharer_id}
@@ -190,7 +198,7 @@ const ItemActivityButton = (props: Props) => {
                 sharer_name={request.requester.requester_name}
               />
 
-              <hr></hr>
+              <hr className="activity-divide-line" />
             </div>
           ))}
         </div>
