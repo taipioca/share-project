@@ -33,24 +33,66 @@ const Home = (props: HomeProps) => {
     <div>
       <section className="header">
         <h1 className="animated-title">s h a r e d o m</h1>
-        <p>borrow anything for FREE</p>
+        <p className="caption">borrow anything for free</p>
         <Link to="/catalog">
           <button className="start-browsing">Start Browsing</button>
         </Link>{" "}
         <ScrollLink to="how-it-works" smooth={true} duration={500} id="how-direct">
-          <div>How it works</div>
+          <div className="caption">How it works</div>
           <div>
             <i className="fas fa-caret-down"></i>
           </div>
         </ScrollLink>
       </section>
 
-      <section id="how-it-works">
-        <h2>How it works</h2>
-        <ol>
-          <li>Find something you need or share something of your own.</li>
-          <li>Earn points to borrow even more!</li>
-        </ol>
+      <section className="how-it-works">
+        <h2 className = "instructions-title">Making borrowing items easy, convenient, and FREE through a cyclic point system</h2>
+        <div>
+          <div className="instructions-text">Browse or search for an item you need</div>
+          <div className="instructions-step" id="browse"></div>
+        </div>
+
+        <div>
+          <div className="instructions-text">
+            Request an item - No money needed! <br />All new users are given points to use items.
+          </div>
+          <div className="instructions-step" id="making-request"></div>
+        </div>{" "}
+
+        <div>
+          <div className="instructions-text">
+            You can earn points by uploading items to share with others
+          </div>
+          <div className="instructions-step" id="activity"></div>
+        </div>
+
+        <div>
+          <div className="instructions-text">
+            GUESS WHAT: <br/>ANY sharing comes with points! In other words, you can get more points to work with even from borrowing and reviewing.
+          </div>
+          <div className="instructions-step" id="points"></div>
+        </div>
+
+        <div>
+          <div className="instructions-text">For users: use and review</div>
+          <div className="instructions-step" id="use-review"></div>
+        </div>
+
+        <div>
+          <div className="instructions-text">For sharers: approve and review</div>
+          <div className="instructions-step" id="approve-review"></div>
+        </div>
+        <div>
+          <div className="instructions-text">
+            Anyone can be a user, sharer, or both! <br />See your points and all activity in your profile.
+          </div>
+          <div className="instructions-step" id="profile-tabs"></div>
+        </div>
+        <div>
+          <div className="instructions-text">See what others think of each user</div>
+          <div className="instructions-step" id="view-review"></div>
+        </div>
+        <h2 className = "instructions-ending">Sign in now to get started with sharedom</h2>
       </section>
       {/* <section>
         <h2>

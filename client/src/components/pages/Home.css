@@ -1,5 +1,8 @@
 .animated-title {
   animation: pulse 5s infinite;
+  font-size: 3.5em;
+  font-weight: bold;
+  margin-top: 10%;
 }
 
 @keyframes pulse {
@@ -14,6 +17,10 @@
   }
 }
 
+.caption {
+  font-size: 1.2em;
+  margin-top: 0%;
+}
 .item-container {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -24,7 +31,7 @@
 .item {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Aligns items to the left */
+  align-items: flex-start;
   text-decoration: none;
   color: black;
   text-align: left;
@@ -50,34 +57,122 @@
 }
 
 .header {
-  /* background-image: url("https://i.pinimg.com/originals/e5/61/af/e561af15adb2899c5f38c52564a1b1d0.jpg"); */
-  background-image: url("../samples/a6fa884700ad5da802ed54a2bc9662021.jpg");
-  /* https://i.pinimg.com/originals/c4/1b/fa/c41bfa3211e018c84ad030bbfb762d96.jpg */
-  /* https://www.minimalism.one/wp-content/uploads/2022/12/1642253642_14-adonius-club-p-fon-minimalizm-bezhevii-14-1.jpg */
-  background-size: cover;
-  background-position: center;
-  height: 100vh; /* Adjust this as needed */
+  position: relative;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
   color: var(--primary);
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1)),
-    url("../samples/a6fa884700ad5da802ed54a2bc9662021.jpg");
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, rgba(228, 190, 164, 0.623), rgb(243, 236, 231)),
+    url("../samples/overall.gif");
+  background-size: cover;
+  background-position: center;
+  filter: blur(5px);
+  z-index: -1;
+}
+
+.instructions-step {
+  width: 600px;
+  height: 320px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 6%;
+}
+#browse {
+  background-image: url("../samples/browse.gif");
+}
+
+#activity {
+  background-image: url("../samples/activity.gif");
+}
+
+#approve-review {
+  background-image: url("../samples/approve_review.gif");
+}
+
+#making-request {
+  background-image: url("../samples/making_request.gif");
+}
+
+#profile-tabs {
+  background-image: url("../samples/profile_tabs.gif");
+}
+
+#use-review {
+  background-image: url("../samples/use_review.gif");
+}
+
+#view-review {
+  background-image: url("../samples/view_review.gif");
+}
+
+#points {
+  background-image: url("../samples/points.gif");
+}
+
+.how-it-works {
+  margin-top: 0%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 45%;
+}
+
+.instructions-title {
+  margin-top: 10%;
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(192, 93, 90);
+  font-weight: bold;
+  margin-bottom: 0%;
+  line-height: 1.5; /* Add this */
+}
+.instructions-text {
+  margin-top: 10%;
+  font-size: 1.25em;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 3%;
+  line-height: 1.5; /* Add this */
+}
+.instructions-ending {
+  margin-top: 10%;
+  font-size: 1.5em;
+  text-align: center;
+  color: rgb(192, 93, 90);
+  font-weight: bold;
+  margin-bottom: 15%;
+  line-height: 1.5;
 }
 
 #how-direct {
-  margin-top: 50px; /* Adjust this as needed */
+  margin-top: 5%;
   animation: bounce 2s infinite;
 }
 
 .start-browsing {
-  margin-top: 150px; /* Adjust this as needed */
+  margin-top: 20%;
   border-radius: 50px;
   font-size: 0.9em;
   padding: 15px 25px;
-  background-color: var(--second);
+  background-color: rgb(192, 93, 90);
+  margin-bottom: 25%;
 }
 
 @keyframes bounce {

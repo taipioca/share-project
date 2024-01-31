@@ -58,7 +58,7 @@ const Catalog = () => {
 
     // If we've finished typing or deleting a phrase, switch to the other operation
     if (!isDeleting && charIndex === phrases[phraseIndex].length) {
-      setTimeout(() => setIsDeleting(true), 4000); // Pause for 4 seconds before start deleting
+      setTimeout(() => setIsDeleting(true), 3000); // Pause for 4 seconds before start deleting
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
       setPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length); // Go to next phrase
